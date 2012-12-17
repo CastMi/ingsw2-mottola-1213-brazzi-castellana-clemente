@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Utente {
 
-	private String ID;
+	private String id;
 	private String nome;
 	private String cognome;
 	private String username;
