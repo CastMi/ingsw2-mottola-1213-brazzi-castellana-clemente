@@ -11,9 +11,7 @@ import javax.persistence.UniqueConstraint;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(	name = "ABILITA",
-		uniqueConstraints = @UniqueConstraint(columnNames={"name"})
-)
+@Table(	name = "ABILITA", uniqueConstraints = @UniqueConstraint( columnNames={"name"} ) )
 public class Abilita implements Serializable {
 	
 	private int id;
