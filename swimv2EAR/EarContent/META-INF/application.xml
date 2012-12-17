@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:application="http://java.sun.com/xml/ns/javaee/application_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd" version="5">
+  <display-name>swimv2EAR</display-name>
+  <module>
+    <ejb>swimv2.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>swimv2WEB.war</web-uri>
+      <context-root>swimv2WEB</context-root>
+    </web>
+  </module>
+</application>
