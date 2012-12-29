@@ -13,7 +13,7 @@ import javax.persistence.UniqueConstraint;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(	name = "UTENTE", uniqueConstraints = @UniqueConstraint( columnNames={"name"} ) )
+@Table(	name = "UTENTE" )
 public class Utente implements Serializable {
 
 	private long id;
