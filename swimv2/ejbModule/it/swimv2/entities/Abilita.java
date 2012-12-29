@@ -11,17 +11,17 @@ import javax.persistence.UniqueConstraint;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(	name = "ABILITA", uniqueConstraints = @UniqueConstraint( columnNames={"name"} ) )
+@Table(	name = "ABILITA" )
 public class Abilita implements Serializable {
 	
-	private int id;
+	private long id;
 	private String nome;
 	private String descrizione;
 	
     @Id
     @GeneratedValue
     @Column(name="id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -29,7 +29,7 @@ public class Abilita implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name="name")
+	@Column(name="name", unique=true, nullable= false)
 	public String getNome() {
 		return nome;
 	}
@@ -47,8 +47,4 @@ public class Abilita implements Serializable {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-
-
-
-
 }
