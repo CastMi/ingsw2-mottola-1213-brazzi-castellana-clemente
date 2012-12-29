@@ -39,7 +39,7 @@ public class Abilita implements Serializable {
 	}
 	
 	@Lob
-	@Column(name="descrizione")
+	@Column(name="description")
 	public String getDescrizione() {
 		return descrizione;
 	}
