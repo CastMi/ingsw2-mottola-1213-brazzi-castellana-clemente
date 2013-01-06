@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -14,68 +18,77 @@ import javax.persistence.UniqueConstraint;
  *
  */
 @SuppressWarnings("serial")
+@NamedQueries({ 
+	//Query di estrazione dati	
+	@NamedQuery(name = "RichiestaAbilita.getRichiestaAbilita",
+			query = "SELECT ra FROM RichiestaAbilita ra WHERE ra.nome = :nome AND " +
+					"ra.richiedente = :utente"),
+	
+	//Query per eliminare
+	@NamedQuery(name="RichiestaAbilita.Elimina",
+					query="DELETE FROM RichiestaAbilita ra WHERE ra.richiedente = :utente AND " +
+						  "ra.nome = :nome"),
+	})
 @Entity
-@Table(	name = "RICHIESTAABILITA", uniqueConstraints= @UniqueConstraint( columnNames={"richiedente", "nome"}) )
+@Table(	name = "RichiestaAbilita", uniqueConstraints= @UniqueConstraint( columnNames={"richiedente", "nome"}) )
 public class RichiestaAbilita implements Serializable {
 
+	@ManyToOne
+	@JoinColumn(name = "richiedente", referencedColumnName = "id", nullable = false, updatable = false)
 	private Utente richiedente;
+	
+	@Column(name="nome", nullable= false)
 	private String nome;
+	
+	@Lob
+	@Column(name="descrizione")
 	private String descrizione;
 	
 	/**
 	 * 
-	 * @return
+	 * @param richiedente
 	 */
-	@Column(name="richiedente", nullable= false)
+	public void setRichiedente(Utente richiedente) {
+		this.richiedente = richiedente;
+	}
+
+	/**
+	 * 
+	 * @param nome
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
+	 * 
+	 * @param descrizione
+	 */
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	/**
+	 * 
+	 * @return il richiedente
+	 */
 	public Utente getRichiedente() {
 		return richiedente;
 	}
 
 	/**
 	 * 
-	 * @return
-	 */
-	@Column(name="nome", nullable= false)
+	 * @return il nome
+	 */	
 	public String getNome() {
 		return nome;
 	}
 
 	/**
 	 * 
-	 * @return
-	 */
-	@Lob
-	@Column(name="descrizione")
+	 * @return la descrizione
+	 */	
 	public String getDescrizione() {
 		return descrizione;
-	}
-	
-	/**
-	 * 
-	 * @param richiedente
-	 * @param nome
-	 * @param descrizione
-	 */
-	public RichiestaAbilita(Utente richiedente, String nome, String descrizione)
-	{
-		this.richiedente = richiedente;
-		this.nome = nome;
-		this.descrizione = descrizione;
-	}
-	
-	/**
-	 * 
-	 */
-	public void Accettata()
-	{
-		throw new UnsupportedOperationException();
-	}
-	
-	/**
-	 * 
-	 */
-	public void Rifiutata()
-	{
-		throw new UnsupportedOperationException();
 	}
 }
