@@ -7,6 +7,6 @@ public interface IManutenzioneAbilitaUtente {
 
 	public boolean inviareRichiestaAbilita(String nomeAbilita, String descrizione, long idUtente);
 	
-	public boolean rimuovereAbilita(String nomeAbilita, long idUtente);
+	public boolean rimuoverePropriaAbilita(String nomeAbilita, long idUtente);
 	
 }

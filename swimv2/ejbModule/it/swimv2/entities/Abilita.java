@@ -25,6 +25,7 @@ import javax.persistence.Table;
 @Table(	name = "Abilita" )
 public class Abilita implements Serializable, IAbilita {
 	
+	// FIXME qualora dia problemi, eliminare "unique=true"
 	@Id
 	@Column(name="name", unique=true, nullable= false)
 	private String nome;
@@ -32,11 +33,7 @@ public class Abilita implements Serializable, IAbilita {
 	@Lob
 	@Column(name="description")
 	private String descrizione;
-		
-	/**
-	 * 
-	 * @return
-	 */
+	
 	public String getNome() {
 		return nome;
 	}
@@ -48,11 +45,7 @@ public class Abilita implements Serializable, IAbilita {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-		
-	/**
-	 * 
-	 * @return
-	 */
+	
 	public String getDescrizione() {
 		return descrizione;
 	}

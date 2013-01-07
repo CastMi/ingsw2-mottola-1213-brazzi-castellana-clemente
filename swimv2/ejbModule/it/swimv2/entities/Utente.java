@@ -14,12 +14,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @NamedQueries({ 
-	//Query di estrazione dati	
+	//Query di estrazione dati
 	@NamedQuery(name = "Utente.getTuttiIUtentiDisponibili",
 			query = "SELECT u FROM Utente u"),
 	@NamedQuery(name = "Utente.getUtentePerId",
@@ -39,9 +38,10 @@ import javax.persistence.Table;
 	})
 @Entity
 @Table(	name = "Utente" )
-public class Utente implements Serializable, IUtente {
+public class Utente implements Serializable, IUtente, Cloneable {
 
 	// non modificare il column name perchè viene utilizzato da "RichiestaAbilita"
+	// nella relazione "ManyToOne"
 	@Id
     @GeneratedValue
     @Column(name="id")
@@ -62,6 +62,7 @@ public class Utente implements Serializable, IUtente {
 	@Column(name="email", unique=true, nullable= false)
 	private String email;
 	
+	// FIXME da ricontrollare questa relazione manytomany
 	@ManyToMany
 	@JoinTable(
 			name = "Associazione_Utente_Abilita",
@@ -70,10 +71,7 @@ public class Utente implements Serializable, IUtente {
 			)
 	private Set<Abilita> abilita;
 	
-	/**
-	 * 
-	 * @return
-	 */
+	
 	public long getId() {
 		return id;
 	}
@@ -86,10 +84,6 @@ public class Utente implements Serializable, IUtente {
 		this.id = id;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getNome() {
 		return nome;
 	}
@@ -102,10 +96,6 @@ public class Utente implements Serializable, IUtente {
 		this.nome = nome;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getCognome() {
 		return cognome;
 	}
@@ -118,10 +108,6 @@ public class Utente implements Serializable, IUtente {
 		this.cognome = cognome;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getUsername() {
 		return username;
 	}
@@ -134,10 +120,6 @@ public class Utente implements Serializable, IUtente {
 		this.username = username;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getPassword() {
 		return password;
 	}
@@ -150,10 +132,6 @@ public class Utente implements Serializable, IUtente {
 		this.password = password;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public String getEmail() {
 		return email;
 	}
@@ -194,5 +172,14 @@ public class Utente implements Serializable, IUtente {
     public boolean RimuoviAbilità(Abilita abi)
     {
             return this.abilita.add(abi);
+    }
+    
+    public Utente clone() {
+    	try {
+			return (Utente) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
     }
 }

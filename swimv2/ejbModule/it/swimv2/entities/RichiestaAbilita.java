@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import it.swimv2.entities.remoteEntities.IRichiestaAbilita;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -15,35 +17,34 @@ import javax.persistence.UniqueConstraint;
 /**
  * 
  * @author Michele
- *
+ * 
  */
 @SuppressWarnings("serial")
-@NamedQueries({ 
-	//Query di estrazione dati	
-	@NamedQuery(name = "RichiestaAbilita.getRichiestaAbilita",
-			query = "SELECT ra FROM RichiestaAbilita ra WHERE ra.nome = :nome AND " +
-					"ra.richiedente = :utente"),
-	
-	//Query per eliminare
-	@NamedQuery(name="RichiestaAbilita.Elimina",
-					query="DELETE FROM RichiestaAbilita ra WHERE ra.richiedente = :utente AND " +
-						  "ra.nome = :nome"),
-	})
+@NamedQueries({
+		// Query di estrazione dati
+		@NamedQuery(name = "RichiestaAbilita.getRichiestaAbilita", query = "SELECT ra FROM RichiestaAbilita ra WHERE ra.nome = :nome AND "
+				+ "ra.richiedente = :utente"),
+		@NamedQuery(name = "RichiestaAbilita.getTutteLeRichiesteDiAbilita", query = "SELECT ra FROM RichiestaAbilita ra"),
+
+		// Query per eliminare
+		@NamedQuery(name = "RichiestaAbilita.Elimina", query = "DELETE FROM RichiestaAbilita ra WHERE ra.richiedente = :utente AND "
+				+ "ra.nome = :nome"), })
 @Entity
-@Table(	name = "RichiestaAbilita", uniqueConstraints= @UniqueConstraint( columnNames={"richiedente", "nome"}) )
-public class RichiestaAbilita implements Serializable {
+@Table(name = "RichiestaAbilita", uniqueConstraints = @UniqueConstraint(columnNames = {
+		"richiedente", "nome" }))
+public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 
 	@ManyToOne
 	@JoinColumn(name = "richiedente", referencedColumnName = "id", nullable = false, updatable = false)
 	private Utente richiedente;
-	
-	@Column(name="nome", nullable= false)
+
+	@Column(name = "nome", nullable = false)
 	private String nome;
-	
+
 	@Lob
-	@Column(name="descrizione")
+	@Column(name = "descrizione")
 	private String descrizione;
-	
+
 	/**
 	 * 
 	 * @param richiedente
@@ -69,25 +70,19 @@ public class RichiestaAbilita implements Serializable {
 	}
 
 	/**
+	 * Restituisce un clone del richiedente (non si restituisce l'originale per
+	 * questioni di sicurezza)
 	 * 
-	 * @return il richiedente
+	 * @return il richiedente dell'abilità
 	 */
 	public Utente getRichiedente() {
-		return richiedente;
+		return richiedente.clone();
 	}
 
-	/**
-	 * 
-	 * @return il nome
-	 */	
 	public String getNome() {
 		return nome;
 	}
 
-	/**
-	 * 
-	 * @return la descrizione
-	 */	
 	public String getDescrizione() {
 		return descrizione;
 	}

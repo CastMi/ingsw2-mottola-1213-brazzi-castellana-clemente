@@ -4,25 +4,37 @@ public interface IUtente {
 	
 	/**
 	 * 
-	 * @return
+	 * @return l'id dell'utente
+	 */
+	public long getId();
+	
+	/**
+	 * 
+	 * @return il nome dell'utente
 	 */
 	public String getNome();
 	
 	/**
 	 * 
-	 * @return
+	 * @return il cognome dell'utente
 	 */
 	public String getCognome();
 	
 	/**
 	 * 
-	 * @return
+	 * @return la password dell'utente
+	 */
+	public String getPassword();
+	
+	/**
+	 * 
+	 * @return lo username dell'utente
 	 */
 	public String getUsername();
 	
 	/**
 	 * 
-	 * @return
+	 * @return la mail dell'utente
 	 */
 	public String getEmail();
 }

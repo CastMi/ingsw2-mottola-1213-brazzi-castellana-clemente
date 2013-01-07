@@ -4,13 +4,13 @@ public interface IAbilita {
 
 	/**
 	 * 
-	 * @return
+	 * @return il nome dell'abilità
 	 */
 	public String getNome();
 	
 	/**
 	 * 
-	 * @return
+	 * @return la descrizione dell'abilità
 	 */
 	public String getDescrizione();	
 	
