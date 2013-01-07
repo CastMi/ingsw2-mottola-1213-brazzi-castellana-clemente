@@ -1,0 +1,148 @@
+/**
+ * 
+ */
+package it.swimv2.controller;
+
+import java.util.List;
+
+import it.swimv2.entities.Utente;
+import it.swimv2.entities.util.ErroriRegistrazione;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * @author Daniele
+ * 
+ */
+
+public class ManagerRegistrazione {
+
+	@PersistenceContext(unitName = "swimv2DB")
+	private EntityManager entityManager;
+	private ErroriRegistrazione status = new ErroriRegistrazione();
+	private Utente utente;
+
+	/**
+	 * @param nome
+	 * @param cognome
+	 * @param email
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+	public ErroriRegistrazione nuovaRegistrazione(String nome, String cognome,
+			String email, String id, String password) {
+
+		controlloDatiInseriti(nome, cognome, email, id, password);
+		if (status.loginValido()) {
+			completaRegistrazione(nome, cognome, email, id, password);
+		}
+
+		return status;
+	}
+
+	/**
+	 * @param nome
+	 * @param cognome
+	 * @param email
+	 * @param id
+	 * @param password
+	 */
+	private void completaRegistrazione(String nome, String cognome,
+			String email, String id, String password) {
+
+		utente = new Utente();
+		utente.setCognome(cognome);
+		utente.setNome(nome);
+		utente.setEmail(email);
+		utente.setPassword(password);
+//TODO		utente.setId(id);
+		entityManager.persist(utente);
+		return;
+
+	}
+
+	/**
+	 * @param nome
+	 * @param cognome
+	 * @param email
+	 * @param nomeUtente
+	 * @param password
+	 */
+	private void controlloDatiInseriti(String nome, String cognome,
+			String email, String nomeUtente, String password) {
+
+		checkNome(nome, cognome);
+		checkEmail(email);
+		checkPassword(password);
+		checkId(nomeUtente);
+	}
+
+	/**
+	 * @param nomeUtente
+	 */
+	@SuppressWarnings("unchecked")
+	private void checkId(String nomeUtente) {
+
+		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
+				.setParameter("Id", nomeUtente);
+		List<Object> risultatoQuery = (List<Object>) query.getResultList();
+		if (risultatoQuery.size() > 0) {
+			status.ErroreId = true;
+			return;
+		}
+		query = entityManager
+				.createNamedQuery("Amministratore.getAmministratore");
+		risultatoQuery = (List<Object>) query.getResultList();
+		if (risultatoQuery.size() > 0) {
+			status.ErroreId = true;
+			return;
+		}
+	}
+
+	/**
+	 * @param password
+	 */
+	private void checkPassword(String password) {
+
+		if (password.isEmpty()) {
+			status.ErrorePassword = true;
+		}
+
+	}
+
+	/**
+	 * @param nome
+	 * @param cognome
+	 */
+	private void checkNome(String nome, String cognome) {
+		if (nome.isEmpty()) {
+			status.ErroreNome = true;
+		}
+		if (cognome.isEmpty()) {
+			status.ErroreCognome = true;
+		}
+		if (!nome.matches("^[_A-Za-z-\\+]+(\\ [_A-Za-z]))")) {
+			status.ErroreNome = true;
+		}
+		if (!cognome.matches("^[_A-Za-z-\\+]+(\\ [_A-Za-z]))")) {
+			status.ErroreCognome = true;
+		}
+
+	}
+
+	/**
+	 * @param email
+	 */
+	private void checkEmail(String email) {
+
+		if (email
+				.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;")) {
+			status.ErroreEmail = true;
+		}
+
+	}
+
+}
