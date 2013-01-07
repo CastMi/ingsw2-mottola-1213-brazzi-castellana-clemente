@@ -15,7 +15,7 @@ public class Amicizia {
 	 * @param idUtente1
 	 * @param idUtente2
 	 */
-	public void Amicizia(String idUtente1, String idUtente2){
+	public Amicizia(String idUtente1, String idUtente2){
 		this.idUtente1=idUtente1;
 		this.idUtente2=idUtente2;
 		idAmicizia=ultimoIdAmicizia++;
