@@ -6,13 +6,11 @@ import it.swimv2.entities.Utente;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public class ManagerManutenzioneAbilita {
+public abstract class ManagerManutenzioneAbilita {
 
-	@PersistenceContext(unitName = "swimv2DB")
-	protected EntityManager entityManager;
+	protected abstract EntityManager getEntityManager();
 
 	/**
 	 * Controlla l'esistenza della richiesta di abilità che possiede il nome
@@ -28,8 +26,8 @@ public class ManagerManutenzioneAbilita {
 	 */
 	protected RichiestaAbilita getRichiestaAbilita(Utente utente,
 			String nomeAbilita) throws EntityNotFoundException {
-		Query query = this.entityManager
-				.createNamedQuery("RichiestaAbilita.getRichiestaAbilita");
+		Query query = this.getEntityManager().createNamedQuery(
+				"RichiestaAbilita.getRichiestaAbilita");
 		query.setParameter("nome", nomeAbilita);
 		query.setParameter("utente", utente);
 		return (RichiestaAbilita) query.getSingleResult();
@@ -46,8 +44,8 @@ public class ManagerManutenzioneAbilita {
 	 */
 	protected Abilita getAbilitaPerNome(String nomeAbilita)
 			throws EntityNotFoundException {
-		Query query = this.entityManager
-				.createNamedQuery("Abilita.getAbilitaPerNome");
+		Query query = this.getEntityManager().createNamedQuery(
+				"Abilita.getAbilitaPerNome");
 		query.setParameter("nome", nomeAbilita);
 		return (Abilita) query.getSingleResult();
 	}
@@ -63,8 +61,8 @@ public class ManagerManutenzioneAbilita {
 	 */
 	protected Utente getUtentePerId(long idUtente)
 			throws EntityNotFoundException {
-		Query query = this.entityManager
-				.createNamedQuery("Utente.getUtentePerId");
+		Query query = this.getEntityManager().createNamedQuery(
+				"Utente.getUtentePerId");
 		query.setParameter("id", idUtente);
 		return (Utente) query.getSingleResult();
 	}

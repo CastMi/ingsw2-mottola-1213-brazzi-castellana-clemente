@@ -3,7 +3,9 @@ package it.swimv2.controller;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
@@ -13,9 +15,12 @@ import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IRichiestaAbilita;
 
 @Stateless
-public class ManagerManutenzioneAbilitaAmministratore extends
+public final class ManagerManutenzioneAbilitaAmministratore extends
 		ManagerManutenzioneAbilita implements
 		IManutenzioneAbilitaAmministratore {
+
+	@PersistenceContext(unitName = "swimv2DB")
+	private EntityManager entityManager;
 
 	@Override
 	public boolean accettareRichiestaAbilita(String nomeRichiestaAbilita,
@@ -146,5 +151,10 @@ public class ManagerManutenzioneAbilitaAmministratore extends
 			return richieste;
 		}
 		return null;
+	}
+
+	@Override
+	protected EntityManager getEntityManager() {
+		return this.entityManager;
 	}
 }

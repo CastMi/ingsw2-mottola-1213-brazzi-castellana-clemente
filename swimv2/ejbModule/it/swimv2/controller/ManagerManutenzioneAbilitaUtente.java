@@ -1,7 +1,9 @@
 package it.swimv2.controller;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.Abilita;
@@ -9,8 +11,11 @@ import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.Utente;
 
 @Stateless
-public class ManagerManutenzioneAbilitaUtente extends ManagerManutenzioneAbilita
-		implements IManutenzioneAbilitaUtente {
+public final class ManagerManutenzioneAbilitaUtente extends
+		ManagerManutenzioneAbilita implements IManutenzioneAbilitaUtente {
+
+	@PersistenceContext(unitName = "swimv2DB")
+	private EntityManager entityManager;
 
 	@Override
 	public boolean inviareRichiestaAbilita(String nomeAbilita,
@@ -47,14 +52,14 @@ public class ManagerManutenzioneAbilitaUtente extends ManagerManutenzioneAbilita
 	public boolean rimuoverePropriaAbilita(String nomeAbilita, long idUtente) {
 		Utente utente;
 		Abilita abi;
-		
+
 		// controllo se l'utente esiste
 		try {
 			utente = this.getUtentePerId(idUtente);
 		} catch (EntityNotFoundException e) {
 			return false;
 		}
-		
+
 		// controllo se l'abilità da rimuovere esiste
 		try {
 			abi = this.getAbilitaPerNome(nomeAbilita);
@@ -65,5 +70,10 @@ public class ManagerManutenzioneAbilitaUtente extends ManagerManutenzioneAbilita
 			return false;
 		utente.RimuoviAbilità(abi);
 		return true;
+	}
+
+	@Override
+	protected EntityManager getEntityManager() {
+		return this.entityManager;
 	}
 }
