@@ -13,6 +13,8 @@ import it.swimv2.entities.Abilita;
 import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IRichiestaAbilita;
+import it.swimv2.entities.util.ManutenzioneAbilitaEnum;
+import it.swimv2.entities.util.ManutenzioneRichiestaAbilitaEnum;
 
 @Stateless
 public final class ManagerManutenzioneAbilitaAmministratore extends
@@ -23,7 +25,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 	private EntityManager entityManager;
 
 	@Override
-	public boolean accettareRichiestaAbilita(String nomeRichiestaAbilita,
+	public ManutenzioneRichiestaAbilitaEnum accettareRichiestaAbilita(String nomeRichiestaAbilita,
 			long idUtente) {
 		Utente utente;
 		RichiestaAbilita temp;
@@ -34,7 +36,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		try {
 			utente = this.getUtentePerId(idUtente);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
 		}
 
 		// controllo se esiste la richiesta di abilità
@@ -43,7 +45,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		} catch (EntityNotFoundException x) {
 			// non esiste una richiesta di abilità con tale nome associata a
 			// tale utente
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 		}
 
 		// controllo se l'abilità richiesta esiste già
@@ -58,7 +60,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		}
 		// se fallisce l'inserimento dell'abilità è inutile continuare
 		if (!utente.AggiungiAbilità(abi))
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
 
 		try {
 			// rendo persistenti i cambiamenti
@@ -66,15 +68,15 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 				entityManager.persist(abi);
 			entityManager.persist(utente);
 		} catch (Exception w) {
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
 		}
 		// rimuovo la richiesta di abilità
 		this.rimuoviRichiestaAbilita(utente, nomeRichiestaAbilita);
-		return true;
+		return ManutenzioneRichiestaAbilitaEnum.OK;
 	}
 
 	@Override
-	public boolean rifiutareRichiestaAbilita(String nomeRichiestaAbilita,
+	public ManutenzioneRichiestaAbilitaEnum rifiutareRichiestaAbilita(String nomeRichiestaAbilita,
 			long idUtente) {
 		Utente utente;
 		RichiestaAbilita ra;
@@ -83,21 +85,21 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		try {
 			utente = this.getUtentePerId(idUtente);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
 		}
 
 		// controllo se l'abilità richiesta esiste
 		try {
 			ra = this.getRichiestaAbilita(utente, nomeRichiestaAbilita);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 		}
 		this.rimuoviRichiestaAbilita(utente, ra.getNome());
-		return true;
+		return ManutenzioneRichiestaAbilitaEnum.OK;
 	}
 
 	@Override
-	public boolean rimuovereAbilita(String nomeAbilita, long idUtente) {
+	public ManutenzioneAbilitaEnum rimuovereAbilita(String nomeAbilita, long idUtente) {
 		Utente utente;
 		Abilita abi;
 
@@ -105,19 +107,26 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		try {
 			utente = this.getUtentePerId(idUtente);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneAbilitaEnum.UTENTE_INESISTENTE;
 		}
 
 		// controllo se l'abilità da rimuovere esiste
 		try {
 			abi = this.getAbilitaPerNome(nomeAbilita);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneAbilitaEnum.ABILITA_INESISTENTE;
 		}
 		if (!utente.possiedeAbilita(abi))
-			return false;
+			return ManutenzioneAbilitaEnum.ERRORE;
+		
 		utente.RimuoviAbilità(abi);
-		return true;
+		try {
+			// rendo persistenti i cambiamenti
+			entityManager.persist(utente);
+		} catch (Exception w) {
+			return ManutenzioneAbilitaEnum.ERRORE;
+		}
+		return ManutenzioneAbilitaEnum.OK;
 	}
 
 	/**
@@ -131,9 +140,16 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 	 */
 	private void rimuoviRichiestaAbilita(Utente utente, String nomeAbilita) {
 		Query query = entityManager
-				.createNamedQuery("RichiestaAbilita.Elimina");
+				.createNamedQuery("RichiestaAbilita.elimina");
 		query.setParameter("nome", nomeAbilita);
 		query.setParameter("utente", utente);
+		query.executeUpdate();
+	}
+	
+	private void rimuoviAbilita(String nomeAbilita) {
+		Query query = entityManager
+				.createNamedQuery("Abilita.eliminaAbilita");
+		query.setParameter("nome", nomeAbilita);
 		query.executeUpdate();
 	}
 

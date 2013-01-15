@@ -9,6 +9,8 @@ import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.Abilita;
 import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.Utente;
+import it.swimv2.entities.util.ManutenzioneAbilitaEnum;
+import it.swimv2.entities.util.ManutenzioneRichiestaAbilitaEnum;
 
 @Stateless
 public final class ManagerManutenzioneAbilitaUtente extends
@@ -18,20 +20,20 @@ public final class ManagerManutenzioneAbilitaUtente extends
 	private EntityManager entityManager;
 
 	@Override
-	public boolean inviareRichiestaAbilita(String nomeAbilita,
+	public ManutenzioneRichiestaAbilitaEnum inviareRichiestaAbilita(String nomeAbilita,
 			String descrizione, long idUtente) {
 		Utente utente;
 		// controllo se l'utente esiste
 		try {
 			utente = this.getUtentePerId(idUtente);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
 		}
 		RichiestaAbilita ra;
 		nomeAbilita = nomeAbilita.toLowerCase();
 		try {
 			ra = getRichiestaAbilita(utente, nomeAbilita);
-			return false;
+			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 		} catch (EntityNotFoundException e) {
 			// non esiste la richiesta di abilità quindi la creo
 			ra = new RichiestaAbilita();
@@ -41,15 +43,15 @@ public final class ManagerManutenzioneAbilitaUtente extends
 			try {
 				// aggiungo la richiesta di abilità
 				entityManager.persist(ra);
-				return true;
+				return ManutenzioneRichiestaAbilitaEnum.OK;
 			} catch (Exception w) {
-				return false;
+				return ManutenzioneRichiestaAbilitaEnum.ERRORE;
 			}
 		}
 	}
 
 	@Override
-	public boolean rimuoverePropriaAbilita(String nomeAbilita, long idUtente) {
+	public ManutenzioneAbilitaEnum rimuoverePropriaAbilita(String nomeAbilita, long idUtente) {
 		Utente utente;
 		Abilita abi;
 
@@ -57,19 +59,19 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		try {
 			utente = this.getUtentePerId(idUtente);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneAbilitaEnum.UTENTE_INESISTENTE;
 		}
 
 		// controllo se l'abilità da rimuovere esiste
 		try {
 			abi = this.getAbilitaPerNome(nomeAbilita);
 		} catch (EntityNotFoundException e) {
-			return false;
+			return ManutenzioneAbilitaEnum.ABILITA_INESISTENTE;
 		}
 		if (!utente.possiedeAbilita(abi))
-			return false;
+			return ManutenzioneAbilitaEnum.ERRORE;
 		utente.RimuoviAbilità(abi);
-		return true;
+		return ManutenzioneAbilitaEnum.OK;
 	}
 
 	@Override

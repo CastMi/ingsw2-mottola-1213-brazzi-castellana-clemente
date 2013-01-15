@@ -27,7 +27,7 @@ import javax.persistence.UniqueConstraint;
 		@NamedQuery(name = "RichiestaAbilita.getTutteLeRichiesteDiAbilita", query = "SELECT ra FROM RichiestaAbilita ra"),
 
 		// Query per eliminare
-		@NamedQuery(name = "RichiestaAbilita.Elimina", query = "DELETE FROM RichiestaAbilita ra WHERE ra.richiedente = :utente AND "
+		@NamedQuery(name = "RichiestaAbilita.elimina", query = "DELETE FROM RichiestaAbilita ra WHERE ra.richiedente = :utente AND "
 				+ "ra.nome = :nome"), })
 @Entity
 @Table(name = "RichiestaAbilita", uniqueConstraints = @UniqueConstraint(columnNames = {
