@@ -47,12 +47,12 @@ public class ManagerLogin {
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	@SuppressWarnings("unchecked")
+	
 	private boolean verificaLoginUtente(String id, String password)
 			throws NoSuchAlgorithmException {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
 				.setParameter("Id", id);
-		List<Object> risultatoQuery = (List<Object>) query.getResultList();
+		List<?> risultatoQuery = query.getResultList();
 		if (risultatoQuery.size() > 0) { // e' stato trovato il codicePersona
 											// nel database
 			Utente utente = (Utente) risultatoQuery.get(0);
@@ -70,12 +70,11 @@ public class ManagerLogin {
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	@SuppressWarnings("unchecked")
 	private boolean verificaLoginAmministratore(String id, String password)
 			throws NoSuchAlgorithmException {
 		Query query = entityManager
 				.createNamedQuery("Amministratore.getAmministratore");
-		List<Object> risultatoQuery = (List<Object>) query.getResultList();
+		List<?> risultatoQuery = query.getResultList();
 		if (risultatoQuery.size() > 0) { // e' stato trovato il codicePersona
 											// nel database
 			Amministratore amministratore = (Amministratore) risultatoQuery
