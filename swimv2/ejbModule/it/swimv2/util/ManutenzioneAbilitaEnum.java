@@ -1,4 +1,4 @@
-package it.swimv2.entities.util;
+package it.swimv2.util;
 
 public enum ManutenzioneAbilitaEnum {
 

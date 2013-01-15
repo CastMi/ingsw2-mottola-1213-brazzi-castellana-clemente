@@ -3,9 +3,9 @@
  */
 package it.swimv2.controller;
 
-import it.swimv2.controller.util.PasswordCoder;
 import it.swimv2.entities.Amministratore;
 import it.swimv2.entities.Utente;
+import it.swimv2.util.PasswordCoder;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;

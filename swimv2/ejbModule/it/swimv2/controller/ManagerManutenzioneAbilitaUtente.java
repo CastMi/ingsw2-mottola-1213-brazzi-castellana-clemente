@@ -9,8 +9,8 @@ import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.Abilita;
 import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.Utente;
-import it.swimv2.entities.util.ManutenzioneAbilitaEnum;
-import it.swimv2.entities.util.ManutenzioneRichiestaAbilitaEnum;
+import it.swimv2.util.ManutenzioneAbilitaEnum;
+import it.swimv2.util.ManutenzioneRichiestaAbilitaEnum;
 
 @Stateless
 public final class ManagerManutenzioneAbilitaUtente extends

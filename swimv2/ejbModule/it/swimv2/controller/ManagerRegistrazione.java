@@ -6,7 +6,7 @@ package it.swimv2.controller;
 import java.util.List;
 
 import it.swimv2.entities.Utente;
-import it.swimv2.entities.util.ErroriRegistrazione;
+import it.swimv2.util.ErroriRegistrazione;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

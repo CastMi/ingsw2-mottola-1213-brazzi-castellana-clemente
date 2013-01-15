@@ -1,4 +1,4 @@
-package it.swimv2.controller.util;
+package it.swimv2.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
