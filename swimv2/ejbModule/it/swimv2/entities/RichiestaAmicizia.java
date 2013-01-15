@@ -2,8 +2,10 @@ package it.swimv2.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Column;
+import javax.persistence.EntityManager;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PersistenceContext;
 
 /**
  * @author Daniele
@@ -23,6 +25,9 @@ import javax.persistence.NamedQuery;
 
 @Entity
 public class RichiestaAmicizia {
+	
+	@PersistenceContext(unitName = "swimv2DB")
+	private EntityManager entityManager;
 
 	@Column(name="idDestinatario")
 	private String idDestinatario;
@@ -36,10 +41,10 @@ public class RichiestaAmicizia {
 	@Column(name="note")
 	private String note;
 
-	public RichiestaAmicizia(String idRichiedente, String idDestinatario, int idRichiestaAmicizia, String note) {
+	public RichiestaAmicizia(String idRichiedente, String idDestinatario, String note) {
 		this.idRichiedente = idRichiedente;
 		this.idDestinatario = idDestinatario;
-		this.idRichiestaAmicizia = idRichiestaAmicizia;
+		this.idRichiestaAmicizia = (int) entityManager.createNamedQuery("RichiestaAmicizia.getProssimoIdRichiestaAmicizia").getResultList().get(0);
 		this.note = note;
 	}
 
