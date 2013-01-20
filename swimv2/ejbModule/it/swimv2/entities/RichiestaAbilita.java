@@ -6,14 +6,13 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.persistence.Id;
 
 /**
@@ -29,22 +28,19 @@ import javax.persistence.Id;
 				query = "SELECT ra FROM RichiestaAbilita ra")
  })
 @Entity
-@Table(name = "RichiestaAbilita", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"richiedente", "nome" }))
+@Table(name = "RichiestaAbilita")
+@IdClass(RichiestaAbilitaPK.class)
 public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 
 	private static final long serialVersionUID = 707389346008617812L;
 
 	@Id
-    @GeneratedValue
-	@Column(name = "id")
-	private int id;
-	
 	@ManyToOne
-	@JoinColumn(name = "richiedente", referencedColumnName = "id", nullable = false, updatable = false)
+	@JoinColumn(name = "richiedente")
 	private Utente richiedente;
 
-	@Column(name = "nome", nullable = false)
+	@Id
+	@Column(name = "nome")
 	private String nome;
 
 	@Lob

@@ -140,19 +140,16 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 	 */
 	private void rimuoviRichiestaAbilita(Utente utente, String nomeAbilita) {
 		Query query = entityManager
-				.createNamedQuery("RichiestaAbilita.elimina");
+				.createNamedQuery("RichiestaAbilita.getRichiestaAbilita");
 		query.setParameter("nome", nomeAbilita);
 		query.setParameter("utente", utente);
-		query.executeUpdate();
+		Abilita abi = (Abilita) query.getSingleResult();
+		
+		entityManager.getTransaction().begin();
+		entityManager.remove(abi);
+		entityManager.getTransaction().commit();
 	}
-	/* da rifare con persist
-	private void rimuoviAbilita(String nomeAbilita) {
-		Query query = entityManager
-				.createNamedQuery("Abilita.eliminaAbilita");
-		query.setParameter("nome", nomeAbilita);
-		query.executeUpdate();
-	}
-	 */
+
 	@Override
 	public IRichiestaAbilita[] getTutteLeRichiesteDiAbilita() {
 		Query query = entityManager

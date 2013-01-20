@@ -2,10 +2,6 @@ package it.swimv2.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
-
-
-@Embeddable
 public class AmiciziaPK implements Serializable {
 
 	private static final long serialVersionUID = -6735677119052181575L;
