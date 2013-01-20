@@ -12,8 +12,9 @@ import javax.persistence.Table;
  * @author Daniele
  * 
  */
-@NamedQueries({ @NamedQuery(name = "Amministratore.getAmministratore", query = "SELECT a FROM Amministratore a"),
-
+@NamedQueries({
+	@NamedQuery(name = "Amministratore.getAmministratore", 
+			query = "SELECT a FROM Amministratore a")
 })
 @Entity
 @Table(name = "Amministratore")
@@ -22,7 +23,7 @@ public class Amministratore {
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
-	private String id;
+	private int id;
 
 	@Column(name = "password", nullable = false)
 	private String password;
@@ -30,14 +31,14 @@ public class Amministratore {
 	/**
 	 * @return
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @param id
 	 */
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

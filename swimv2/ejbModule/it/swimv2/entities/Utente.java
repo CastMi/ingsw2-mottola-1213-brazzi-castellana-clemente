@@ -30,11 +30,7 @@ import javax.persistence.Table;
 	@NamedQuery(name = "Utente.getUtentiPerUsername",
 			query = "SELECT u FROM Utente u WHERE u.username = :username"),
 	@NamedQuery(name = "Utente.getUtentePerEmail",
-			query = "SELECT u FROM Utente u WHERE u.email = :email"),
-			
-	//Query di update
-	@NamedQuery(name="Utente.eliminaUtente",
-			query = "DELETE FROM Utente u WHERE u.id = :id")
+			query = "SELECT u FROM Utente u WHERE u.email = :email")
 	})
 @Entity
 @Table(	name = "Utente" )
@@ -45,7 +41,7 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	@Id
     @GeneratedValue
     @Column(name="id")
-	private long id;
+	private int id;
 	
 	@Column(name="name", nullable= false)
 	private String nome;
@@ -66,13 +62,13 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	@ManyToMany
 	@JoinTable(
 			name = "Associazione_Utente_Abilita",
-			joinColumns = @JoinColumn (name="RESERVATION_ID"),
-			inverseJoinColumns = @JoinColumn (name="CABIN_ID")
+			joinColumns = @JoinColumn (name="utente_id"),
+			inverseJoinColumns = @JoinColumn (name="abilita_name")
 			)
 	private Set<Abilita> abilita;
 	
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -80,7 +76,7 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -13,27 +14,32 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Id;
 
 /**
  * 
  * @author Michele
  * 
  */
-@SuppressWarnings("serial")
 @NamedQueries({
 		// Query di estrazione dati
-		@NamedQuery(name = "RichiestaAbilita.getRichiestaAbilita", query = "SELECT ra FROM RichiestaAbilita ra WHERE ra.nome = :nome AND "
-				+ "ra.richiedente = :utente"),
-		@NamedQuery(name = "RichiestaAbilita.getTutteLeRichiesteDiAbilita", query = "SELECT ra FROM RichiestaAbilita ra"),
-
-		// Query per eliminare
-		@NamedQuery(name = "RichiestaAbilita.elimina", query = "DELETE FROM RichiestaAbilita ra WHERE ra.richiedente = :utente AND "
-				+ "ra.nome = :nome"), })
+		@NamedQuery(name = "RichiestaAbilita.getRichiestaAbilita",
+				query = "SELECT ra FROM RichiestaAbilita ra WHERE ra.nome = :nome AND ra.richiedente = :utente"),
+		@NamedQuery(name = "RichiestaAbilita.getTutteLeRichiesteDiAbilita",
+				query = "SELECT ra FROM RichiestaAbilita ra")
+ })
 @Entity
 @Table(name = "RichiestaAbilita", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"richiedente", "nome" }))
 public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 
+	private static final long serialVersionUID = 707389346008617812L;
+
+	@Id
+    @GeneratedValue
+	@Column(name = "id")
+	private int id;
+	
 	@ManyToOne
 	@JoinColumn(name = "richiedente", referencedColumnName = "id", nullable = false, updatable = false)
 	private Utente richiedente;

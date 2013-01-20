@@ -11,23 +11,20 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @NamedQueries({ 
 	//Query di estrazione dati	
 	@NamedQuery(name = "Abilita.getAbilitaPerNome",
 			query = "SELECT a FROM Abilita a WHERE a.nome = :nome"),
-			
-	//Query di update
-	@NamedQuery(name="Abilita.eliminaAbilita",
-			query = "DELETE FROM Abilita a WHERE a.nome = :nome")
-	})
+})
 @Entity
 @Table(	name = "Abilita" )
 public class Abilita implements Serializable, IAbilita {
 	
-	// FIXME qualora dia problemi, eliminare "unique=true"
+	private static final long serialVersionUID = -8113622545375125271L;
+
+	// FIXME qualora dia problemi, eliminare "unique=true" gia compreso perche chiave primaria
 	@Id
-	@Column(name="name", unique=true, nullable= false)
+	@Column(name="name")
 	private String nome;
 	
 	@Lob

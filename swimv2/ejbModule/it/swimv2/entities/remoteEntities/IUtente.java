@@ -6,7 +6,7 @@ public interface IUtente {
 	 * 
 	 * @return l'id dell'utente
 	 */
-	public long getId();
+	public int getId();
 	
 	/**
 	 * 

@@ -2,10 +2,12 @@ package it.swimv2.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Column;
-import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
 
 /**
  * @author Daniele
@@ -14,41 +16,38 @@ import javax.persistence.PersistenceContext;
 
 @NamedQueries({
 		// Query di estrazione dati
-		@NamedQuery(name = "RichiestaAmicizia.getTutteRichiesteAmicizia", query = "SELECT r FROM richiestaamicizia r"),
-		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerIdUtente", query = "SELECT r FROM richiestaamicizia r WHERE r.idDestinatario = :idUtente"),
-		@NamedQuery(name = "RichiestaAmicizia.getAmiciziaPerIdRichiestaAmicizia", query = "SELECT r FROM richiestaamicizia r WHERE r.id = :id"),
-		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "(SELECT MAX(id) FROM richiestaamicizia)+1"),
-		// Query di inserimento entità
-		@NamedQuery(name = "RichiestaAmicizia.inserisciNuovaRichiestaAmicizia", query = "INSERT INTO richiestaamicizia VALUES (id, idMittente, idDestinatario, note)"),
-		// Query di eliminazione entità
-		@NamedQuery(name = "RichiestaAmicizia.eliminaRichiestaAmicizia", query = "DELETE FROM amicizia a WHERE a.id = :id")})
+		@NamedQuery(name = "RichiestaAmicizia.getTutteRichiesteAmicizia", query = "SELECT r FROM RichiestaAmicizia r"),
+		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerIdUtente", query = "SELECT r FROM RichiestaAmicizia r WHERE r.idDestinatario = :idUtente"),
+		@NamedQuery(name = "RichiestaAmicizia.getAmiciziaPerIdRichiestaAmicizia", query = "SELECT r FROM RichiestaAmicizia r WHERE r.id = :id"),
+		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "SELECT MAX(r.id)+1 as max_id FROM RichiestaAmicizia r")
+})
 
 @Entity
+@Table(name="RichiestaAmicizia")
 public class RichiestaAmicizia {
 	
-	@PersistenceContext(unitName = "swimv2DB")
-	private EntityManager entityManager;
-
-	@Column(name="idDestinatario")
-	private String idDestinatario;
-	
-	@Column(name="idMittente")
-	private String idRichiedente;
-	
-	@Column(name="id")
+	@Id
+    @GeneratedValue
+	@Column(name = "id")
 	private int idRichiestaAmicizia;
 	
+	@Column(name="idDestinatario")
+	private int idDestinatario;
+	
+	@Column(name="idMittente")
+	private int idRichiedente;
+	
+	@Lob
 	@Column(name="note")
 	private String note;
 
-	public RichiestaAmicizia(String idRichiedente, String idDestinatario, String note) {
+	public RichiestaAmicizia(int idRichiedente, int idDestinatario, String note) {
 		this.idRichiedente = idRichiedente;
 		this.idDestinatario = idDestinatario;
-		this.idRichiestaAmicizia = (int) entityManager.createNamedQuery("RichiestaAmicizia.getProssimoIdRichiestaAmicizia").getResultList().get(0);
 		this.note = note;
 	}
 
-	public String getIdDestinatario() {
+	public int getIdDestinatario() {
 		return idDestinatario;
 	}
 	
@@ -56,11 +55,11 @@ public class RichiestaAmicizia {
 		return note;
 	}
 
-	public String getIdRichiedente() {
+	public int getIdRichiedente() {
 		return idRichiedente;
 	}
 
-	public long getIdRichiestaAmicizia() {
+	public int getIdRichiestaAmicizia() {
 		return idRichiestaAmicizia;
 	}
 	

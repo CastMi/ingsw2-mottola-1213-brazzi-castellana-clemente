@@ -19,6 +19,9 @@ public class ManagerAmicizia {
 		Amicizia amicizia = new Amicizia(richiestaAmicizia.getIdRichiedente(),
 				richiestaAmicizia.getIdDestinatario());
 		// aggiungo la nuova amicizia
+		entityManager.getTransaction().begin();
 		entityManager.persist(amicizia);
+		entityManager.getTransaction().commit();
 	}
+	
 }

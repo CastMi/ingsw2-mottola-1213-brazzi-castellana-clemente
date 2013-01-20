@@ -7,8 +7,11 @@
 	<persistence-unit name="swimv2DB">
 		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 		<jta-data-source>java:/swimv2DS</jta-data-source>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> -->
 		</properties>
+		
 	</persistence-unit> 
 </persistence>

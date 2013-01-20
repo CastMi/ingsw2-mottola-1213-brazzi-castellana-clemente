@@ -12,15 +12,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
+@SuppressWarnings("unchecked")
 public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 	
+
 	@Override
 	public IUtente[] ricercaUtentiPerNome(String stringa) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentiPerNome");
 		query.setParameter("nome", stringa);
+		
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
 			// ci sono progetti creati dal professore
