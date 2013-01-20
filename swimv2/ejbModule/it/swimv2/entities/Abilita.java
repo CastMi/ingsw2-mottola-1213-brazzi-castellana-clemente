@@ -22,7 +22,6 @@ public class Abilita implements Serializable, IAbilita {
 	
 	private static final long serialVersionUID = -8113622545375125271L;
 
-	// FIXME qualora dia problemi, eliminare "unique=true" gia compreso perche chiave primaria
 	@Id
 	@Column(name="name")
 	private String nome;

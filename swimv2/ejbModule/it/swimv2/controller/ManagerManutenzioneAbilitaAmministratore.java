@@ -28,7 +28,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 	public ManutenzioneRichiestaAbilitaEnum accettareRichiestaAbilita(String nomeRichiestaAbilita,
 			long idUtente) {
 		Utente utente;
-		RichiestaAbilita temp;
+		RichiestaAbilita richiestaAbilita;
 		Abilita abi;
 		boolean esisteAbilita = true;
 
@@ -41,7 +41,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 
 		// controllo se esiste la richiesta di abilità
 		try {
-			temp = this.getRichiestaAbilita(utente, nomeRichiestaAbilita);
+			richiestaAbilita = this.getRichiestaAbilita(utente, nomeRichiestaAbilita);
 		} catch (EntityNotFoundException x) {
 			// non esiste una richiesta di abilità con tale nome associata a
 			// tale utente
@@ -55,7 +55,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			// dato che l'abilità non esiste, la creo
 			abi = new Abilita();
 			abi.setNome(nomeRichiestaAbilita);
-			abi.setDescrizione(temp.getDescrizione());
+			abi.setDescrizione(richiestaAbilita.getDescrizione());
 			esisteAbilita = false;
 		}
 		// se fallisce l'inserimento dell'abilità è inutile continuare
@@ -63,15 +63,19 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
 
 		try {
-			// rendo persistenti i cambiamenti
+			// rendo persistenti i cambiamenti con una transazione
+			entityManager.getTransaction().begin();
 			if (!esisteAbilita)
 				entityManager.persist(abi);
 			entityManager.persist(utente);
+			entityManager.remove(richiestaAbilita);
 		} catch (Exception w) {
+			// faccio un rollback e restituisco errore se qualcosa è andato male
+			entityManager.getTransaction().rollback();
 			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
 		}
-		// rimuovo la richiesta di abilità
-		this.rimuoviRichiestaAbilita(utente, nomeRichiestaAbilita);
+		// committo se tutto è andato bene
+		entityManager.getTransaction().commit();
 		return ManutenzioneRichiestaAbilitaEnum.OK;
 	}
 
@@ -94,7 +98,13 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		} catch (EntityNotFoundException e) {
 			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 		}
-		this.rimuoviRichiestaAbilita(utente, ra.getNome());
+		
+		try {
+			// rendo persistenti i cambiamenti
+			entityManager.remove(ra);
+		} catch (Exception w) {
+			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+		}
 		return ManutenzioneRichiestaAbilitaEnum.OK;
 	}
 
@@ -127,27 +137,6 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			return ManutenzioneAbilitaEnum.ERRORE;
 		}
 		return ManutenzioneAbilitaEnum.OK;
-	}
-
-	/**
-	 * Cancella la richiesta la richiesta di abilità che possiede il nome
-	 * corrispondente e sia riferita all'utente che possiede quell'id
-	 * 
-	 * @param utente
-	 *            - l'id dell'utente che ha fatto la richiesta dell'abilità
-	 * @param nomeAbilita
-	 *            - il nome della richiesta di abilità da cancellare
-	 */
-	private void rimuoviRichiestaAbilita(Utente utente, String nomeAbilita) {
-		Query query = entityManager
-				.createNamedQuery("RichiestaAbilita.getRichiestaAbilita");
-		query.setParameter("nome", nomeAbilita);
-		query.setParameter("utente", utente);
-		Abilita abi = (Abilita) query.getSingleResult();
-		
-		entityManager.getTransaction().begin();
-		entityManager.remove(abi);
-		entityManager.getTransaction().commit();
 	}
 
 	@Override

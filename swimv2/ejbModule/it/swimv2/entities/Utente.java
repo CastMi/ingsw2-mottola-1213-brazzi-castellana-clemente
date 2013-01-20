@@ -167,7 +167,7 @@ public class Utente implements Serializable, IUtente, Cloneable {
      */
     public boolean RimuoviAbilità(Abilita abi)
     {
-            return this.abilita.add(abi);
+            return this.abilita.remove(abi);
     }
     
     public Utente clone() {
