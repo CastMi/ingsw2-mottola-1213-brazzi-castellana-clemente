@@ -5,6 +5,7 @@ package it.swimv2.controller;
 
 import java.util.List;
 
+import it.swimv2.controller.remoteController.IRegistrazione;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.ErroriRegistrazione;
 
@@ -17,21 +18,17 @@ import javax.persistence.Query;
  * 
  */
 
-public class ManagerRegistrazione {
+public class ManagerRegistrazione implements IRegistrazione {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 	private ErroriRegistrazione status = new ErroriRegistrazione();
 	private Utente utente;
 
-	/**
-	 * @param nome
-	 * @param cognome
-	 * @param email
-	 * @param id
-	 * @param password
-	 * @return
+	/* (non-Javadoc)
+	 * @see it.swimv2.controller.IRegistrazione#nuovaRegistrazione(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public ErroriRegistrazione nuovaRegistrazione(String nome, String cognome,
 			String email, String id, String password) {
 

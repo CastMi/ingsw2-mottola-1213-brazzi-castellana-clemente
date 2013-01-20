@@ -3,6 +3,7 @@
  */
 package it.swimv2.controller;
 
+import it.swimv2.controller.remoteController.ILogin;
 import it.swimv2.entities.Amministratore;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.PasswordCoder;
@@ -19,17 +20,15 @@ import javax.persistence.Query;
  * 
  */
 
-public class ManagerLogin {
+public class ManagerLogin implements ILogin {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 
-	/**
-	 * @param id
-	 * @param password
-	 * @return
-	 * @throws NoSuchAlgorithmException
+	/* (non-Javadoc)
+	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public boolean verificaLogin(String id, String password)
 			throws NoSuchAlgorithmException {
 		if (verificaLoginAmministratore(id, password)) {
