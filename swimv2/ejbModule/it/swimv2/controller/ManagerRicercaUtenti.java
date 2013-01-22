@@ -6,6 +6,7 @@ import it.swimv2.controller.remoteController.IRicercaUtenti;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IUtente;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import javax.persistence.Query;
 
 @Stateless
 @SuppressWarnings("unchecked")
+@Remote(IRicercaUtenti.class)
 public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@PersistenceContext(unitName = "swimv2DB")

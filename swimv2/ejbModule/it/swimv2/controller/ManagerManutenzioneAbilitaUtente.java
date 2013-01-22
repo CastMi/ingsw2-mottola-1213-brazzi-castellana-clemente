@@ -1,5 +1,6 @@
 package it.swimv2.controller;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,10 +10,11 @@ import it.swimv2.entities.Abilita;
 import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.RichiestaAbilitaPK;
 import it.swimv2.entities.Utente;
+import it.swimv2.util.InvioRichiestaAbilitaEnum;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
-import it.swimv2.util.ManutenzioneRichiestaAbilitaEnum;
 
 @Stateless
+@Remote(IManutenzioneAbilitaUtente.class)
 public final class ManagerManutenzioneAbilitaUtente extends
 		ManagerManutenzioneAbilita implements IManutenzioneAbilitaUtente {
 
@@ -20,7 +22,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 	private EntityManager entityManager;
 
 	@Override
-	public ManutenzioneRichiestaAbilitaEnum inviareRichiestaAbilita(
+	public InvioRichiestaAbilitaEnum inviareRichiestaAbilita(
 			String nomeRichiestaAbilita, String descrizione, String username) {
 		Utente utente;
 		RichiestaAbilita ra;
@@ -29,19 +31,19 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		try {
 			utente = this.entityManager.find(Utente.class, username);
 		} catch (Exception e) {
-			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+			return InvioRichiestaAbilitaEnum.UTENTE_INESISTENTE;
 		}
 		if (utente == null)
-			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+			return InvioRichiestaAbilitaEnum.UTENTE_INESISTENTE;
 
 		try {
 			ra = this.entityManager.find(RichiestaAbilita.class,
 					new RichiestaAbilitaPK(nomeRichiestaAbilita, username));
 		} catch (Exception e) {
-			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+			return InvioRichiestaAbilitaEnum.ERRORE;
 		}
 		if (ra != null) {
-			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_DUPLICATA;
+			return InvioRichiestaAbilitaEnum.RICHIESTAABILITA_DUPLICATA;
 		}
 
 		// non esiste la richiesta di abilità quindi la creo
@@ -55,10 +57,10 @@ public final class ManagerManutenzioneAbilitaUtente extends
 			entityManager.persist(ra);
 		} catch (Exception w) {
 			entityManager.getTransaction().rollback();
-			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+			return InvioRichiestaAbilitaEnum.ERRORE;
 		}
 		entityManager.getTransaction().commit();
-		return ManutenzioneRichiestaAbilitaEnum.OK;
+		return InvioRichiestaAbilitaEnum.OK;
 	}
 
 	@Override

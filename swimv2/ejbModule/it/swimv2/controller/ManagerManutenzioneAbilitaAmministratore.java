@@ -2,6 +2,7 @@ package it.swimv2.controller;
 
 import java.util.List;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,9 +15,10 @@ import it.swimv2.entities.RichiestaAbilitaPK;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IRichiestaAbilita;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
-import it.swimv2.util.ManutenzioneRichiestaAbilitaEnum;
+import it.swimv2.util.ManutentoreRichiesteAbilitaEnum;
 
 @Stateless
+@Remote(IManutenzioneAbilitaAmministratore.class)
 public final class ManagerManutenzioneAbilitaAmministratore extends
 		ManagerManutenzioneAbilita implements
 		IManutenzioneAbilitaAmministratore {
@@ -25,7 +27,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 	private EntityManager entityManager;
 
 	@Override
-	public ManutenzioneRichiestaAbilitaEnum accettareRichiestaAbilita(
+	public ManutentoreRichiesteAbilitaEnum accettareRichiestaAbilita(
 			String nomeRichiestaAbilita, String username) {
 		Utente utente;
 		RichiestaAbilita richiestaAbilita;
@@ -36,10 +38,10 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		try {
 			utente = this.entityManager.find(Utente.class, username);
 		} catch (Exception e) {
-			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.UTENTE_INESISTENTE;
 		}
 		if (utente == null)
-			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.UTENTE_INESISTENTE;
 
 		// controllo se esiste la richiesta di abilità
 		try {
@@ -48,16 +50,16 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		} catch (Exception x) {
 			// non esiste una richiesta di abilità con tale nome associata a
 			// tale utente
-			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 		}
 		if (richiestaAbilita == null)
-			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 
 		// controllo se l'abilità richiesta esiste già
 		try {
 			abi = this.entityManager.find(Abilita.class, nomeRichiestaAbilita);
 		} catch (Exception e) {
-			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 		}
 		if (abi == null) {
 			// dato che l'abilità non esiste, la creo
@@ -69,7 +71,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 
 		// se fallisce l'inserimento dell'abilità è inutile continuare
 		if (!utente.AggiungiAbilità(abi))
-			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 
 		try {
 			// rendo persistenti i cambiamenti con una transazione
@@ -81,15 +83,15 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		} catch (Exception w) {
 			// faccio un rollback e restituisco errore se qualcosa è andato male
 			entityManager.getTransaction().rollback();
-			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 		}
 		// committo se tutto è andato bene
 		entityManager.getTransaction().commit();
-		return ManutenzioneRichiestaAbilitaEnum.OK;
+		return ManutentoreRichiesteAbilitaEnum.OK;
 	}
 
 	@Override
-	public ManutenzioneRichiestaAbilitaEnum rifiutareRichiestaAbilita(
+	public ManutentoreRichiesteAbilitaEnum rifiutareRichiestaAbilita(
 			String nomeRichiestaAbilita, String username) {
 		Utente utente;
 		RichiestaAbilita ra;
@@ -98,20 +100,20 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		try {
 			utente = this.entityManager.find(Utente.class, username);
 		} catch (Exception e) {
-			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.UTENTE_INESISTENTE;
 		}
 		if (utente == null)
-			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.UTENTE_INESISTENTE;
 
 		// controllo se l'abilità richiesta esiste
 		try {
 			ra = this.entityManager.find(RichiestaAbilita.class,
 					new RichiestaAbilitaPK(nomeRichiestaAbilita, username));
 		} catch (Exception e) {
-			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 		}
 		if (ra == null)
-			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
+			return ManutentoreRichiesteAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
 
 		try {
 			// rendo persistenti i cambiamenti con una transazione
@@ -119,10 +121,10 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			entityManager.remove(ra);
 		} catch (Exception w) {
 			entityManager.getTransaction().rollback();
-			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 		}
 		entityManager.getTransaction().commit();
-		return ManutenzioneRichiestaAbilitaEnum.OK;
+		return ManutentoreRichiesteAbilitaEnum.OK;
 	}
 
 	@Override
