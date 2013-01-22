@@ -19,7 +19,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "RichiestaAmicizia.getTutteRichiesteAmicizia", query = "SELECT r FROM RichiestaAmicizia r"),
 		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerIdUtente", query = "SELECT r FROM RichiestaAmicizia r WHERE r.idDestinatario = :idUtente"),
 		@NamedQuery(name = "RichiestaAmicizia.getAmiciziaPerIdRichiestaAmicizia", query = "SELECT r FROM RichiestaAmicizia r WHERE r.id = :id"),
-		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario", query = "SELECT r FROM RichiestaAmicizia r WHERE r.idDestinatario = :idDestinatario AND r.idMittente = idMittente "),
+		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario", query = "SELECT r FROM RichiestaAmicizia r WHERE r.idDestinatario = :idDestinatario AND r.idRichiedente = :idRichiedente "),
 		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "SELECT MAX(r.id)+1 as max_id FROM RichiestaAmicizia r")
 })
 
@@ -35,7 +35,7 @@ public class RichiestaAmicizia {
 	@Column(name="idDestinatario")
 	private int idDestinatario;
 	
-	@Column(name="idMittente")
+	@Column(name="idRichiedente")
 	private int idRichiedente;
 	
 	@Lob
