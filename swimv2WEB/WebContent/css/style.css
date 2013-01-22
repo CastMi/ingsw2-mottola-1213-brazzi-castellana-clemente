@@ -18,10 +18,33 @@ a:hover { text-decoration: underline; color : #000; }
 #wrap {
 margin: 0 auto;
 width: 800px;
+clear: both;
+z-index: 1;
+overflow: hidden;
+position: relative;
+}
+
+div {
+	display: block;
+}
+
+#image {
+	float: right;
+	width: 56px;
+	height: 56px;
+	margin-right: 17px;
+	margin-top: 7px;
+	
+}
+
+#title {
+	float: left;
 }
 
 #header { 
 padding: 10px 0 20px 0;
+position: relative;
+min-height: 50px;
 }
 #header h1 {
 font-size: 26px;
@@ -75,6 +98,7 @@ text-decoration: underline;
 
 #content {
 padding: 10px 20px;
+
 }
 
 .right {
@@ -96,12 +120,18 @@ float: left;
 padding: 10px;
 border-right: 1px solid #bbb;
 font-size: 12px;
+min-height: 400px;
 }
 .left ul {
 list-style-type: square;
 padding: 5px 10px 10px 20px;
 color: #57626a;
 }
+#immagineLogin {
+	display: block;
+    margin: 5px auto 5px auto;
+}
+
 .left h2 {
 height: 30px;
 font-size: 14px;
@@ -110,6 +140,10 @@ line-height: 30px;
 font-weight: 600;
 }
 .left a { text-decoration: none }
+
+#erroreLogin {
+	color: red;
+}
 
 #footer {
 background: #eee;

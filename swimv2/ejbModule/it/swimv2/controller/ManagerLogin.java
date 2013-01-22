@@ -12,6 +12,7 @@ import it.swimv2.util.UtenteEnum;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
  * @author Daniele
  * 
  */
-
+@Stateless
 public class ManagerLogin implements ILogin {
 
 	@PersistenceContext(unitName = "swimv2DB")
@@ -54,7 +55,7 @@ public class ManagerLogin implements ILogin {
 	private boolean verificaLoginUtente(String id, String password)
 			throws NoSuchAlgorithmException {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
-				.setParameter("Id", id);
+				.setParameter("id", id);
 		List<?> risultatoQuery = query.getResultList();
 		if (risultatoQuery.size() > 0) { // e' stato trovato il codicePersona
 											// nel database

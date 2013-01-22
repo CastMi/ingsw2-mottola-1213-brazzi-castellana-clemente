@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			obj = ContextUtil
 					.getInitialContext()
-					.lookup("/swimv2/ejbModule/it/swimv2/controller/remoteController/ILogin.java");
+					.lookup("swimv2EAR/ManagerLogin/remote");
 
 			ILogin iLogin = (ILogin) PortableRemoteObject.narrow(obj,
 					ILogin.class);
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 				caricamentoHomeUtente(nomeUtente, request, response);
 			} else {
 				request.setAttribute("messaggio",
-						"Errore: codice utente o password errati.");
+						"Errore: nome utente o password errati.");
 				showPaginaLogin(request, response);
 			}
 		} catch (NamingException | NoSuchAlgorithmException e) {
@@ -87,7 +87,7 @@ public class LoginServlet extends HttpServlet {
 	private void showPaginaLogin(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher disp;
-		disp = request.getRequestDispatcher(response.encodeURL("Home.jsp"));
+		disp = request.getRequestDispatcher(response.encodeURL("index.jsp"));
 		disp.forward(request, response);
 	}
 
