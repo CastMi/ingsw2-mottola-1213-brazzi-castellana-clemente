@@ -10,7 +10,8 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
-			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> -->
+			<!-- proprieta per impostare solo il controllo dello schema e non la creazione
+				 <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
 		</properties>
 		
 	</persistence-unit> 
