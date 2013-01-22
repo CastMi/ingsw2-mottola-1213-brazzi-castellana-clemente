@@ -38,7 +38,7 @@ public class ManagerRichiestaAmicizia implements IRichiestaAmicizia {
 	
 	public RichiestaAmicizia getRichiestaAmicizia(int mittente, int destinatario){
 		Query query = entityManager.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario")
-				.setParameter("idMittente", mittente).setParameter("idDestinatario", destinatario);
+				.setParameter("idRichiedente", mittente).setParameter("idDestinatario", destinatario);
 		List<?> risultatoQuery = query.getResultList();
 		return (RichiestaAmicizia) risultatoQuery.get(0);
 	}
