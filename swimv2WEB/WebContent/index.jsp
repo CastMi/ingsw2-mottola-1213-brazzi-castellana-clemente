@@ -89,7 +89,7 @@
 				
 				if(message!=null && !message.isEmpty()){ %>
 				<div id="erroreLogin">
-					<br/>${message}<br/>
+					<br/><% out.print(message);%><br/>
 				</div>
 				<%} %>
 				<span id="registrati">
