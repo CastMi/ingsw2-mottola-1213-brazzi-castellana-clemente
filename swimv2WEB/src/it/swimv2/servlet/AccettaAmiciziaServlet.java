@@ -36,6 +36,10 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		disp.forward(request, response);
 	}
 
+	/** 
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * 
+	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unused")
