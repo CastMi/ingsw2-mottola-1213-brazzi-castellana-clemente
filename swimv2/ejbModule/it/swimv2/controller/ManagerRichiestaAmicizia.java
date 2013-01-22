@@ -5,6 +5,7 @@ import java.util.List;
 import it.swimv2.controller.remoteController.IRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
 
+import javax.ejb.Remote;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,6 +14,7 @@ import javax.persistence.Query;
  * @author Daniele
  *
  */
+@Remote(IRichiestaAmicizia.class)
 public class ManagerRichiestaAmicizia implements IRichiestaAmicizia {
 
 	@PersistenceContext(unitName = "swimv2DB")

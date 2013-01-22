@@ -2,17 +2,17 @@ package it.swimv2.controller.remoteController;
 
 import it.swimv2.entities.remoteEntities.IRichiestaAbilita;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
-import it.swimv2.util.ManutenzioneRichiestaAbilitaEnum;
+import it.swimv2.util.ManutentoreRichiesteAbilitaEnum;
 
 import javax.ejb.Remote;
 
 @Remote
 public interface IManutenzioneAbilitaAmministratore {
 
-	public ManutenzioneRichiestaAbilitaEnum accettareRichiestaAbilita(
+	public ManutentoreRichiesteAbilitaEnum accettareRichiestaAbilita(
 			String nomeRichiestaAbilita, String username);
 
-	public ManutenzioneRichiestaAbilitaEnum rifiutareRichiestaAbilita(
+	public ManutentoreRichiesteAbilitaEnum rifiutareRichiestaAbilita(
 			String nomeRichiestaAbilita, String username);
 
 	public ManutenzioneAbilitaEnum rimuovereAbilita(String nomeAbilita,

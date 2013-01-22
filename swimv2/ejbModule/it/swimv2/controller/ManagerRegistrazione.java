@@ -9,6 +9,7 @@ import it.swimv2.controller.remoteController.IRegistrazione;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.ErroriRegistrazione;
 
+import javax.ejb.Remote;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,6 +19,7 @@ import javax.persistence.Query;
  * 
  */
 
+@Remote(IRegistrazione.class)
 public class ManagerRegistrazione implements IRegistrazione {
 
 	@PersistenceContext(unitName = "swimv2DB")

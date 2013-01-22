@@ -12,7 +12,9 @@ import it.swimv2.util.UtenteEnum;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,7 +23,10 @@ import javax.persistence.Query;
  * @author Daniele
  * 
  */
+
 @Stateless
+
+
 public class ManagerLogin implements ILogin {
 
 	@PersistenceContext(unitName = "swimv2DB")
