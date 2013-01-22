@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
 			ILogin iLogin = (ILogin) PortableRemoteObject.narrow(obj,
 					ILogin.class);
-			String nomeUtente = request.getParameter("nomeUtente");
+			String nomeUtente = request.getParameter("userName");
 			String password = request.getParameter("password");
 			risultatoLogin = iLogin.verificaLogin(nomeUtente, password);
 			if (risultatoLogin.isAmministratore()) {
