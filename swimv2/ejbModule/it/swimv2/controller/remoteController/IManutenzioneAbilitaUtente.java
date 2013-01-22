@@ -8,8 +8,10 @@ import javax.ejb.Remote;
 @Remote
 public interface IManutenzioneAbilitaUtente {
 
-	public ManutenzioneRichiestaAbilitaEnum inviareRichiestaAbilita(String nomeAbilita, String descrizione, long idUtente);
-	
-	public ManutenzioneAbilitaEnum rimuoverePropriaAbilita(String nomeAbilita, long idUtente);
-	
+	public ManutenzioneRichiestaAbilitaEnum inviareRichiestaAbilita(
+			String nomeAbilita, String descrizione, String username);
+
+	public ManutenzioneAbilitaEnum rimuoverePropriaAbilita(String nomeAbilita,
+			String username);
+
 }

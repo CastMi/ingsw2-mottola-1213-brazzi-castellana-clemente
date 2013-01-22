@@ -2,12 +2,12 @@ package it.swimv2.controller;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.Abilita;
 import it.swimv2.entities.RichiestaAbilita;
+import it.swimv2.entities.RichiestaAbilitaPK;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
 import it.swimv2.util.ManutenzioneRichiestaAbilitaEnum;
@@ -20,57 +20,84 @@ public final class ManagerManutenzioneAbilitaUtente extends
 	private EntityManager entityManager;
 
 	@Override
-	public ManutenzioneRichiestaAbilitaEnum inviareRichiestaAbilita(String nomeAbilita,
-			String descrizione, long idUtente) {
+	public ManutenzioneRichiestaAbilitaEnum inviareRichiestaAbilita(
+			String nomeRichiestaAbilita, String descrizione, String username) {
 		Utente utente;
+		RichiestaAbilita ra;
+
 		// controllo se l'utente esiste
 		try {
-			utente = this.getUtentePerId(idUtente);
-		} catch (EntityNotFoundException e) {
+			utente = this.entityManager.find(Utente.class, username);
+		} catch (Exception e) {
 			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
 		}
-		RichiestaAbilita ra;
-		nomeAbilita = nomeAbilita.toLowerCase();
+		if (utente == null)
+			return ManutenzioneRichiestaAbilitaEnum.UTENTE_INESISTENTE;
+
 		try {
-			ra = getRichiestaAbilita(utente, nomeAbilita);
-			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_INESISTENTE;
-		} catch (EntityNotFoundException e) {
-			// non esiste la richiesta di abilità quindi la creo
-			ra = new RichiestaAbilita();
-			ra.setDescrizione(descrizione.toLowerCase());
-			ra.setNome(nomeAbilita);
-			ra.setRichiedente(utente);
-			try {
-				// aggiungo la richiesta di abilità
-				entityManager.persist(ra);
-				return ManutenzioneRichiestaAbilitaEnum.OK;
-			} catch (Exception w) {
-				return ManutenzioneRichiestaAbilitaEnum.ERRORE;
-			}
+			ra = this.entityManager.find(RichiestaAbilita.class,
+					new RichiestaAbilitaPK(nomeRichiestaAbilita, username));
+		} catch (Exception e) {
+			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
 		}
+		if (ra != null) {
+			return ManutenzioneRichiestaAbilitaEnum.RICHIESTAABILITA_DUPLICATA;
+		}
+
+		// non esiste la richiesta di abilità quindi la creo
+		ra = new RichiestaAbilita();
+		ra.setDescrizione(descrizione.toLowerCase());
+		ra.setNome(nomeRichiestaAbilita.toLowerCase());
+		ra.setRichiedente(utente);
+		try {
+			// aggiungo la richiesta di abilità
+			entityManager.getTransaction().begin();
+			entityManager.persist(ra);
+		} catch (Exception w) {
+			entityManager.getTransaction().rollback();
+			return ManutenzioneRichiestaAbilitaEnum.ERRORE;
+		}
+		entityManager.getTransaction().commit();
+		return ManutenzioneRichiestaAbilitaEnum.OK;
 	}
 
 	@Override
-	public ManutenzioneAbilitaEnum rimuoverePropriaAbilita(String nomeAbilita, long idUtente) {
+	public ManutenzioneAbilitaEnum rimuoverePropriaAbilita(String nomeAbilita,
+			String username) {
 		Utente utente;
 		Abilita abi;
 
 		// controllo se l'utente esiste
 		try {
-			utente = this.getUtentePerId(idUtente);
-		} catch (EntityNotFoundException e) {
+			utente = this.entityManager.find(Utente.class, username);
+		} catch (Exception e) {
 			return ManutenzioneAbilitaEnum.UTENTE_INESISTENTE;
 		}
+		if (utente == null)
+			return ManutenzioneAbilitaEnum.UTENTE_INESISTENTE;
 
 		// controllo se l'abilità da rimuovere esiste
 		try {
-			abi = this.getAbilitaPerNome(nomeAbilita);
-		} catch (EntityNotFoundException e) {
+			abi = this.entityManager.find(Abilita.class, nomeAbilita);
+		} catch (Exception e) {
 			return ManutenzioneAbilitaEnum.ABILITA_INESISTENTE;
 		}
-		if (!utente.possiedeAbilita(abi))
+		if (abi == null) {
+			return ManutenzioneAbilitaEnum.ABILITA_INESISTENTE;
+		}
+
+		if (!utente.possiedeAbilita(abi) || !utente.RimuoviAbilità(abi))
 			return ManutenzioneAbilitaEnum.ERRORE;
-		utente.RimuoviAbilità(abi);
+
+		try {
+			// aggiungo la richiesta di abilità
+			entityManager.getTransaction().begin();
+			entityManager.persist(utente);
+		} catch (Exception w) {
+			entityManager.getTransaction().rollback();
+			return ManutenzioneAbilitaEnum.ERRORE;
+		}
+		entityManager.getTransaction().commit();
 		return ManutenzioneAbilitaEnum.OK;
 	}
 

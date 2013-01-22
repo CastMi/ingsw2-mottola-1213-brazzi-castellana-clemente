@@ -2,10 +2,10 @@ package it.swimv2.util;
 
 public enum ManutenzioneRichiestaAbilitaEnum {
 
-	// per le richieste
-	UTENTE_INESISTENTE,	
+	UTENTE_INESISTENTE,
 	RICHIESTAABILITA_INESISTENTE,
+	RICHIESTAABILITA_DUPLICATA,
 	OK,
 	ERRORE,
-	
+
 }
