@@ -7,6 +7,7 @@ import it.swimv2.controller.remoteController.ILogin;
 import it.swimv2.entities.Amministratore;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.PasswordCoder;
+import it.swimv2.util.UtenteEnum;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -29,15 +30,18 @@ public class ManagerLogin implements ILogin {
 	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean verificaLogin(String id, String password)
+	public UtenteEnum verificaLogin(String id, String password)
 			throws NoSuchAlgorithmException {
+		UtenteEnum enum1 = new UtenteEnum();
 		if (verificaLoginAmministratore(id, password)) {
-			return true;
+			enum1.setAmministratore(true);
+			return enum1;
 		}
 		if (verificaLoginUtente(id, password)) {
-			return true;
+			enum1.setUtente(true);
+			return enum1;
 		}
-		return false;
+		return enum1;
 	}
 
 	/**

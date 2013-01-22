@@ -33,7 +33,7 @@ public class ManagerRegistrazione implements IRegistrazione {
 			String email, String id, String password) {
 
 		controlloDatiInseriti(nome, cognome, email, id, password);
-		if (status.loginValido()) {
+		if (status.registrazioneValida()) {
 			completaRegistrazione(nome, cognome, email, id, password);
 		}
 

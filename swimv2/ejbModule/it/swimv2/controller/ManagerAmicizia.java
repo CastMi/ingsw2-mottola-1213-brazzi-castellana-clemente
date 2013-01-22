@@ -20,9 +20,12 @@ public class ManagerAmicizia implements IAmicizia {
 	 * @see it.swimv2.controller.IAmicizia#creaAmicizia(it.swimv2.entities.RichiestaAmicizia)
 	 */
 	@Override
-	public void creaAmicizia(RichiestaAmicizia richiestaAmicizia) {
+	public void creaAmicizia(int mittente, int destinatario) {
+		ManagerRichiestaAmicizia managerRichiestaAmicizia = new ManagerRichiestaAmicizia();
+		RichiestaAmicizia richiestaAmicizia = managerRichiestaAmicizia.getRichiestaAmicizia(mittente, destinatario);
 		Amicizia amicizia = new Amicizia(richiestaAmicizia.getIdRichiedente(),
 				richiestaAmicizia.getIdDestinatario());
+		managerRichiestaAmicizia.rimuoviRichiestaAmicizia(richiestaAmicizia.getIdRichiestaAmicizia());
 		// aggiungo la nuova amicizia
 		entityManager.getTransaction().begin();
 		entityManager.persist(amicizia);

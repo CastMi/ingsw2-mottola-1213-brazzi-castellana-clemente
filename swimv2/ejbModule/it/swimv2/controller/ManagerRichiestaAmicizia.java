@@ -1,7 +1,10 @@
 package it.swimv2.controller;
 
+import java.util.List;
+
 import it.swimv2.controller.remoteController.IRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -33,5 +36,12 @@ public class ManagerRichiestaAmicizia implements IRichiestaAmicizia {
 		query.setParameter("id", id);
 	}
 	
+	public RichiestaAmicizia getRichiestaAmicizia(int mittente, int destinatario){
+		Query query = entityManager.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario")
+				.setParameter("idMittente", mittente).setParameter("idDestinatario", destinatario);
+		List<?> risultatoQuery = query.getResultList();
+		return (RichiestaAmicizia) risultatoQuery.get(0);
+	}
+		
 	
 }

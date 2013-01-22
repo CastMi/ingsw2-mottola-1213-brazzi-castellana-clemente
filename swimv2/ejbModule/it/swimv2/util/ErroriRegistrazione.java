@@ -15,7 +15,7 @@ public class ErroriRegistrazione {
 	/**
 	 * @return
 	 */
-	public boolean loginValido(){
+	public boolean registrazioneValida(){
 		return !(ErroreNome || ErroreCognome || ErroreEmail || ErrorePassword || ErroreId);
 	}
 

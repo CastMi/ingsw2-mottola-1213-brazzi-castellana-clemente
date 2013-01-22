@@ -1,7 +1,10 @@
 package it.swimv2.controller.remoteController;
 
+import javax.ejb.Remote;
+
 import it.swimv2.util.ErroriRegistrazione;
 
+@Remote
 public interface IRegistrazione {
 
 	/**
