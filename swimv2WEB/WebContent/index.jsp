@@ -28,14 +28,14 @@
 		<div id="content">
 			<div class="right">
 
-				<h2>
-					<a>Cos'è SwimV2?</a>
-				</h2>
+				<div id="contentTitle">
+					Cos'è SwimV2?
+				</div>
 				<div class="articles">
-					SWIMv2 è un software per lo scambio di informazioni di assistenza.<br />
+					<br />SWIMv2 è un software per lo scambio di informazioni di assistenza.<br />
 					<br /> Questo obbiettivo è soddisfatto attraverso un network che
 					permette di porre domande in determinati ambiti e consente agli
-					utenti che possiedo queste abilità di fornire aiuto.<br /> <br />
+					utenti che possiedono queste abilità di fornire aiuto.<br /> <br />
 					Nel sistema gli utenti possono diventare amici, in aggiunta vengono
 					suggerite anche le possibili conoscenze in base alle proprie
 					amicizie. <br /> <br /> Il tutto è supportato da un sistema di
@@ -93,7 +93,7 @@
 
 					</fieldset>
 				</form>
-				<span id="registrati"> <a href="WEB-INF/registrazione.jsp"><br />Registrati!</a>
+				<span id="registrati"> <a href="registrazione.jsp"><br />Registrati!</a>
 				</span>
 			</div>
 			<div style="clear: both;"></div>
