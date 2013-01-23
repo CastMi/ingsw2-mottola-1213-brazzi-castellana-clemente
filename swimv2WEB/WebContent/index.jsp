@@ -102,7 +102,7 @@
 
 					</fieldset>
 				</form>
-				<span id="registrati"> <a href="WEB-INF/registrazione.jsp"><br />Registrati!</a>
+				<span id="registrati"> <a href="registrazione.jsp"><br />Registrati!</a>
 				</span>
 			</div>
 			<div style="clear: both;"></div>
