@@ -41,7 +41,40 @@
 					<a>REGISTRAZIONE</a>
 				</h2>
 				<div class="articles">
-					FORM REGISTRAZIONE
+					<div class="main_content">
+		<form action="RegistrazioneUtente" method="post">
+			<fieldset>
+				<table>
+					<tr>
+						<td class="td_campi_form"><label for="id">Nome:</label></td>
+						<td style="height: 49px"><input name="nome" type="text"
+							id="nome" style="width: 185px" /></td>
+					</tr>
+					<tr>
+						<td class="td_campi_form"><label for="id">Cognome:</label></td>
+						<td style="height: 49px"><input name="cognome" type="text"
+							id="cognome" style="width: 185px" /></td>
+					</tr>
+					<tr>
+						<td class="td_campi_form"><label for="id">Codice Persona:</label></td>
+						<td style="height: 49px"><input name="codicepersona"
+							type="text" id="codicepersona" style="width: 185px" /></td>
+					</tr>
+					<tr>
+						<td class="td_campi_form"><label for="id">Password:</label></td>
+						<td style="height: 49px"><input name="password"
+							type="password" id="password" class="auto-style3"
+							style="width: 185px" /></td>
+					</tr>
+					<tr>
+						<td class="td_campi_form"><label for="id">E-mail:</label></td>
+						<td style="height: 49px"><input name="email" type="text"
+							id="email" style="width: 185px" /></td>
+					</tr>
+					</table>
+					</fieldset>
+					</form>
+
 				</div>
 
 			</div>
