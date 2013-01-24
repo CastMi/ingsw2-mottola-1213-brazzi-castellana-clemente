@@ -1,6 +1,8 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.ILogin;
+import it.swimv2.util.IFactory;
+import it.swimv2.util.SimpleFactory;
 import it.swimv2.util.UtenteEnum;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package it.swimv2.servlet;
+package it.swimv2.util;
 
 import it.swimv2.controller.remoteController.IAmicizia;
 import it.swimv2.controller.remoteController.ILogin;

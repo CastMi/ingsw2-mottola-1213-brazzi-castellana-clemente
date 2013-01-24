@@ -1,6 +1,9 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IAmicizia;
+import it.swimv2.util.IFactory;
+import it.swimv2.util.SimpleFactory;
+
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;

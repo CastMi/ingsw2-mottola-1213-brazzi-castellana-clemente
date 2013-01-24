@@ -2,6 +2,9 @@ package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IRegistrazione;
 import it.swimv2.util.ErroriRegistrazione;
+import it.swimv2.util.IFactory;
+import it.swimv2.util.SimpleFactory;
+
 import java.io.IOException;
 
 import javax.naming.NamingException;

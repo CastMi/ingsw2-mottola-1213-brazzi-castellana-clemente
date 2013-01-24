@@ -1,4 +1,4 @@
-package it.swimv2.servlet;
+package it.swimv2.util;
 
 import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
