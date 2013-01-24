@@ -5,6 +5,8 @@ import javax.rmi.PortableRemoteObject;
 
 import it.swimv2.controller.remoteController.IAmicizia;
 import it.swimv2.controller.remoteController.ILogin;
+import it.swimv2.controller.remoteController.IManagerDomanda;
+import it.swimv2.controller.remoteController.IManagerRisposta;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.controller.remoteController.IRegistrazione;
@@ -14,13 +16,15 @@ import it.swimv2.util.ContextUtil;
 
 public class SimpleFactory implements IFactory {
 
-	private final String ManagerAmicizia = "ManagerAmicizia";
-	private final String ManagerLogin = "ManagerLogin";
-	private final String ManutenzioneAbilitaAmministratore = "ManagerManutenzioneAbilitaAmministratore";
-	private final String ManutenzioneAbilitaUtente = "ManagerManutenzioneAbilitaUtente";
-	private final String ManagerRegistrazione = "ManagerRegistrazione";
-	private final String ManagerRicerca = "ManagerRicercaUtenti";
-	private final String ManagerRichiestaAmicizia = "ManagerRichiestaAmicizia";
+	private final String managerAmicizia = "ManagerAmicizia";
+	private final String managerLogin = "ManagerLogin";
+	private final String manutenzioneAbilitaAmministratore = "ManagerManutenzioneAbilitaAmministratore";
+	private final String manutenzioneAbilitaUtente = "ManagerManutenzioneAbilitaUtente";
+	private final String managerRegistrazione = "ManagerRegistrazione";
+	private final String managerRicerca = "ManagerRicercaUtenti";
+	private final String managerRichiestaAmicizia = "ManagerRichiestaAmicizia";
+	private final String managerDomanda = "ManagerDomanda";
+	private final String managerRisposta = "ManagerRisposta";
 
 	private Object cercaClasseConcreta(String nomeClasseConcreta)
 			throws NamingException {
@@ -31,14 +35,14 @@ public class SimpleFactory implements IFactory {
 	@Override
 	public IAmicizia getManagerAmicizia() throws NamingException,
 			ClassCastException {
-		Object obj = this.cercaClasseConcreta(this.ManagerAmicizia);
+		Object obj = this.cercaClasseConcreta(this.managerAmicizia);
 
-		return (IAmicizia) PortableRemoteObject.narrow(obj, ILogin.class);
+		return (IAmicizia) PortableRemoteObject.narrow(obj, IAmicizia.class);
 	}
 
 	@Override
 	public ILogin getManagerLogin() throws NamingException, ClassCastException {
-		Object obj = this.cercaClasseConcreta(this.ManagerLogin);
+		Object obj = this.cercaClasseConcreta(this.managerLogin);
 
 		return (ILogin) PortableRemoteObject.narrow(obj, ILogin.class);
 	}
@@ -47,43 +51,63 @@ public class SimpleFactory implements IFactory {
 	public IManutenzioneAbilitaAmministratore getManutentoreAmministratore()
 			throws NamingException, ClassCastException {
 		Object obj = this
-				.cercaClasseConcreta(this.ManutenzioneAbilitaAmministratore);
+				.cercaClasseConcreta(this.manutenzioneAbilitaAmministratore);
 
 		return (IManutenzioneAbilitaAmministratore) PortableRemoteObject
-				.narrow(obj, ILogin.class);
+				.narrow(obj, IManutenzioneAbilitaAmministratore.class);
 	}
 
 	@Override
 	public IManutenzioneAbilitaUtente getManutentoreUtente()
 			throws NamingException, ClassCastException {
-		Object obj = this.cercaClasseConcreta(this.ManutenzioneAbilitaUtente);
+		Object obj = this.cercaClasseConcreta(this.manutenzioneAbilitaUtente);
 
 		return (IManutenzioneAbilitaUtente) PortableRemoteObject.narrow(obj,
-				ILogin.class);
+				IManutenzioneAbilitaUtente.class);
 	}
 
 	@Override
 	public IRegistrazione getGestoreRegistrazione() throws NamingException,
 			ClassCastException {
-		Object obj = this.cercaClasseConcreta(this.ManagerRegistrazione);
+		Object obj = this.cercaClasseConcreta(this.managerRegistrazione);
 
-		return (IRegistrazione) PortableRemoteObject.narrow(obj, ILogin.class);
+		return (IRegistrazione) PortableRemoteObject.narrow(obj,
+				IRegistrazione.class);
 	}
 
 	@Override
 	public IRicercaUtenti getRicercaUtenti() throws NamingException,
 			ClassCastException {
-		Object obj = this.cercaClasseConcreta(this.ManagerRicerca);
+		Object obj = this.cercaClasseConcreta(this.managerRicerca);
 
-		return (IRicercaUtenti) PortableRemoteObject.narrow(obj, ILogin.class);
+		return (IRicercaUtenti) PortableRemoteObject.narrow(obj,
+				IRicercaUtenti.class);
 	}
 
 	@Override
 	public IRichiestaAmicizia getRichiestaAmicizia() throws NamingException,
 			ClassCastException {
-		Object obj = this.cercaClasseConcreta(this.ManagerRichiestaAmicizia);
+		Object obj = this.cercaClasseConcreta(this.managerRichiestaAmicizia);
 
 		return (IRichiestaAmicizia) PortableRemoteObject.narrow(obj,
-				ILogin.class);
+				IRichiestaAmicizia.class);
+	}
+
+	@Override
+	public IManagerDomanda getManagerDomanda() throws NamingException,
+			ClassCastException {
+		Object obj = this.cercaClasseConcreta(this.managerDomanda);
+
+		return (IManagerDomanda) PortableRemoteObject.narrow(obj,
+				IManagerDomanda.class);
+	}
+
+	@Override
+	public IManagerRisposta getManagerRisposta() throws NamingException,
+			ClassCastException {
+		Object obj = this.cercaClasseConcreta(this.managerRisposta);
+
+		return (IManagerRisposta) PortableRemoteObject.narrow(obj,
+				IManagerRisposta.class);
 	}
 }

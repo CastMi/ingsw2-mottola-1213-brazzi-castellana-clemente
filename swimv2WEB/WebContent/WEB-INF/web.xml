@@ -17,7 +17,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RegistrazioneServlet</servlet-name>
-    <url-pattern>/RegistrazioneServlet</url-pattern>
+    <url-pattern>/Registrazione</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -27,7 +27,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RichiediAmiciziaServlet</servlet-name>
-    <url-pattern>/RichiediAmiciziaServlet</url-pattern>
+    <url-pattern>/RichiediAmicizia</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -37,7 +37,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AccettaAmiciziaServlet</servlet-name>
-    <url-pattern>/AccettaAmiciziaServlet</url-pattern>
+    <url-pattern>/AccettaAmicizia</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -48,5 +48,25 @@
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AccettaRichiestaAbilitaServlet</display-name>
+    <servlet-name>AccettaRichiestaAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.AccettaRichiestaAbilitaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccettaRichiestaAbilitaServlet</servlet-name>
+    <url-pattern>/AccettaRichiestaAbilita</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InviaRichiestaAbilitaServlet</display-name>
+    <servlet-name>InviaRichiestaAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.InviaRichiestaAbilitaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InviaRichiestaAbilitaServlet</servlet-name>
+    <url-pattern>/InviaRichiestaAbilita</url-pattern>
   </servlet-mapping>
 </web-app>
