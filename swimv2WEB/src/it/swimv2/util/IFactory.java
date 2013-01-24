@@ -2,6 +2,8 @@ package it.swimv2.util;
 
 import it.swimv2.controller.remoteController.IAmicizia;
 import it.swimv2.controller.remoteController.ILogin;
+import it.swimv2.controller.remoteController.IManagerDomanda;
+import it.swimv2.controller.remoteController.IManagerRisposta;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.controller.remoteController.IRegistrazione;
@@ -30,6 +32,12 @@ public interface IFactory {
 			ClassCastException;
 
 	public IRichiestaAmicizia getRichiestaAmicizia() throws NamingException,
+			ClassCastException;
+
+	public IManagerDomanda getManagerDomanda() throws NamingException,
+			ClassCastException;
+
+	public IManagerRisposta getManagerRisposta() throws NamingException,
 			ClassCastException;
 
 }
