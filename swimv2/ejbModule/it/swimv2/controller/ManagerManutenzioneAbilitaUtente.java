@@ -1,6 +1,5 @@
 package it.swimv2.controller;
 
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +13,6 @@ import it.swimv2.util.InvioRichiestaAbilitaEnum;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
 
 @Stateless
-@Remote(IManutenzioneAbilitaUtente.class)
 public final class ManagerManutenzioneAbilitaUtente extends
 		ManagerManutenzioneAbilita implements IManutenzioneAbilitaUtente {
 

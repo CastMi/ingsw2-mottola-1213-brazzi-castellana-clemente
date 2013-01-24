@@ -5,7 +5,7 @@ import java.util.List;
 import it.swimv2.controller.remoteController.IRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
 
-import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,7 +14,7 @@ import javax.persistence.Query;
  * @author Daniele
  *
  */
-@Remote(IRichiestaAmicizia.class)
+@Stateless
 public class ManagerRichiestaAmicizia implements IRichiestaAmicizia {
 
 	@PersistenceContext(unitName = "swimv2DB")
@@ -34,8 +34,10 @@ public class ManagerRichiestaAmicizia implements IRichiestaAmicizia {
 	 */
 	@Override
 	public void rimuoviRichiestaAmicizia(int id){
-		Query query = entityManager.createNamedQuery("RichiestaAmicizia.eliminaRichiestaAmicizia");
-		query.setParameter("id", id);
+		RichiestaAmicizia temp = entityManager.find(RichiestaAmicizia.class, id);
+		entityManager.getTransaction().begin();
+		entityManager.remove(temp);
+		entityManager.getTransaction().commit();		
 	}
 	
 	public RichiestaAmicizia getRichiestaAmicizia(int mittente, int destinatario){

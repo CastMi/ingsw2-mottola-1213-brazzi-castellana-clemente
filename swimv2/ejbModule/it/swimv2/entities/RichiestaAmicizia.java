@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -20,26 +22,26 @@ import javax.persistence.Table;
 		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerIdUtente", query = "SELECT r FROM RichiestaAmicizia r WHERE r.idDestinatario = :idUtente"),
 		@NamedQuery(name = "RichiestaAmicizia.getAmiciziaPerIdRichiestaAmicizia", query = "SELECT r FROM RichiestaAmicizia r WHERE r.id = :id"),
 		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario", query = "SELECT r FROM RichiestaAmicizia r WHERE r.idDestinatario = :idDestinatario AND r.idRichiedente = :idRichiedente "),
-		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "SELECT MAX(r.id)+1 as max_id FROM RichiestaAmicizia r")
-})
-
+		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "SELECT MAX(r.id)+1 as max_id FROM RichiestaAmicizia r") })
 @Entity
-@Table(name="RichiestaAmicizia")
-public class RichiestaAmicizia {
-	
+@Table(name = "RichiestaAmicizia")
+public class RichiestaAmicizia implements Serializable {
+
+	private static final long serialVersionUID = -3464474854877853025L;
+
 	@Id
-    @GeneratedValue
+	@GeneratedValue
 	@Column(name = "id")
 	private int idRichiestaAmicizia;
-	
-	@Column(name="idDestinatario")
+
+	@Column(name = "idDestinatario")
 	private int idDestinatario;
-	
-	@Column(name="idRichiedente")
+
+	@Column(name = "idRichiedente")
 	private int idRichiedente;
-	
+
 	@Lob
-	@Column(name="note")
+	@Column(name = "note")
 	private String note;
 
 	public RichiestaAmicizia(int idRichiedente, int idDestinatario, String note) {
@@ -51,7 +53,7 @@ public class RichiestaAmicizia {
 	public int getIdDestinatario() {
 		return idDestinatario;
 	}
-	
+
 	public String getNote() {
 		return note;
 	}
@@ -63,5 +65,5 @@ public class RichiestaAmicizia {
 	public int getIdRichiestaAmicizia() {
 		return idRichiestaAmicizia;
 	}
-	
+
 }

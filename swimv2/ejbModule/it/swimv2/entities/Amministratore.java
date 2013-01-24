@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,9 @@ import javax.persistence.Table;
 })
 @Entity
 @Table(name = "Amministratore")
-public class Amministratore {
+public class Amministratore implements Serializable {
+
+	private static final long serialVersionUID = 5968228689127557217L;
 
 	@Id
 	@GeneratedValue

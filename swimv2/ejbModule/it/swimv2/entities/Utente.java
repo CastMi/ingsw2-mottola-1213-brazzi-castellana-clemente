@@ -15,18 +15,18 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @NamedQueries({
 		// Query di estrazione dati
 		@NamedQuery(name = "Utente.getTuttiIUtentiDisponibili", query = "SELECT u FROM Utente u"),
-		@NamedQuery(name = "Utente.getUtentePerId", query = "SELECT u FROM Utente u WHERE u.id = :id"),
 		@NamedQuery(name = "Utente.getUtentiPerNome", query = "SELECT u FROM Utente u WHERE u.nome = :nome"),
 		@NamedQuery(name = "Utente.getUtentiPerCognome", query = "SELECT u FROM Utente u WHERE u.cognome = :cognome"),
-		@NamedQuery(name = "Utente.getUtentiPerUsername", query = "SELECT u FROM Utente u WHERE u.username = :username"),
+		@NamedQuery(name = "Utente.getUtentePerUsername", query = "SELECT u FROM Utente u WHERE u.username = :username"),
 		@NamedQuery(name = "Utente.getUtentePerEmail", query = "SELECT u FROM Utente u WHERE u.email = :email") })
 @Entity
 @Table(name = "Utente")
 public class Utente implements Serializable, IUtente, Cloneable {
+
+	private static final long serialVersionUID = 7553687756826590720L;
 
 	@Column(name = "name", nullable = false)
 	private String nome;
@@ -35,7 +35,7 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	private String cognome;
 
 	@Id
-	@Column(name = "username", unique = true, nullable = false)
+	@Column(name = "username")
 	private String username;
 
 	@Column(name = "password", nullable = false)
@@ -44,7 +44,6 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	// FIXME da ricontrollare questa relazione manytomany
 	@ManyToMany
 	@JoinTable(name = "Associazione_Utente_Abilita", joinColumns = @JoinColumn(name = "utente_id"), inverseJoinColumns = @JoinColumn(name = "abilita_name"))
 	private Set<Abilita> abilita;

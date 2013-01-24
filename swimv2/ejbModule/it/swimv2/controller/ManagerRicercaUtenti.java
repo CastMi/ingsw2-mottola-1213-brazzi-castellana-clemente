@@ -6,7 +6,6 @@ import it.swimv2.controller.remoteController.IRicercaUtenti;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IUtente;
 
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +13,6 @@ import javax.persistence.Query;
 
 @Stateless
 @SuppressWarnings("unchecked")
-@Remote(IRicercaUtenti.class)
 public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@PersistenceContext(unitName = "swimv2DB")
@@ -58,7 +56,7 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@Override
 	public IUtente[] ricercaUtentiPerUsername(String stringa) {
-		Query query = entityManager.createNamedQuery("Utente.getUtentiPerUsername");
+		Query query = entityManager.createNamedQuery("Utente.getUtentePerUsername");
 		query.setParameter("username", stringa);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
@@ -75,7 +73,7 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@Override
 	public IUtente[] ricercaUtentiPerEmail(String stringa) {
-		Query query = entityManager.createNamedQuery("Utente.isUtentePerEmail");
+		Query query = entityManager.createNamedQuery("Utente.getUtentePerEmail");
 		query.setParameter("email", stringa);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {

@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,8 +27,10 @@ import javax.persistence.Table;
 @Entity
 @Table(	name = "Amicizia" )
 @IdClass(AmiciziaPK.class)
-public class Amicizia {
+public class Amicizia implements Serializable {
 	
+	private static final long serialVersionUID = 3181884424066437840L;
+
 	@Id
 	@Column(name="idUtente1")
 	private int idUtente1;
