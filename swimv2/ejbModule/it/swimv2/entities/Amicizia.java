@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import it.swimv2.entities.remoteEntities.IAmicizia;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -27,7 +29,7 @@ import javax.persistence.Table;
 @Entity
 @Table(	name = "Amicizia" )
 @IdClass(AmiciziaPK.class)
-public class Amicizia implements Serializable {
+public class Amicizia implements Serializable, IAmicizia {
 	
 	private static final long serialVersionUID = 3181884424066437840L;
 
@@ -44,6 +46,10 @@ public class Amicizia implements Serializable {
 		this.idUtente2 = idUtente2;
 	}
 	
+	/* (non-Javadoc)
+	 * @see it.swimv2.entities.IAmicizia#getIdUtente1()
+	 */
+	@Override
 	public int getIdUtente1() {
 		return idUtente1;
 	}
@@ -52,6 +58,10 @@ public class Amicizia implements Serializable {
 		this.idUtente1 = idUtente1;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.swimv2.entities.IAmicizia#getIdUtente2()
+	 */
+	@Override
 	public int getIdUtente2() {
 		return idUtente2;
 	}
@@ -60,11 +70,10 @@ public class Amicizia implements Serializable {
 		this.idUtente2 = idUtente2;
 	}
 	
-	/**
-	 * @param utente
-	 *            : ID utente da verificare se è presente nell'entità
-	 * @return true se è presente
+	/* (non-Javadoc)
+	 * @see it.swimv2.entities.IAmicizia#utentePresente(int)
 	 */
+	@Override
 	public boolean utentePresente(int utente) {
 		return (this.idUtente1 == utente || this.idUtente2 == utente);
 

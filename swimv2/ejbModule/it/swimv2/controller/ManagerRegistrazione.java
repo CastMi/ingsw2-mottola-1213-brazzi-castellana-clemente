@@ -24,20 +24,24 @@ public class ManagerRegistrazione implements IRegistrazione {
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 	private ErroriRegistrazione status = new ErroriRegistrazione();
-	private Utente utente;
 
-	/* (non-Javadoc)
-	 * @see it.swimv2.controller.IRegistrazione#nuovaRegistrazione(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	// FIXME DA RIFARE...IL VALORE RESTITUITO NON E' UNA ENUM MA LA CLASSE
+	// (ErroriRegistrazione), DALL'ALTRA PARTE NON LA POTRESTI INSTANZIARE
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * it.swimv2.controller.IRegistrazione#nuovaRegistrazione(java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public ErroriRegistrazione nuovaRegistrazione(String nome, String cognome,
 			String email, String id, String password) {
-
 		controlloDatiInseriti(nome, cognome, email, id, password);
 		if (status.registrazioneValida()) {
 			completaRegistrazione(nome, cognome, email, id, password);
 		}
-
 		return status;
 	}
 
@@ -50,16 +54,13 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 */
 	private void completaRegistrazione(String nome, String cognome,
 			String email, String id, String password) {
-
-		utente = new Utente();
+		Utente utente = new Utente();
 		utente.setCognome(cognome);
 		utente.setNome(nome);
 		utente.setEmail(email);
 		utente.setPassword(password);
-//TODO		utente.setId(id);
 		entityManager.persist(utente);
 		return;
-
 	}
 
 	/**
@@ -71,7 +72,6 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 */
 	private void controlloDatiInseriti(String nome, String cognome,
 			String email, String nomeUtente, String password) {
-
 		checkNome(nome, cognome);
 		checkEmail(email);
 		checkPassword(password);
@@ -83,7 +83,6 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 */
 	@SuppressWarnings("unchecked")
 	private void checkId(String nomeUtente) {
-
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
 				.setParameter("Id", nomeUtente);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
@@ -104,7 +103,6 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 * @param password
 	 */
 	private void checkPassword(String password) {
-
 		if (password.isEmpty()) {
 			status.ErrorePassword = true;
 		}

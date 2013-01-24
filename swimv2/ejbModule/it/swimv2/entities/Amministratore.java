@@ -1,10 +1,11 @@
 package it.swimv2.entities;
 
+import it.swimv2.entities.remoteEntities.IAmministratore;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -14,36 +15,32 @@ import javax.persistence.Table;
  * @author Daniele
  * 
  */
-@NamedQueries({
-	@NamedQuery(name = "Amministratore.getAmministratore", 
-			query = "SELECT a FROM Amministratore a")
-})
+@NamedQueries({ @NamedQuery(name = "Amministratore.getAmministratore", query = "SELECT a FROM Amministratore a") })
 @Entity
 @Table(name = "Amministratore")
-public class Amministratore implements Serializable {
+public class Amministratore implements Serializable, IAmministratore {
 
 	private static final long serialVersionUID = 5968228689127557217L;
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id")
-	private int id;
+	@Column(name = "username")
+	private String username;
 
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	/**
-	 * @return
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.entities.IAmministratore#getId()
 	 */
-	public int getId() {
-		return id;
+	@Override
+	public String getUsername() {
+		return username;
 	}
 
-	/**
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	/**
@@ -53,9 +50,12 @@ public class Amministratore implements Serializable {
 		this.password = password;
 	}
 
-	/**
-	 * @return
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.entities.IAmministratore#getPassword()
 	 */
+	@Override
 	public String getPassword() {
 		return password;
 	}

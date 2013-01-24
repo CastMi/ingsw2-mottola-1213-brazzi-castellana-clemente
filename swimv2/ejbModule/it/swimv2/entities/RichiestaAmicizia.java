@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import it.swimv2.entities.remoteEntities.IRichiestaAmicizia;
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -25,10 +27,12 @@ import javax.persistence.Table;
 		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "SELECT MAX(r.id)+1 as max_id FROM RichiestaAmicizia r") })
 @Entity
 @Table(name = "RichiestaAmicizia")
-public class RichiestaAmicizia implements Serializable {
+public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 
 	private static final long serialVersionUID = -3464474854877853025L;
 
+	// FIXME NON ESISTE PIU' L'ID DELL'UTENTE QUINDI idDestinatario E
+	// idRichiedente SONO SBAGLIATI, USARE LO USERNAME DELL'UTENTE
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
@@ -50,18 +54,42 @@ public class RichiestaAmicizia implements Serializable {
 		this.note = note;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.entities.IRichiestaAmicizia#getIdDestinatario()
+	 */
+	@Override
 	public int getIdDestinatario() {
 		return idDestinatario;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.entities.IRichiestaAmicizia#getNote()
+	 */
+	@Override
 	public String getNote() {
 		return note;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.entities.IRichiestaAmicizia#getIdRichiedente()
+	 */
+	@Override
 	public int getIdRichiedente() {
 		return idRichiedente;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.entities.IRichiestaAmicizia#getIdRichiestaAmicizia()
+	 */
+	@Override
 	public int getIdRichiestaAmicizia() {
 		return idRichiestaAmicizia;
 	}

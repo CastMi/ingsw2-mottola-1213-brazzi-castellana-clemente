@@ -1,5 +1,7 @@
 package it.swimv2.entities;
 
+import it.swimv2.entities.remoteEntities.ISuggerimentoAmicizia;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(	name = "SuggerimentoAmicizia" )
 @IdClass(SuggerimentoAmiciziaPK.class)
-public class SuggerimentoAmicizia implements Serializable {
+public class SuggerimentoAmicizia implements Serializable, ISuggerimentoAmicizia {
 
 	private static final long serialVersionUID = 5359986778176337837L;
 
@@ -28,6 +30,10 @@ public class SuggerimentoAmicizia implements Serializable {
 		this.suggerito = suggerito;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.swimv2.entities.ISuggerimentoAmicizia#getDestinatario()
+	 */
+	@Override
 	public int getDestinatario() {
 		return destinatario;
 	}
@@ -36,6 +42,10 @@ public class SuggerimentoAmicizia implements Serializable {
 		this.destinatario = destinatario;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.swimv2.entities.ISuggerimentoAmicizia#getSuggerito()
+	 */
+	@Override
 	public int getSuggerito() {
 		return suggerito;
 	}
@@ -44,11 +54,10 @@ public class SuggerimentoAmicizia implements Serializable {
 		this.suggerito = suggerito;
 	}
 
-	/**
-	 * @param utente
-	 *            : ID utente da verificare se è presente nell'entità
-	 * @return true se è presente
+	/* (non-Javadoc)
+	 * @see it.swimv2.entities.ISuggerimentoAmicizia#utentePresente(int)
 	 */
+	@Override
 	public boolean utentePresente(int utente) {
 		return (this.destinatario == utente || this.suggerito == utente);
 

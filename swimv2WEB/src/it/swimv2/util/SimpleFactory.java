@@ -3,7 +3,7 @@ package it.swimv2.util;
 import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 
-import it.swimv2.controller.remoteController.IAmicizia;
+import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.controller.remoteController.ILogin;
 import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.controller.remoteController.IManagerRisposta;
@@ -11,7 +11,7 @@ import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.controller.remoteController.IRegistrazione;
 import it.swimv2.controller.remoteController.IRicercaUtenti;
-import it.swimv2.controller.remoteController.IRichiestaAmicizia;
+import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.util.ContextUtil;
 
 public class SimpleFactory implements IFactory {
@@ -33,11 +33,11 @@ public class SimpleFactory implements IFactory {
 	}
 
 	@Override
-	public IAmicizia getManagerAmicizia() throws NamingException,
+	public IManagerAmicizia getManagerAmicizia() throws NamingException,
 			ClassCastException {
 		Object obj = this.cercaClasseConcreta(this.managerAmicizia);
 
-		return (IAmicizia) PortableRemoteObject.narrow(obj, IAmicizia.class);
+		return (IManagerAmicizia) PortableRemoteObject.narrow(obj, IManagerAmicizia.class);
 	}
 
 	@Override
@@ -85,12 +85,12 @@ public class SimpleFactory implements IFactory {
 	}
 
 	@Override
-	public IRichiestaAmicizia getRichiestaAmicizia() throws NamingException,
+	public IManagerRichiestaAmicizia getRichiestaAmicizia() throws NamingException,
 			ClassCastException {
 		Object obj = this.cercaClasseConcreta(this.managerRichiestaAmicizia);
 
-		return (IRichiestaAmicizia) PortableRemoteObject.narrow(obj,
-				IRichiestaAmicizia.class);
+		return (IManagerRichiestaAmicizia) PortableRemoteObject.narrow(obj,
+				IManagerRichiestaAmicizia.class);
 	}
 
 	@Override

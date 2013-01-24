@@ -1,6 +1,6 @@
 package it.swimv2.servlet;
 
-import it.swimv2.controller.remoteController.IAmicizia;
+import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
@@ -41,7 +41,7 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unused")
 		RequestDispatcher disp;
-		IAmicizia iAmicizia;
+		IManagerAmicizia iAmicizia;
 
 		try {
 			iAmicizia = factory.getManagerAmicizia();

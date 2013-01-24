@@ -9,8 +9,6 @@ import it.swimv2.entities.Utente;
 import it.swimv2.util.PasswordCoder;
 import it.swimv2.util.UtenteEnum;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 
 import javax.persistence.EntityManager;
@@ -35,6 +33,8 @@ public class ManagerLogin implements ILogin {
 	 * java.lang.String)
 	 */
 	@Override
+	// FIXME DA RIFARE...IL VALORE RESTITUITO NON E' UNA ENUM MA LA CLASSE
+	// (UtenteEnum), DALL'ALTRA PARTE NON LA POTRESTI INSTANZIARE
 	public UtenteEnum verificaLogin(String id, String password) {
 		UtenteEnum enum1 = new UtenteEnum();
 		if (verificaLoginAmministratore(id, password)) {
@@ -49,45 +49,35 @@ public class ManagerLogin implements ILogin {
 	}
 
 	/**
-	 * @param id
+	 * @param username
 	 * @param password
 	 * @return
 	 */
 
-	private boolean verificaLoginUtente(String id, String password) {
+	private boolean verificaLoginUtente(String username, String password) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
-				.setParameter("id", id);
-		List<?> risultatoQuery = query.getResultList();
-		if (risultatoQuery.size() > 0) { // e' stato trovato il codicePersona
-											// nel database
-			Utente utente = (Utente) risultatoQuery.get(0);
-			if (verificaPassword(password, utente.getPassword())) {
-				return true;
-			}
-		}
-		// codice persona non trovato
-		return false;
+				.setParameter("username", username);
+		Utente risultatoQuery = (Utente) query.getSingleResult();
+		if (risultatoQuery == null)
+			return false;
+
+		return verificaPassword(password, risultatoQuery.getPassword());
 	}
 
 	/**
-	 * @param id
+	 * @param username
 	 * @param password
 	 * @return
 	 */
-	private boolean verificaLoginAmministratore(String id, String password) {
+	private boolean verificaLoginAmministratore(String username, String password) {
 		Query query = entityManager
 				.createNamedQuery("Amministratore.getAmministratore");
-		List<?> risultatoQuery = query.getResultList();
-		if (risultatoQuery.size() > 0) { // e' stato trovato il codicePersona
-											// nel database
-			Amministratore amministratore = (Amministratore) risultatoQuery
-					.get(0);
-			if (verificaPassword(password, amministratore.getPassword())) {
-				return true;
-			}
-		}
-		// codice persona non trovato
-		return false;
+		Amministratore risultatoQuery = (Amministratore) query
+				.getSingleResult();
+		if (risultatoQuery == null)
+			return false;
+
+		return verificaPassword(password, risultatoQuery.getPassword());
 	}
 
 	/**
@@ -96,7 +86,6 @@ public class ManagerLogin implements ILogin {
 	 * @return
 	 */
 	private boolean verificaPassword(String password, String passwordCodificata) {
-
 		return PasswordCoder.verificaPassword(password, passwordCodificata);
 	}
 }
