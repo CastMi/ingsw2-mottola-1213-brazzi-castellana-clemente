@@ -17,23 +17,21 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RichiestaAmiciziaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RichiestaAmiciziaServlet() {
-        super();
-    }
+
+	private final IFactory factory = new SimpleFactory();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			RequestDispatcher disp;
-			disp = request.getRequestDispatcher(response.encodeURL("WEB-INF/RichiestaInviata.jsp"));
-			disp.forward(request, response);
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher disp;
+		disp = request.getRequestDispatcher(response
+				.encodeURL("WEB-INF/RichiestaInviata.jsp"));
+		disp.forward(request, response);
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -42,26 +40,23 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unused")
 		RequestDispatcher disp;
-		Object obj;
-		// metodi per il naming
+		IRichiestaAmicizia iRichiestaAmicizia;
 		try {
-			obj = ContextUtil
-					.getInitialContext()
-					.lookup("/swimv2/ejbModule/it/swimv2/controller/remoteController/IRichiestaAmicizia.java");
-		
-		IRichiestaAmicizia iRichiestaAmicizia = (IRichiestaAmicizia) PortableRemoteObject
-				.narrow(obj, IRichiestaAmicizia.class);
+			iRichiestaAmicizia = factory.getRichiestaAmicizia();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+
 		// ricezione dati provenienti dalla jsp
 		int richiedente = Integer.parseInt(request.getParameter("richiedente"));
-		int destinatario = Integer.parseInt(request.getParameter("destinatario"));
+		int destinatario = Integer.parseInt(request
+				.getParameter("destinatario"));
 		String note = request.getParameter("note");
-		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente, destinatario, note);
+		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
+				destinatario, note);
 		disp = request.getRequestDispatcher(response
 				.encodeURL("WEB-INF/RichiestaAmiciziaEffettuata.jsp"));
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

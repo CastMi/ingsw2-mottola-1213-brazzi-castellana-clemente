@@ -108,12 +108,6 @@
 		</div>
 		<div style="clear: both;"></div>
 	</div>
-
-	<div id="footer">
-		<p>Designed by Brazzi Castellana Clemente.</p>
-
-	</div>
 </div>
 
-</body>
-</html>
+<jsp:include page="Footer.jsp" />

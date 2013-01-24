@@ -17,12 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AccettaAmiciziaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AccettaAmiciziaServlet() {
-		super();
-	}
+	private IFactory factory = new SimpleFactory();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -36,33 +31,27 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		disp.forward(request, response);
 	}
 
-	/** 
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 * 
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unused")
 		RequestDispatcher disp;
-		Object obj;
-		// metodi per il naming
+		IAmicizia iAmicizia;
+
 		try {
-			obj = ContextUtil
-					.getInitialContext()
-					.lookup("/swimv2/ejbModule/it/swimv2/controller/remoteController/IAmicizia.java");
-			@SuppressWarnings("unused")
-			IAmicizia iAmicizia = (IAmicizia) PortableRemoteObject.narrow(obj,
-					IAmicizia.class);
-			// ricezione dati provenienti dalla jsp
-			@SuppressWarnings("unused")
-			String nome = request.getParameter("nome");
-
-			// TODO capire la gestione dell'id della richiesta d'amicizia
-
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
+			iAmicizia = factory.getManagerAmicizia();
+		} catch (ClassCastException | NamingException e) {
 			e.printStackTrace();
+			return;
 		}
+
+		// ricezione dati provenienti dalla jsp
+		@SuppressWarnings("unused")
+		String nome = request.getParameter("nome");
 
 	}
 

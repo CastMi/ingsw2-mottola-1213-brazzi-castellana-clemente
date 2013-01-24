@@ -1,8 +1,6 @@
 <div id="footer">
-<p>Designed by Brazzi Castellana Clemente.</p>
+	<p>Designed by Brazzi Castellana Clemente.</p>
 </div>
-</body>
-</html>
-</div>
+</div> <!-- chiudo il div con id="class" -->
 </body>
 </html>

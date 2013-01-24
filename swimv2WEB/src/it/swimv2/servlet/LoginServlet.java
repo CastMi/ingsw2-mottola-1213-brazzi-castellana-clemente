@@ -21,12 +21,7 @@ import javax.servlet.RequestDispatcher;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LoginServlet() {
-		super();
-	}
+	private final IFactory factory = new SimpleFactory();
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -34,16 +29,17 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		ILogin iLogin;
 		UtenteEnum risultatoLogin;
-		Object obj;
-		try {
-			obj = ContextUtil
-					.getInitialContext()
-					.lookup("swimv2EAR/ManagerLogin/remote");
 
-			ILogin iLogin = (ILogin) PortableRemoteObject.narrow(obj,
-					ILogin.class);
+		try {
+			iLogin = factory.getManagerLogin();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		try {
 			String nomeUtente = request.getParameter("userName");
 			String password = request.getParameter("password");
 			risultatoLogin = iLogin.verificaLogin(nomeUtente, password);
@@ -60,9 +56,9 @@ public class LoginServlet extends HttpServlet {
 						"Errore: nome utente o password errati.");
 				showPaginaLogin(request, response);
 			}
-		} catch (NamingException | NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 	private void caricamentoHomeUtente(String nomeUtente,
