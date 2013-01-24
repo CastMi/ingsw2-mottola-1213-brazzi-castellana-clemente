@@ -38,19 +38,19 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 	@Column(name = "id")
 	private int idRichiestaAmicizia;
 
-	@Column(name = "idDestinatario")
-	private int idDestinatario;
+	@Column(name = "destinatario")
+	private String destinatario;
 
-	@Column(name = "idRichiedente")
-	private int idRichiedente;
+	@Column(name = "richiedente")
+	private String richiedente;
 
 	@Lob
 	@Column(name = "note")
 	private String note;
 
-	public RichiestaAmicizia(int idRichiedente, int idDestinatario, String note) {
-		this.idRichiedente = idRichiedente;
-		this.idDestinatario = idDestinatario;
+	public RichiestaAmicizia(String idRichiedente, String idDestinatario, String note) {
+		this.richiedente = idRichiedente;
+		this.destinatario = idDestinatario;
 		this.note = note;
 	}
 
@@ -60,8 +60,8 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 	 * @see it.swimv2.entities.IRichiestaAmicizia#getIdDestinatario()
 	 */
 	@Override
-	public int getIdDestinatario() {
-		return idDestinatario;
+	public String getIdDestinatario() {
+		return destinatario;
 	}
 
 	/*
@@ -80,8 +80,8 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 	 * @see it.swimv2.entities.IRichiestaAmicizia#getIdRichiedente()
 	 */
 	@Override
-	public int getIdRichiedente() {
-		return idRichiedente;
+	public String getIdRichiedente() {
+		return richiedente;
 	}
 
 	/*

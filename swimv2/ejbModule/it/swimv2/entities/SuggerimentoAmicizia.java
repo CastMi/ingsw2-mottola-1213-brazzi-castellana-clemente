@@ -19,13 +19,13 @@ public class SuggerimentoAmicizia implements Serializable, ISuggerimentoAmicizia
 
 	@Id
 	@Column(name = "destinatario")
-	private int destinatario;
+	private String destinatario;
 
 	@Id
 	@Column(name = "suggerito")
-	private int suggerito;
+	private String suggerito;
 
-	public SuggerimentoAmicizia(int destinatario, int suggerito) {
+	public SuggerimentoAmicizia(String destinatario, String suggerito) {
 		this.destinatario = destinatario;
 		this.suggerito = suggerito;
 	}
@@ -34,11 +34,11 @@ public class SuggerimentoAmicizia implements Serializable, ISuggerimentoAmicizia
 	 * @see it.swimv2.entities.ISuggerimentoAmicizia#getDestinatario()
 	 */
 	@Override
-	public int getDestinatario() {
+	public String getDestinatario() {
 		return destinatario;
 	}
 
-	public void setDestinatario(int destinatario) {
+	public void setDestinatario(String destinatario) {
 		this.destinatario = destinatario;
 	}
 
@@ -46,19 +46,19 @@ public class SuggerimentoAmicizia implements Serializable, ISuggerimentoAmicizia
 	 * @see it.swimv2.entities.ISuggerimentoAmicizia#getSuggerito()
 	 */
 	@Override
-	public int getSuggerito() {
+	public String getSuggerito() {
 		return suggerito;
 	}
 
-	public void setSuggerito(int suggerito) {
+	public void setSuggerito(String suggerito) {
 		this.suggerito = suggerito;
 	}
 
 	/* (non-Javadoc)
-	 * @see it.swimv2.entities.ISuggerimentoAmicizia#utentePresente(int)
+	 * @see it.swimv2.entities.ISuggerimentoAmicizia#utentePresente(String)
 	 */
 	@Override
-	public boolean utentePresente(int utente) {
+	public boolean utentePresente(String utente) {
 		return (this.destinatario == utente || this.suggerito == utente);
 
 	}

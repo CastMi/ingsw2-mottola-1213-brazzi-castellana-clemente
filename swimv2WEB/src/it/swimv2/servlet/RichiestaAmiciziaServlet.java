@@ -50,9 +50,8 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		int richiedente = Integer.parseInt(request.getParameter("richiedente"));
-		int destinatario = Integer.parseInt(request
-				.getParameter("destinatario"));
+		String richiedente = request.getParameter("richiedente");
+		String destinatario = request.getParameter("destinatario");
 		String note = request.getParameter("note");
 		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
 				destinatario, note);

@@ -25,11 +25,11 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * it.swimv2.controller.IRichiestaAmicizia#creaNuovaRichiestaAmicizia(int,
-	 * int, java.lang.String)
+	 * it.swimv2.controller.IRichiestaAmicizia#creaNuovaRichiestaAmicizia(String,
+	 * String, java.lang.String)
 	 */
 	@Override
-	public void creaNuovaRichiestaAmicizia(int idMittente, int idDestinatario,
+	public void creaNuovaRichiestaAmicizia(String idMittente, String idDestinatario,
 			String note) {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(idMittente,
 				idDestinatario, note);
@@ -53,7 +53,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		entityManager.getTransaction().commit();
 	}
 
-	public RichiestaAmicizia getRichiestaAmicizia(int mittente, int destinatario) {
+	public RichiestaAmicizia getRichiestaAmicizia(String mittente, String destinatario) {
 		Query query = entityManager
 				.createNamedQuery(
 						"RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario")

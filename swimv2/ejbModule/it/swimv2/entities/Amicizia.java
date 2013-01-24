@@ -35,13 +35,13 @@ public class Amicizia implements Serializable, IAmicizia {
 
 	@Id
 	@Column(name="idUtente1")
-	private int idUtente1;
+	private String idUtente1;
 
 	@Id
 	@Column(name="idUtente2")
-	private int idUtente2;
+	private String idUtente2;
 	
-	public Amicizia(int idUtente1, int idUtente2) {
+	public Amicizia(String idUtente1, String idUtente2) {
 		this.idUtente1 = idUtente1;
 		this.idUtente2 = idUtente2;
 	}
@@ -50,11 +50,11 @@ public class Amicizia implements Serializable, IAmicizia {
 	 * @see it.swimv2.entities.IAmicizia#getIdUtente1()
 	 */
 	@Override
-	public int getIdUtente1() {
+	public String getIdUtente1() {
 		return idUtente1;
 	}
 
-	public void setIdUtente1(int idUtente1) {
+	public void setIdUtente1(String idUtente1) {
 		this.idUtente1 = idUtente1;
 	}
 
@@ -62,19 +62,19 @@ public class Amicizia implements Serializable, IAmicizia {
 	 * @see it.swimv2.entities.IAmicizia#getIdUtente2()
 	 */
 	@Override
-	public int getIdUtente2() {
+	public String getIdUtente2() {
 		return idUtente2;
 	}
 
-	public void setIdUtente2(int idUtente2) {
+	public void setIdUtente2(String idUtente2) {
 		this.idUtente2 = idUtente2;
 	}
 	
 	/* (non-Javadoc)
-	 * @see it.swimv2.entities.IAmicizia#utentePresente(int)
+	 * @see it.swimv2.entities.IAmicizia#utentePresente(String)
 	 */
 	@Override
-	public boolean utentePresente(int utente) {
+	public boolean utentePresente(String utente) {
 		return (this.idUtente1 == utente || this.idUtente2 == utente);
 
 	}

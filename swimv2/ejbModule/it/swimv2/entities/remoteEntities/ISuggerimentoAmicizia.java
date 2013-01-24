@@ -2,15 +2,15 @@ package it.swimv2.entities.remoteEntities;
 
 public interface ISuggerimentoAmicizia {
 
-	public int getDestinatario();
+	public String getDestinatario();
 
-	public int getSuggerito();
+	public String getSuggerito();
 
 	/**
 	 * @param utente
 	 *            : ID utente da verificare se è presente nell'entità
 	 * @return true se è presente
 	 */
-	public boolean utentePresente(int utente);
+	public boolean utentePresente(String utente);
 
 }

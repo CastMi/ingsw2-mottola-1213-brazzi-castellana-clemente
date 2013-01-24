@@ -6,12 +6,13 @@ public class SuggerimentoAmiciziaPK implements Serializable {
 
 	private static final long serialVersionUID = -336246507697779943L;
 
-	private int destinatario;
+	private String destinatario;
 
-	private int suggerito;
+	private String suggerito;
 
-	public SuggerimentoAmiciziaPK() {
-		super();
+	public SuggerimentoAmiciziaPK(String destinatario, String suggerito) {
+		this.destinatario = destinatario;
+		this.suggerito = suggerito;
 	}
 
 	@Override
@@ -21,7 +22,8 @@ public class SuggerimentoAmiciziaPK implements Serializable {
 		if (!(obj instanceof SuggerimentoAmiciziaPK))
 			return false;
 		SuggerimentoAmiciziaPK pk = (SuggerimentoAmiciziaPK) obj;
-		return pk.destinatario == destinatario && pk.suggerito == suggerito;
+		return pk.destinatario.equals(destinatario)
+				&& pk.suggerito.equals(suggerito);
 	}
 
 }

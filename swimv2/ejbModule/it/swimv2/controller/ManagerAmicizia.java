@@ -28,7 +28,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 	 * RichiestaAmicizia)
 	 */
 	@Override
-	public void creaAmicizia(int mittente, int destinatario) {
+	public void creaAmicizia(String mittente, String destinatario) {
 		ManagerRichiestaAmicizia managerRichiestaAmicizia = new ManagerRichiestaAmicizia();
 		RichiestaAmicizia richiestaAmicizia = managerRichiestaAmicizia
 				.getRichiestaAmicizia(mittente, destinatario);
