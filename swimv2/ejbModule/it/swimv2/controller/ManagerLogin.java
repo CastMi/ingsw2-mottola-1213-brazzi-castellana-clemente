@@ -9,9 +9,7 @@ import it.swimv2.entities.Utente;
 import it.swimv2.util.PasswordCoder;
 import it.swimv2.util.UtenteEnum;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 
 import javax.ejb.Stateless;
 
@@ -25,19 +23,19 @@ import javax.persistence.Query;
  */
 
 @Stateless
-
-
 public class ManagerLogin implements ILogin {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 
-	/* (non-Javadoc)
-	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String,
+	 * java.lang.String)
 	 */
 	@Override
-	public UtenteEnum verificaLogin(String id, String password)
-			throws NoSuchAlgorithmException {
+	public UtenteEnum verificaLogin(String id, String password) {
 		UtenteEnum enum1 = new UtenteEnum();
 		if (verificaLoginAmministratore(id, password)) {
 			enum1.setAmministratore(true);
@@ -54,11 +52,9 @@ public class ManagerLogin implements ILogin {
 	 * @param id
 	 * @param password
 	 * @return
-	 * @throws NoSuchAlgorithmException
 	 */
-	
-	private boolean verificaLoginUtente(String id, String password)
-			throws NoSuchAlgorithmException {
+
+	private boolean verificaLoginUtente(String id, String password) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
 				.setParameter("id", id);
 		List<?> risultatoQuery = query.getResultList();
@@ -77,10 +73,8 @@ public class ManagerLogin implements ILogin {
 	 * @param id
 	 * @param password
 	 * @return
-	 * @throws NoSuchAlgorithmException
 	 */
-	private boolean verificaLoginAmministratore(String id, String password)
-			throws NoSuchAlgorithmException {
+	private boolean verificaLoginAmministratore(String id, String password) {
 		Query query = entityManager
 				.createNamedQuery("Amministratore.getAmministratore");
 		List<?> risultatoQuery = query.getResultList();
@@ -100,10 +94,8 @@ public class ManagerLogin implements ILogin {
 	 * @param password
 	 * @param passwordCodificata
 	 * @return
-	 * @throws NoSuchAlgorithmException
 	 */
-	private boolean verificaPassword(String password, String passwordCodificata)
-			throws NoSuchAlgorithmException {
+	private boolean verificaPassword(String password, String passwordCodificata) {
 
 		return PasswordCoder.verificaPassword(password, passwordCodificata);
 	}

@@ -14,12 +14,16 @@ public class PasswordCoder {
 	/**
 	 * @param password
 	 * @return
-	 * @throws NoSuchAlgorithmException
 	 */
-	public static String getPasswordCodificata(String password)
-			throws NoSuchAlgorithmException {
+	public static String getPasswordCodificata(String password) {
 
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
 		byte[] hashBytes = digest.digest(password.getBytes());
 		String hashString = Base64.encode(hashBytes);
 		return hashString;
@@ -29,10 +33,9 @@ public class PasswordCoder {
 	 * @param password
 	 * @param passwordCodificata
 	 * @return
-	 * @throws NoSuchAlgorithmException
 	 */
 	public static boolean verificaPassword(String password,
-			String passwordCodificata) throws NoSuchAlgorithmException {
+			String passwordCodificata) {
 
 		return (passwordCodificata.equals(getPasswordCodificata(password)));
 	}

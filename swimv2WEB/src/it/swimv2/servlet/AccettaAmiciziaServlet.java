@@ -1,9 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IAmicizia;
-import it.swimv2.util.ContextUtil;
 import javax.naming.NamingException;
-import javax.rmi.PortableRemoteObject;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AccettaAmiciziaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private IFactory factory = new SimpleFactory();
+	private final IFactory factory = new SimpleFactory();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

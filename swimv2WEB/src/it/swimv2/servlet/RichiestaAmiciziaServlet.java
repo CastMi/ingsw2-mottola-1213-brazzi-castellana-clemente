@@ -1,11 +1,9 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IRichiestaAmicizia;
-import it.swimv2.util.ContextUtil;
 import java.io.IOException;
 
 import javax.naming.NamingException;
-import javax.rmi.PortableRemoteObject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -171,15 +171,11 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		Query query = entityManager
 				.createNamedQuery("RichiestaAbilita.getTutteLeRichiesteDiAbilita");
 		List<?> risultatoQuery = query.getResultList();
-		if (risultatoQuery.size() > 0) {
-			IRichiestaAbilita[] richieste = new RichiestaAbilita[risultatoQuery
-					.size()];
-			for (int i = 0; i < richieste.length; i++) {
-				richieste[i] = (RichiestaAbilita) risultatoQuery.get(i);
-			}
-			return richieste;
-		}
-		return null;
+		
+		if (risultatoQuery.size() <= 0) 
+			return null;
+		
+		return (IRichiestaAbilita[]) risultatoQuery.toArray();
 	}
 
 	@Override

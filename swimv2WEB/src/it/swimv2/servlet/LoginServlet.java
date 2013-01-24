@@ -1,14 +1,11 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.ILogin;
-import it.swimv2.util.ContextUtil;
 import it.swimv2.util.UtenteEnum;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 import javax.naming.NamingException;
-import javax.rmi.PortableRemoteObject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +28,6 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		ILogin iLogin;
 		UtenteEnum risultatoLogin;
-
 		try {
 			iLogin = factory.getManagerLogin();
 		} catch (ClassCastException | NamingException e) {
@@ -39,25 +35,19 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
-		try {
-			String nomeUtente = request.getParameter("userName");
-			String password = request.getParameter("password");
-			risultatoLogin = iLogin.verificaLogin(nomeUtente, password);
-			if (risultatoLogin.isAmministratore()) {
-				request.setAttribute("nomeUtente", nomeUtente);
-				request.setAttribute("password", password);
-				caricamentoHomeAmministratore(request, response);
-			} else if (risultatoLogin.isUtente()) {
-				request.setAttribute("messaggio",
-						"Errore: codice utente o password errati.");
-				caricamentoHomeUtente(nomeUtente, request, response);
-			} else {
-				request.setAttribute("messaggio",
-						"Errore: nome utente o password errati.");
-				showPaginaLogin(request, response);
-			}
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		String nomeUtente = request.getParameter("userName");
+		String password = request.getParameter("password");
+		risultatoLogin = iLogin.verificaLogin(nomeUtente, password);
+		if (risultatoLogin.isAmministratore()) {
+			request.getSession().setAttribute("nomeUtente", nomeUtente);
+			caricamentoHomeAmministratore(request, response);
+		} else if (risultatoLogin.isUtente()) {
+			request.getSession().setAttribute("nomeUtente", nomeUtente);
+			caricamentoHomeUtente(nomeUtente, request, response);
+		} else {
+			request.setAttribute("messaggio",
+					"Errore: nome utente o password errati.");
+			showPaginaLogin(request, response);
 		}
 	}
 
