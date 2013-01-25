@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<persistence
-    xmlns="http://java.sun.com/xml/ns/persistence"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
-    version="1.0"> 
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
 	<persistence-unit name="swimv2DB">
 		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
 		<jta-data-source>java:/swimv2DS</jta-data-source>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
-			<!-- proprieta per impostare solo il controllo dello schema e non la creazione
-				 <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
+			<!-- proprieta per impostare solo il controllo dello schema e non la creazione 
+				<property name="hibernate.hbm2ddl.auto" value="validate" /> -->
 		</properties>
-		
-	</persistence-unit> 
+
+	</persistence-unit>
 </persistence>

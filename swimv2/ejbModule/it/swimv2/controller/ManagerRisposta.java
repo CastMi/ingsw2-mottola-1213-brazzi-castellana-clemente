@@ -4,6 +4,7 @@ import it.swimv2.controller.remoteController.IManagerRisposta;
 import it.swimv2.entities.Domanda;
 import it.swimv2.entities.Risposta;
 import it.swimv2.entities.Utente;
+import it.swimv2.entities.remoteEntities.IRisposta;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,7 +22,13 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	private EntityManager entityManager;
 
 	@Override
-	public Risposta[] ricercaRisposta(String testo) {
+	public IRisposta apriRisposta(int idRispsota) {
+
+		return entityManager.find(Risposta.class, idRispsota);
+	}
+
+	@Override
+	public IRisposta[] ricercaRisposta(String testo) {
 
 		Query query = entityManager
 				.createNamedQuery("Risposta.ricercaRisposte");
@@ -32,7 +39,7 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	}
 
 	@Override
-	public Risposta[] getRisposteByDomanda(Domanda domanda) {
+	public IRisposta[] getRisposteByDomanda(int domanda) {
 
 		Query query = entityManager
 				.createNamedQuery("Risposta.getRisposteByDomanda");
@@ -43,20 +50,23 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	}
 
 	@Override
-	public boolean rilasciaFeedback(Risposta risposta, int voto) {
+	public boolean rilasciaFeedback(int idRisposta, String userName, int voto) {
 		try {
-			entityManager.getTransaction().begin();
-			risposta.setFeedback(voto);
-			entityManager.getTransaction().commit();
+			Risposta risposta = entityManager.find(Risposta.class, idRisposta);
+			Utente utente = entityManager.find(Utente.class, userName);
+			if (risposta.getDomanda().getCreatore().equals(utente)) {
+				entityManager.getTransaction().begin();
+				risposta.setFeedback(voto);
+				entityManager.getTransaction().commit();
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
-
+		return false;
 	}
 
-	private Risposta[] ottieniRisultatoQuery(Query qy) {
+	private IRisposta[] ottieniRisultatoQuery(Query qy) {
 		@SuppressWarnings("unchecked")
 		List<Risposta> listaRis = (List<Risposta>) qy.getResultList();
 
@@ -67,16 +77,22 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	}
 
 	@Override
-	public boolean aggiungiRispsota(Domanda domanda, Utente utente,
+	public IRisposta aggiungiRispsota(int idDomanda, String userName,
 			String risposta) {
+		Domanda domanda = entityManager.find(Domanda.class, idDomanda);
+
+		Utente utente = entityManager.find(Utente.class, userName);
+
 		Risposta temp = new Risposta(domanda, utente, risposta);
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(temp);
 			entityManager.getTransaction().commit();
+			return temp;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
+		return null;
+		
 	}
 }

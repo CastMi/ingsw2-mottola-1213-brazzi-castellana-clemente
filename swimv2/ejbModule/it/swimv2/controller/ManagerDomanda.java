@@ -4,8 +4,10 @@ import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.entities.Abilita;
 import it.swimv2.entities.Domanda;
 import it.swimv2.entities.Utente;
+import it.swimv2.entities.remoteEntities.IDomanda;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,9 +23,17 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
-
+	
 	@Override
-	public Domanda[] proprieDomande(Utente utente) {
+	public IDomanda apriDomanda(int idDomanda) {
+
+		return entityManager.find(Domanda.class, idDomanda);
+	}
+	
+	@Override
+	public IDomanda[] proprieDomande(String userName) {
+		Utente utente = entityManager.find(Utente.class, userName);
+		
 		Query query = entityManager.createNamedQuery("Domanda.prorieDomande");
 
 		query.setParameter("utente", utente);
@@ -32,7 +42,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 	}
 
 	@Override
-	public Domanda[] ricercaDomande(String testo) {
+	public IDomanda[] ricercaDomande(String testo) {
 		Query query = entityManager.createNamedQuery("Domanda.ricercaDomande");
 
 		query.setParameter("testo", testo);
@@ -41,9 +51,21 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 	}
 
 	@Override
-	public Domanda creaDomanda(Utente utente, String titolo, String domanda,
-			Set<Abilita> abilita) {
-		Domanda temp = new Domanda(titolo, domanda, abilita, utente);
+	public IDomanda creaDomanda(String userName, String titoloDomanda, String descrizioneDomanda,
+			Set<String> abilita) {
+		//ricerca utente
+		Utente utente = entityManager.find(Utente.class, userName);
+		
+		// ricerca abilita
+		Set<Abilita> setClasseAbilita = new HashSet<Abilita>();
+		Abilita classeAbilita;
+		for( String appAbilita : abilita){
+			classeAbilita = entityManager.find(Abilita.class, appAbilita);
+			setClasseAbilita.add(classeAbilita);
+		}
+		
+		
+		Domanda temp = new Domanda(titoloDomanda, descrizioneDomanda, setClasseAbilita, utente);
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(temp);
@@ -52,7 +74,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 		return temp;
 	}
 
-	private Domanda[] ottieniRisultatoQuery(Query qy) {
+	private IDomanda[] ottieniRisultatoQuery(Query qy) {
 		@SuppressWarnings("unchecked")
 		List<Domanda> listaRis = (List<Domanda>) qy.getResultList();
 
@@ -61,5 +83,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 
 		return (Domanda[]) listaRis.toArray();
 	}
+
+
 
 }

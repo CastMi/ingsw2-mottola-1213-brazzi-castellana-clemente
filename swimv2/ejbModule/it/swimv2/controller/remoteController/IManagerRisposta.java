@@ -1,21 +1,21 @@
 package it.swimv2.controller.remoteController;
 
-import it.swimv2.entities.Domanda;
-import it.swimv2.entities.Risposta;
-import it.swimv2.entities.Utente;
+import it.swimv2.entities.remoteEntities.IRisposta;
 
 import javax.ejb.Remote;
 
 @Remote
 public interface IManagerRisposta {
 
-	public Risposta[] ricercaRisposta(String testo);
+	public IRisposta apriRisposta(int idRisposta);
 
-	public Risposta[] getRisposteByDomanda(Domanda domanda);
+	public IRisposta[] ricercaRisposta(String testo);
 
-	public boolean rilasciaFeedback(Risposta risposta, int voto);
+	public IRisposta[] getRisposteByDomanda(int domanda);
 
-	public boolean aggiungiRispsota(Domanda domanda, Utente utente,
+	public boolean rilasciaFeedback(int risposta, String userName, int voto);
+
+	public IRisposta aggiungiRispsota(int domanda, String userName,
 			String risposta);
 
 }
