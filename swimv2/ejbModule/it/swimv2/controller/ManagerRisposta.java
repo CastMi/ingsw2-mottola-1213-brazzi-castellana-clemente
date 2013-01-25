@@ -23,8 +23,13 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 
 	@Override
 	public IRisposta apriRisposta(int idRispsota) {
-
-		return entityManager.find(Risposta.class, idRispsota);
+		Risposta risposta = null;
+		try {
+			risposta = entityManager.find(Risposta.class, idRispsota);
+		} catch (Exception e) {
+			return null;
+		}
+		return risposta;
 	}
 
 	@Override
@@ -66,10 +71,14 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	private IRisposta[] ottieniRisultatoQuery(Query qy) {
-		@SuppressWarnings("unchecked")
-		List<Risposta> listaRis = (List<Risposta>) qy.getResultList();
-
+		List<Risposta> listaRis = null;
+		try {
+			listaRis = (List<Risposta>) qy.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 		if (listaRis.size() == 0)
 			return null;
 
@@ -93,6 +102,6 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
 }

@@ -8,12 +8,10 @@ import it.swimv2.entities.Amministratore;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.PasswordCoder;
 import it.swimv2.util.UtenteEnum;
-
 import javax.ejb.Stateless;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
 
 /**
  * @author Daniele
@@ -50,13 +48,16 @@ public class ManagerLogin implements ILogin {
 	 */
 
 	private boolean verificaLoginUtente(String username, String password) {
-		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
-				.setParameter("username", username);
-		Utente risultatoQuery = (Utente) query.getSingleResult();
-		if (risultatoQuery == null)
+		Utente utente = null;
+		try {
+			utente = entityManager.find(Utente.class, username);
+		} catch (Exception e) {
+			return false;
+		}
+		if (utente == null)
 			return false;
 
-		return verificaPassword(password, risultatoQuery.getPassword());
+		return verificaPassword(password, utente.getPassword());
 	}
 
 	/**
@@ -65,14 +66,16 @@ public class ManagerLogin implements ILogin {
 	 * @return
 	 */
 	private boolean verificaLoginAmministratore(String username, String password) {
-		Query query = entityManager
-				.createNamedQuery("Amministratore.getAmministratore");
-		Amministratore risultatoQuery = (Amministratore) query
-				.getSingleResult();
-		if (risultatoQuery == null)
+		Amministratore amministratore = null;
+		try {
+			amministratore = entityManager.find(Amministratore.class, username);
+		} catch (Exception e) {
+			return false;
+		}
+		if (amministratore == null)
 			return false;
 
-		return verificaPassword(password, risultatoQuery.getPassword());
+		return verificaPassword(password, amministratore.getPassword());
 	}
 
 	/**
