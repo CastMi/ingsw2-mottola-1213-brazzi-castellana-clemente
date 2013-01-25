@@ -57,57 +57,56 @@
 			</div>
 
 		</div>
-
-		<div class="left">
-
-			<h2>Login</h2>
-			<form action="Login" method="post">
-				<fieldset>
-					<table>
-						<tr>
-							<td><label for="userName">Codice persona:</label></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="userName" id="userName" size=19 /></td>
-						</tr>
-						<tr>
-							<td><label for="password">Password:</label></td>
-						</tr>
-						<tr>
-							<td><input type="password" name="password" id="password"
-								size=19 /></td>
-						</tr>
-						<tr></tr>
-						<tr>
-							<td><input id="immagineLogin" name="submit" type="image"
-								src="css/images/button-login.jpg" alt="Login" /></td>
-						</tr>
-						<%
-							String message = (String) request.getAttribute("messaggio");
-
-							if (message != null && !message.isEmpty()) {
-						%>
-						<tr>
-							<td>
-								<div id="erroreLogin">
-
-									<%
-										out.print(message);
-									%><br />
-								</div>
-							</td>
-						</tr>
-						<%
-							}
-						%>
-
-					</table>
-
-				</fieldset>
-			</form>
-		</div>
-		<div style="clear: both;"></div>
 	</div>
+	<div class="left">
+
+		<h2>Login</h2>
+		<form action="Login" method="post">
+			<fieldset>
+				<table>
+					<tr>
+						<td><label for="userName">Codice persona:</label></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="userName" id="userName" size=19 /></td>
+					</tr>
+					<tr>
+						<td><label for="password">Password:</label></td>
+					</tr>
+					<tr>
+						<td><input type="password" name="password" id="password"
+							size=19 /></td>
+					</tr>
+					<tr></tr>
+					<tr>
+						<td><input id="immagineLogin" name="submit" type="image"
+							src="css/images/button-login.jpg" alt="Login" /></td>
+					</tr>
+					<%
+						String message = (String) request.getAttribute("messaggio");
+
+						if (message != null && !message.isEmpty()) {
+					%>
+					<tr>
+						<td>
+							<div id="erroreLogin">
+
+								<%
+									out.print(message);
+								%><br />
+							</div>
+						</td>
+					</tr>
+					<%
+						}
+					%>
+
+				</table>
+
+			</fieldset>
+		</form>
+	</div>
+	<div style="clear: both;"></div>
 </div>
 
 <jsp:include page="Footer.jsp" />
