@@ -2,7 +2,7 @@ package it.swimv2.controller.remoteController;
 
 import javax.ejb.Remote;
 
-import it.swimv2.util.ErroriRegistrazione;
+import it.swimv2.util.RegistrazioneEnum;
 
 @Remote
 public interface IRegistrazione {
@@ -15,7 +15,7 @@ public interface IRegistrazione {
 	 * @param password
 	 * @return
 	 */
-	public abstract ErroriRegistrazione nuovaRegistrazione(String nome,
+	public abstract RegistrazioneEnum nuovaRegistrazione(String nome,
 			String cognome, String email, String id, String password);
 
 }

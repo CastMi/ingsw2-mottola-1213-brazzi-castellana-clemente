@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ILogin iLogin;
-		UtenteEnum risultatoLogin;
 		try {
 			iLogin = factory.getManagerLogin();
 		} catch (ClassCastException | NamingException e) {
@@ -39,11 +38,11 @@ public class LoginServlet extends HttpServlet {
 
 		String nomeUtente = request.getParameter("userName");
 		String password = request.getParameter("password");
-		risultatoLogin = iLogin.verificaLogin(nomeUtente, password);
-		if (risultatoLogin.isAmministratore()) {
+		UtenteEnum uEnum = iLogin.verificaLogin(nomeUtente, password);
+		if (uEnum == UtenteEnum.AMMINISTRATORE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
 			caricamentoHomeAmministratore(request, response);
-		} else if (risultatoLogin.isUtente()) {
+		} else if (uEnum == UtenteEnum.UTENTE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
 			caricamentoHomeUtente(nomeUtente, request, response);
 		} else {

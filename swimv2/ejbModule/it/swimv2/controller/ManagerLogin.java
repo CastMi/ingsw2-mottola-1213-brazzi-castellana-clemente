@@ -33,19 +33,14 @@ public class ManagerLogin implements ILogin {
 	 * java.lang.String)
 	 */
 	@Override
-	// FIXME DA RIFARE...IL VALORE RESTITUITO NON E' UNA ENUM MA LA CLASSE
-	// (UtenteEnum), DALL'ALTRA PARTE NON LA POTRESTI INSTANZIARE
 	public UtenteEnum verificaLogin(String id, String password) {
-		UtenteEnum enum1 = new UtenteEnum();
 		if (verificaLoginAmministratore(id, password)) {
-			enum1.setAmministratore(true);
-			return enum1;
+			return UtenteEnum.AMMINISTRATORE;
 		}
 		if (verificaLoginUtente(id, password)) {
-			enum1.setUtente(true);
-			return enum1;
+			return UtenteEnum.UTENTE;
 		}
-		return enum1;
+		return UtenteEnum.LOGIN_NON_VALIDO;
 	}
 
 	/**

@@ -1,8 +1,8 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IRegistrazione;
-import it.swimv2.util.ErroriRegistrazione;
 import it.swimv2.util.IFactory;
+import it.swimv2.util.RegistrazioneEnum;
 import it.swimv2.util.SimpleFactory;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher disp;
 		disp = request.getRequestDispatcher(response
-				.encodeURL("WEB-INF/Registrazione.jsp"));
+				.encodeURL("Registrazione.jsp"));
 		disp.forward(request, response);
 	}
 
@@ -41,7 +41,6 @@ public class RegistrazioneServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher disp;
-		ErroriRegistrazione risultatoRegistrazione;
 		IRegistrazione iRegistrazione;
 		try {
 			iRegistrazione = factory.getGestoreRegistrazione();
@@ -56,35 +55,31 @@ public class RegistrazioneServlet extends HttpServlet {
 		String nomeUtente = request.getParameter("nomeUtente");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		risultatoRegistrazione = iRegistrazione.nuovaRegistrazione(nome,
+		RegistrazioneEnum rEnum = iRegistrazione.nuovaRegistrazione(nome,
 				cognome, email, nomeUtente, password);
-		if (risultatoRegistrazione.registrazioneValida()) {
+		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			// visualizzazione registrazioneEffettuata
 			disp = request.getRequestDispatcher(response
-					.encodeURL("WEB-INF/RegistrazioneEffettuata.jsp"));
+					.encodeURL("RegistrazioneEffettuata.jsp"));
 		} else {
-			if (risultatoRegistrazione.ErroreCognome) {
+			if (rEnum == RegistrazioneEnum.ERRORE_NOME_COGNOME) {
 				disp = request.getRequestDispatcher(response
-						.encodeURL("WEB-INF/Registrazione.jsp"));
-				request.setAttribute("messaggio", "Cognome non valido");
+						.encodeURL("Registrazione.jsp"));
+				request.setAttribute("messaggio", "Nome o Cognome non validi");
 			} else {
-				if (risultatoRegistrazione.ErroreNome) {
+				if (rEnum == RegistrazioneEnum.ERRORE_EMAIL) {
 					disp = request.getRequestDispatcher(response
-							.encodeURL("WEB-INF/Registrazione.jsp"));
-					request.setAttribute("messaggio", "Nome non valido");
-				} else if (risultatoRegistrazione.ErroreEmail) {
-					disp = request.getRequestDispatcher(response
-							.encodeURL("WEB-INF/Registrazione.jsp"));
+							.encodeURL("Registrazione.jsp"));
 					request.setAttribute("messaggio", "Email non valida");
 				} else {
-					if (risultatoRegistrazione.ErroreId) {
+					if (rEnum == RegistrazioneEnum.ERRORE_NOME_UTENTE) {
 						disp = request.getRequestDispatcher(response
-								.encodeURL("WEB-INF/Registrazione.jsp"));
+								.encodeURL("Registrazione.jsp"));
 						request.setAttribute("messaggio",
 								"Nome utente non valido");
 					} else {
 						disp = request.getRequestDispatcher(response
-								.encodeURL("WEB-INF/Registrazione.jsp"));
+								.encodeURL("Registrazione.jsp"));
 						request.setAttribute("messaggio", "Password non valida");
 					}
 				}

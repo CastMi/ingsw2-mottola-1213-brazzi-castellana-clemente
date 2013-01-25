@@ -7,7 +7,7 @@ import java.util.List;
 
 import it.swimv2.controller.remoteController.IRegistrazione;
 import it.swimv2.entities.Utente;
-import it.swimv2.util.ErroriRegistrazione;
+import it.swimv2.util.RegistrazioneEnum;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,10 +23,6 @@ public class ManagerRegistrazione implements IRegistrazione {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
-	private ErroriRegistrazione status = new ErroriRegistrazione();
-
-	// FIXME DA RIFARE...IL VALORE RESTITUITO NON E' UNA ENUM MA LA CLASSE
-	// (ErroriRegistrazione), DALL'ALTRA PARTE NON LA POTRESTI INSTANZIARE
 
 	/*
 	 * (non-Javadoc)
@@ -36,13 +32,14 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public ErroriRegistrazione nuovaRegistrazione(String nome, String cognome,
+	public RegistrazioneEnum nuovaRegistrazione(String nome, String cognome,
 			String email, String id, String password) {
-		controlloDatiInseriti(nome, cognome, email, id, password);
-		if (status.registrazioneValida()) {
+		RegistrazioneEnum rEnum = controlloDatiInseriti(nome, cognome, email,
+				id, password);
+		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			completaRegistrazione(nome, cognome, email, id, password);
 		}
-		return status;
+		return rEnum;
 	}
 
 	/**
@@ -70,74 +67,84 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 * @param nomeUtente
 	 * @param password
 	 */
-	private void controlloDatiInseriti(String nome, String cognome,
-			String email, String nomeUtente, String password) {
-		checkNome(nome, cognome);
-		checkEmail(email);
-		checkPassword(password);
-		checkId(nomeUtente);
+	private RegistrazioneEnum controlloDatiInseriti(String nome,
+			String cognome, String email, String nomeUtente, String password) {
+		if (checkNome(nome, cognome) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
+			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
+		}
+		if (checkEmail(email) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
+			return RegistrazioneEnum.ERRORE_EMAIL;
+		}
+		if (checkPassword(password) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
+			return RegistrazioneEnum.ERRORE_PASSWORD;
+		}
+		if (checkId(nomeUtente) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
+			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
+		}
+		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
 	 * @param nomeUtente
 	 */
 	@SuppressWarnings("unchecked")
-	private void checkId(String nomeUtente) {
+	private RegistrazioneEnum checkId(String nomeUtente) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
 				.setParameter("Id", nomeUtente);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
-			status.ErroreId = true;
-			return;
+			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 		}
 		query = entityManager
 				.createNamedQuery("Amministratore.getAmministratore");
 		risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
-			status.ErroreId = true;
-			return;
+			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 		}
+		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
 	 * @param password
 	 */
-	private void checkPassword(String password) {
+	private RegistrazioneEnum checkPassword(String password) {
 		if (password.isEmpty()) {
-			status.ErrorePassword = true;
+			return RegistrazioneEnum.ERRORE_PASSWORD;
 		}
-
+		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
 	 * @param nome
 	 * @param cognome
 	 */
-	private void checkNome(String nome, String cognome) {
+	private RegistrazioneEnum checkNome(String nome, String cognome) {
 		if (nome.isEmpty()) {
-			status.ErroreNome = true;
+			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
 		}
 		if (cognome.isEmpty()) {
-			status.ErroreCognome = true;
+			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
 		}
 		if (!nome.matches("^[_A-Za-z-\\+]+(\\ [_A-Za-z]))")) {
-			status.ErroreNome = true;
+			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
 		}
 		if (!cognome.matches("^[_A-Za-z-\\+]+(\\ [_A-Za-z]))")) {
-			status.ErroreCognome = true;
+			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
 		}
-
+		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
 	 * @param email
 	 */
-	private void checkEmail(String email) {
+	private RegistrazioneEnum checkEmail(String email) {
 
 		if (email
 				.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;")) {
-			status.ErroreEmail = true;
+			return RegistrazioneEnum.ERRORE_EMAIL;
+
 		}
+		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 
 	}
 
