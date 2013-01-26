@@ -37,9 +37,10 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 	 *      javax.servlet.http.HttpServletResponse)
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		@SuppressWarnings("unused")
+		
 		RequestDispatcher disp;
 		IManagerAmicizia iAmicizia;
 
@@ -51,7 +52,6 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		@SuppressWarnings("unused")
 		String nome = request.getParameter("nome");
 
 	}
