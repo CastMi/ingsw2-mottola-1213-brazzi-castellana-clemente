@@ -8,6 +8,7 @@
 		response.sendRedirect("index.jsp");
 	}
 %>
+
 <jsp:include page="Header.jsp">
 	<jsp:param name="titolo" value="registrazione" />
 </jsp:include>
