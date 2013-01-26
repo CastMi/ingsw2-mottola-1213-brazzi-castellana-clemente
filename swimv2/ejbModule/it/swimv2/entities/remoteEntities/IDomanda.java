@@ -1,9 +1,6 @@
 package it.swimv2.entities.remoteEntities;
 
-import it.swimv2.entities.Abilita;
-import it.swimv2.entities.Utente;
-
-import java.util.Set;
+import java.util.Date;
 
 public interface IDomanda {
 	
@@ -13,8 +10,11 @@ public interface IDomanda {
 	
 	public String getDescrizione();
 
-	public Set<Abilita> getAbilita();
+	public IAbilita[] getAbilita();
 
-	public Utente getCreatore();
+	public IUtente getCreatore();
+	
+	public Date getData();
+	
 	
 }

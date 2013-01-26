@@ -82,7 +82,7 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 		if (listaRis.size() == 0)
 			return null;
 
-		return (Risposta[]) listaRis.toArray();
+		return (IRisposta[]) listaRis.toArray(new IRisposta[listaRis.size()]);
 	}
 
 	@Override

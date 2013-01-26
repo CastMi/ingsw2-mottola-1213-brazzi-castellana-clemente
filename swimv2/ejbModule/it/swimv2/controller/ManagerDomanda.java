@@ -114,7 +114,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 		if (listaRis.size() == 0)
 			return null;
 
-		return (Domanda[]) listaRis.toArray();
+		return (IDomanda[]) listaRis.toArray(new IDomanda[listaRis.size()]);
 	}
 
 }

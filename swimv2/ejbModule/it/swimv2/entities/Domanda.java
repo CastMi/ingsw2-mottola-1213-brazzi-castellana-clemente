@@ -1,8 +1,10 @@
 package it.swimv2.entities;
 
+import it.swimv2.entities.remoteEntities.IAbilita;
 import it.swimv2.entities.remoteEntities.IDomanda;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,6 +49,9 @@ public class Domanda implements Serializable, IDomanda {
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "creatore", nullable = false)
 	private Utente creatore;
+	
+	@Column(name = "data")
+	private Date data;
 
 	public Domanda() {
 		super();
@@ -59,8 +64,10 @@ public class Domanda implements Serializable, IDomanda {
 		this.descrizione = descrizione;
 		this.abilita = abilita;
 		this.creatore = creatore;
+		this.data = new Date();
 	}
-
+	
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -69,6 +76,7 @@ public class Domanda implements Serializable, IDomanda {
 		this.id = id;
 	}
 
+	@Override
 	public String getTitolo() {
 		return titolo;
 	}
@@ -77,6 +85,7 @@ public class Domanda implements Serializable, IDomanda {
 		this.titolo = titolo;
 	}
 
+	@Override
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -85,8 +94,9 @@ public class Domanda implements Serializable, IDomanda {
 		this.descrizione = descrizione;
 	}
 
-	public Set<Abilita> getAbilita() {
-		return abilita;
+	@Override
+	public IAbilita[] getAbilita() {
+		return (IAbilita[]) abilita.toArray(new IAbilita[abilita.size()]);
 	}
 
 	public void setAbilita(Set<Abilita> abilita) {
@@ -94,19 +104,29 @@ public class Domanda implements Serializable, IDomanda {
 	}
 
 	public void addAbilita(Abilita abilita) {
-		this.getAbilita().add(abilita);
+		this.abilita.add(abilita);
 	}
 
 	public void dropAbilita(Abilita toDrop) {
-		this.getAbilita().remove(toDrop);
+		this.abilita.remove(toDrop);
 	}
 
+	@Override
 	public Utente getCreatore() {
 		return creatore;
 	}
 
 	public void setCreatore(Utente creatore) {
 		this.creatore = creatore;
+	}
+	
+	@Override
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 }
