@@ -1,13 +1,13 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IRicercaUtenti;
+import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
 import java.io.IOException;
 
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +34,6 @@ public class RicercaUtenteServlet extends HttpServlet {
 		}
 		String testo = request.getParameter("testoRicerca");
 		request.setAttribute("risultatoRicerca", manager.ricercaUtentiPerUsername(testo));
-		RequestDispatcher disp;
-		disp = request.getRequestDispatcher(response
-				.encodeURL("ricerca.jsp"));
-		disp.forward(request, response);
+		GestioneServlet.showPage(request, response, "ricerca.jsp");
 	}
 }

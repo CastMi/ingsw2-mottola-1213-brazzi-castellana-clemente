@@ -18,9 +18,13 @@
 					<fieldset>
 						<table>
 							<tr>
-								<td class="td_campi_form"><label for="id">Ricerca:</label></td>
-								<td style="height: 49px"><input name="testoRicerca"
+								<td class="td_campi_form"><label>Ricerca:</label></td>
+								<td style="height: 49px">
+								<input name="testoRicerca"
 									type="text" id="nome" style="width: 185px" /></td>
+								<td>
+								<input name="submit" type="submit"
+									alt="RicercaUtente" /></td>
 							</tr>
 						</table>
 					</fieldset>
