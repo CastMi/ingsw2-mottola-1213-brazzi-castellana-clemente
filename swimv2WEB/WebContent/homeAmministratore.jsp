@@ -10,13 +10,13 @@
 	}
 %>
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="Richieste di abilità" />
+	<jsp:param name="titolo" value="Home Amministratore" />
 </jsp:include>
 
 <div id="content">
 	<div class="right">
 
-		<div id="contentTitle">Richieste di abilità</div>
+		<div id="contentTitle">Home page Amministratore</div>
 		<div class="articles">
 			<table>
 				<%
