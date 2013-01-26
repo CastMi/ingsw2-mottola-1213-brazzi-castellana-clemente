@@ -209,4 +209,14 @@
     <servlet-name>CancellaAbilitaServlet</servlet-name>
     <url-pattern>/CancellaAbilita</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SuggerimentiServlet</display-name>
+    <servlet-name>SuggerimentiServlet</servlet-name>
+    <servlet-class>SuggerimentiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SuggerimentiServlet</servlet-name>
+    <url-pattern>/Suggerimenti</url-pattern>
+  </servlet-mapping>
 </web-app>

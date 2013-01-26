@@ -70,5 +70,29 @@ public class ManagerSuggerimentoAmicizia implements Serializable,
 		List<Amicizia> amiciUtente = (List<Amicizia>) query.getResultList();
 		return amiciUtente;
 	}
+	
+	public String[] ottieniSuggerimenti(String nomeUtente){
+		List<SuggerimentoAmicizia> listaSuggerimenti = getListaSuggerimentiPerUtente(nomeUtente); 
+		return getSuggeritiDaSuggerimenti(listaSuggerimenti);
+	}
+	
+	@SuppressWarnings("null")
+	private String[] getSuggeritiDaSuggerimenti(
+			List<SuggerimentoAmicizia> listaSuggerimenti) {
+		List<String> listaUtentiSuggeriti = null;
+		for(SuggerimentoAmicizia l: listaSuggerimenti){
+			listaUtentiSuggeriti.add(l.getSuggerito());
+		}
+		return (String[]) listaUtentiSuggeriti.toArray(new String[listaUtentiSuggeriti.size()]);
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<SuggerimentoAmicizia> getListaSuggerimentiPerUtente(String utente) {
+		Query query = entityManager
+				.createNamedQuery("SuggerimentoAmicizia.getSuggerimentoPerDestinatario");
+		query.setParameter("nomeUtente", utente);
+		List<SuggerimentoAmicizia> amiciUtente = (List<SuggerimentoAmicizia>) query.getResultList();
+		return amiciUtente;
+	}
 
 }
