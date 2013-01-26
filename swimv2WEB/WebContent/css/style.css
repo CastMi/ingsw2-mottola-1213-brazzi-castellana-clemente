@@ -172,6 +172,10 @@ div {
 	color: red;
 }
 
+#erroreRegistrazione {
+	color: red;
+}
+
 #footer {
 	background: #eee;
 	border-top: 3px solid #57626a;
