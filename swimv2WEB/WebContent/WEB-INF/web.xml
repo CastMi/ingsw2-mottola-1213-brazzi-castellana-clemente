@@ -209,4 +209,14 @@
     <servlet-name>CancellaAbilitaServlet</servlet-name>
     <url-pattern>/CancellaAbilita</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VisualizzaRichiesteAbilitaServlet</display-name>
+    <servlet-name>VisualizzaRichiesteAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.VisualizzaRichiesteAbilitaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VisualizzaRichiesteAbilitaServlet</servlet-name>
+    <url-pattern>/VisualizzaRichiesteAbilita</url-pattern>
+  </servlet-mapping>
 </web-app>

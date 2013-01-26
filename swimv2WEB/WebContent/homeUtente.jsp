@@ -75,7 +75,7 @@
 					src="css/images/button-logout.jpg" alt="Logout" />
 			</form>
 			<p>
-			<a href="abilita.jsp">Le tue abilità</a><p>
+			<a href="TutteLeAbilita">Le tue abilità</a><p>
 			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
 	</div>
 	<div style="clear: both;"></div>

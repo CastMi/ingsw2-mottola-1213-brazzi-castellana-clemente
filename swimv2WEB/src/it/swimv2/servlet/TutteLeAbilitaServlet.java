@@ -1,6 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
+import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
@@ -28,6 +29,27 @@ public class TutteLeAbilitaServlet extends HttpServlet {
 	}
 
 	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		IManutenzioneAbilitaUtente manager;
+		try {
+			manager = factory.getManutentoreUtente();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+		String username = (String) request.getSession().getAttribute(
+				"nomeUtente");
+
+		request.getSession().setAttribute("proprieAbilita",
+				manager.getProprieAbilita(username));
+		GestioneServlet.showPage(request, response, "abilita.jsp");
+	}
+
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -40,8 +62,12 @@ public class TutteLeAbilitaServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
+		String username = (String) request.getSession().getAttribute(
+				"nomeUtente");
+
 		request.getSession().setAttribute("proprieAbilita",
-				manager.getTutteLeAbilita());
+				manager.getProprieAbilita(username));
+		GestioneServlet.showPage(request, response, "abilita.jsp");
 	}
 
 }

@@ -18,51 +18,7 @@
 
 		<div id="contentTitle">Home page Amministratore</div>
 		<div class="articles">
-			<table>
-				<%
-					IRichiestaAbilita[] richiesteAbilita = (IRichiestaAbilita[]) request
-							.getAttribute("richiesteAbilita");
-					if (richiesteAbilita != null && richiesteAbilita.length > 0) {
-						for (IRichiestaAbilita a : richiesteAbilita) {
-				%>
-				<tr>
-					<td><label for="username"> <%
- 	a.getRichiedente();
- %>
-					</label></td>
-					<td>
-						<form method="post" action="AccettaRichiesta">
-							<input type="hidden" name="nomeRichiesta"
-								value="<%a.getNome();%>"> <input type="hidden"
-								name="username" value="<%a.getRichiedente();%>">
-							<input name="submit" type="submit" value="Cancella" />
-						</form>
-					</td>
-				</tr>
-				<tr>
-					<td><label for="nomeAbilita"> <%
- 	a.getNome();
- %>
-					</label></td>
-					<td>
-						<form method="post" action="RifiutaRichiesta">
-							<input type="hidden" name="nomeRichiesta"
-								value="<%a.getNome();%>"> <input type="hidden"
-								name="username" value="<%a.getRichiedente();%>">
-							<input name="submit" type="submit" value="Cancella" />
-						</form>
-					</td>
-				</tr>
-				<%
-					}
-					} else {
-				%>
-				<div><br/>Nessuna richiesta di abilità
-				</div>
-				<%
-					}
-				%>
-			</table>
+			<a href="VisualizzaRichiesteAbilita">Vai alle richieste di abilità</a>
 		</div>
 
 	</div>

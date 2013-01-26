@@ -26,6 +26,49 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 	private final IFactory factory = new SimpleFactory();
 
 	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		IManutenzioneAbilitaUtente manager;
+		try {
+			manager = factory.getManutentoreUtente();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+		String nomeAbilita = request.getParameter("nomeAbilita");
+		String descrizione = request.getParameter("descrizione");
+		String username = (String) request.getSession().getAttribute("nomeUtente");
+
+		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(nomeAbilita, descrizione, username);
+		switch (temp) {
+		case UTENTE_INESISTENTE:
+			GestioneServlet.annullaSessione(request, response, "index.jsp",
+					"Errore: utente inesistente.");
+			break;
+
+		case RICHIESTAABILITA_DUPLICATA:
+			request.setAttribute("messaggio",
+					"Errore: esiste già una richiesta per tale abilità.");
+			GestioneServlet.showPage(request, response, "nuovaabilita.jsp");
+			break;
+
+		case ERRORE:
+			GestioneServlet.annullaSessione(request, response, "index.jsp",
+					"Errore: errore inaspettato.");
+			break;
+
+		case OK:
+			request.setAttribute("messaggio",
+					"Richiesta effettuata correttamente.");
+			GestioneServlet.showPage(request, response, "nuovaabilita.jsp");
+			break;
+		}
+	}
+	
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */

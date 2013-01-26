@@ -61,9 +61,8 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		}
 		if (abi == null) {
 			// dato che l'abilità non esiste, la creo
-			abi = new Abilita();
-			abi.setNome(nomeRichiestaAbilita);
-			abi.setDescrizione(richiestaAbilita.getDescrizione());
+			abi = new Abilita(nomeRichiestaAbilita,
+					richiestaAbilita.getDescrizione());
 			esisteAbilita = false;
 		}
 
@@ -72,19 +71,14 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 
 		try {
-			// rendo persistenti i cambiamenti con una transazione
-			entityManager.getTransaction().begin();
 			if (!esisteAbilita)
 				entityManager.persist(abi);
 			entityManager.persist(utente);
 			entityManager.remove(richiestaAbilita);
+			entityManager.flush();
 		} catch (Exception w) {
-			// faccio un rollback e restituisco errore se qualcosa è andato male
-			entityManager.getTransaction().rollback();
 			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 		}
-		// committo se tutto è andato bene
-		entityManager.getTransaction().commit();
 		return ManutentoreRichiesteAbilitaEnum.OK;
 	}
 
@@ -115,13 +109,11 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 
 		try {
 			// rendo persistenti i cambiamenti con una transazione
-			entityManager.getTransaction().begin();
 			entityManager.remove(ra);
+			entityManager.flush();
 		} catch (Exception w) {
-			entityManager.getTransaction().rollback();
 			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 		}
-		entityManager.getTransaction().commit();
 		return ManutentoreRichiesteAbilitaEnum.OK;
 	}
 
@@ -154,13 +146,11 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 
 		try {
 			// rendo persistenti i cambiamenti
-			entityManager.getTransaction().begin();
 			entityManager.persist(utente);
+			entityManager.flush();
 		} catch (Exception w) {
-			entityManager.getTransaction().rollback();
 			return ManutenzioneAbilitaEnum.ERRORE;
 		}
-		entityManager.getTransaction().commit();
 		return ManutenzioneAbilitaEnum.OK;
 	}
 
