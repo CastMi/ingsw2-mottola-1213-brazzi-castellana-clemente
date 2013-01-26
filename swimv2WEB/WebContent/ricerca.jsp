@@ -19,12 +19,9 @@
 						<table>
 							<tr>
 								<td class="td_campi_form"><label>Ricerca:</label></td>
-								<td style="height: 49px">
-								<input name="testoRicerca"
+								<td style="height: 49px"><input name="testoRicerca"
 									type="text" id="nome" style="width: 185px" /></td>
-								<td>
-								<input name="submit" type="submit"
-									alt="RicercaUtente" /></td>
+								<td><input name="submit" type="submit" alt="RicercaUtente" /></td>
 							</tr>
 						</table>
 					</fieldset>
@@ -75,14 +72,25 @@
 	</div>
 
 	<div class="left">
+		<%
+			String utenteLoggato = (String) request.getSession().getAttribute(
+					"nomeUtente");
+			if (utenteLoggato != null && !utenteLoggato.isEmpty()) {
+		%>
+		<span id="Benvenuto"><h2>
+				Benvenuto <br />
+				<%
+					out.print(utenteLoggato);
+				%>!
 
-		<h2>
-			Benvenuto
-			<%
-			String nomeStud = (String) session.getAttribute("nomeUtente");
-			out.print(nomeStud);
-		%>!
-		</h2>
+			</h2> <br /> <br /></span>
+		<form action="Logout" method="post">
+			<input id="immagineLogout" name="submit" type="image"
+				src="css/images/button-logout.jpg" alt="Logout" />
+		</form>
+		<%
+			}
+		%>
 	</div>
 	<div style="clear: both;"></div>
 </div>
