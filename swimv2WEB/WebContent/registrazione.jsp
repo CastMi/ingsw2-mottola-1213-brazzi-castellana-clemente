@@ -16,37 +16,57 @@
 	<div class="right">
 
 		<div id="contentTitle">
-			REGISTRAZIONE<br />
-		</div>
+			REGISTRAZIONE
+		</div><br />
 		<div class="articles">
 			<div class="main_content">
-				<form action="RegistrazioneUtente" method="post">
+				<form action="Registrazione" method="post">
 					<fieldset>
 						<table>
+							<%
+								String messaggioRegistrazione = (String) request
+										.getAttribute("messaggioRegistrazione");
+
+								if (messaggioRegistrazione != null
+										&& !messaggioRegistrazione.isEmpty()) {
+							%>
 							<tr>
-								<td class="td_campi_form"><label for="id">Nome:</label></td>
+								<td>
+									<div id="erroreRegistrazione">
+
+										<%
+											out.print(messaggioRegistrazione);
+										%><br />
+									</div>
+								</td>
+							</tr>
+							<%
+								}
+							%>
+							<tr>
+								<td class="td_campi_form"><label for="nome">Nome:</label></td>
 								<td style="height: 49px"><input name="nome" type="text"
 									id="nome" style="width: 185px" /></td>
 							</tr>
 							<tr>
-								<td class="td_campi_form"><label for="id">Cognome:</label></td>
+								<td class="td_campi_form"><label for="cognome">Cognome:</label></td>
 								<td style="height: 49px"><input name="cognome" type="text"
 									id="cognome" style="width: 185px" /></td>
 							</tr>
 							<tr>
-								<td class="td_campi_form"><label for="id">Codice
+								<td class="td_campi_form"><label for="nomeUtente">Codice
 										Persona:</label></td>
-								<td style="height: 49px"><input name="codicepersona"
-									type="text" id="codicepersona" style="width: 185px" /></td>
+								<td style="height: 49px"><input name="nomeUtente"
+									type="text" id="nomeUtente" style="width: 185px" /></td>
 							</tr>
 							<tr>
-								<td class="td_campi_form"><label for="id">Password:</label></td>
+								<td class="td_campi_form"><label for="password">Password:</label></td>
 								<td style="height: 49px"><input name="password"
 									type="password" id="password" class="auto-style3"
 									style="width: 185px" /></td>
 							</tr>
 							<tr>
-								<td class="td_campi_form"><label for="id">E-mail:</label></td>
+								<td class="td_campi_form"><label for="email">E-mail:</label></td>
 								<td style="height: 49px"><input name="email" type="text"
 									id="email" style="width: 185px" /></td>
 							</tr>
@@ -89,16 +109,16 @@
 							src="css/images/button-login.jpg" alt="Login" /></td>
 					</tr>
 					<%
-						String message = (String) request.getAttribute("messaggio");
+						String messaggioLogin = (String) request.getAttribute("messaggioLogin");
 
-						if (message != null && !message.isEmpty()) {
+						if (messaggioLogin != null && !messaggioLogin.isEmpty()) {
 					%>
 					<tr>
 						<td>
 							<div id="erroreLogin">
 
 								<%
-									out.print(message);
+									out.print(messaggioLogin);
 								%><br />
 							</div>
 						</td>

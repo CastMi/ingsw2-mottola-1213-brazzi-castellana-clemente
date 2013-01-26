@@ -30,7 +30,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher disp;
 		disp = request.getRequestDispatcher(response
-				.encodeURL("Registrazione.jsp"));
+				.encodeURL("registrazione.jsp"));
 		disp.forward(request, response);
 	}
 
@@ -60,27 +60,27 @@ public class RegistrazioneServlet extends HttpServlet {
 		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			// visualizzazione registrazioneEffettuata
 			disp = request.getRequestDispatcher(response
-					.encodeURL("RegistrazioneEffettuata.jsp"));
+					.encodeURL("registrazioneEffettuata.jsp"));
 		} else {
 			if (rEnum == RegistrazioneEnum.ERRORE_NOME_COGNOME) {
 				disp = request.getRequestDispatcher(response
-						.encodeURL("Registrazione.jsp"));
-				request.setAttribute("messaggio", "Nome o Cognome non validi");
+						.encodeURL("registrazione.jsp"));
+				request.setAttribute("messaggioRegistrazione", "Errore: nome o Cognome non validi!");
 			} else {
 				if (rEnum == RegistrazioneEnum.ERRORE_EMAIL) {
 					disp = request.getRequestDispatcher(response
-							.encodeURL("Registrazione.jsp"));
-					request.setAttribute("messaggio", "Email non valida");
+							.encodeURL("registrazione.jsp"));
+					request.setAttribute("messaggioRegistrazione", "Errore: email non valida!");
 				} else {
 					if (rEnum == RegistrazioneEnum.ERRORE_NOME_UTENTE) {
 						disp = request.getRequestDispatcher(response
-								.encodeURL("Registrazione.jsp"));
-						request.setAttribute("messaggio",
-								"Nome utente non valido");
+								.encodeURL("registrazione.jsp"));
+						request.setAttribute("messaggioRegistrazione",
+								"Nome utente non valido!");
 					} else {
 						disp = request.getRequestDispatcher(response
-								.encodeURL("Registrazione.jsp"));
-						request.setAttribute("messaggio", "Password non valida");
+								.encodeURL("registrazione.jsp"));
+						request.setAttribute("messaggioRegistrazione", "Errore: password non valida!");
 					}
 				}
 			}

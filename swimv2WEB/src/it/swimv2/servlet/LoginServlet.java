@@ -46,8 +46,8 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
 			caricamentoHomeUtente(nomeUtente, request, response);
 		} else {
-			request.setAttribute("messaggio",
-					"Errore: nome utente o password errati.");
+			request.setAttribute("messaggioLogin",
+					"Errore: nome utente o password errati!");
 			showPaginaLogin(request, response);
 		}
 	}
