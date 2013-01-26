@@ -7,25 +7,28 @@
 <div id="content">
 	<div class="right">
 
-				<div id="contentTitle">
-					Cos'è SwimV2?
-				</div>
-				<div class="articles">
-					<br />SWIMv2 è un software per lo scambio di informazioni di assistenza.<br />
-					<br /> Questo obbiettivo è soddisfatto attraverso un network che
-					permette di porre domande in determinati ambiti e consente agli
-					utenti che possiedono queste abilità di fornire aiuto.<br /> <br />
-					Nel sistema gli utenti possono diventare amici, in aggiunta vengono
-					suggerite anche le possibili conoscenze in base alle proprie
-					amicizie. <br /> <br /> Il tutto è supportato da un sistema di
-					feedback per poter valutare l'affidabilità dell'utente che propone
-					la soluzione al problema.
-				</div>
+		<div id="contentTitle">Cos'è SwimV2?</div>
+		<div class="articles">
+			<br />SWIMv2 è un software per lo scambio di informazioni di
+			assistenza.<br /> <br /> Questo obbiettivo è soddisfatto attraverso
+			un network che permette di porre domande in determinati ambiti e
+			consente agli utenti che possiedono queste abilità di fornire aiuto.<br />
+			<br /> Nel sistema gli utenti possono diventare amici, in aggiunta
+			vengono suggerite anche le possibili conoscenze in base alle proprie
+			amicizie. <br /> <br /> Il tutto è supportato da un sistema di
+			feedback per poter valutare l'affidabilità dell'utente che propone la
+			soluzione al problema.
+		</div>
 
 	</div>
 
 	<div class="left">
+		<%
+			String utenteLoggato = (String) request.getSession().getAttribute(
+					"nomeUtente");
 
+			if (utenteLoggato == null || utenteLoggato.isEmpty()) {
+		%>
 		<h2>Login</h2>
 		<form action="Login" method="post">
 			<fieldset>
@@ -49,9 +52,10 @@
 							src="css/images/button-login.jpg" alt="Login" /></td>
 					</tr>
 					<%
-						String messaggioLogin = (String) request.getAttribute("messaggioLogin");
+						String messaggioLogin = (String) request
+									.getAttribute("messaggioLogin");
 
-						if (messaggioLogin != null && !messaggioLogin.isEmpty()) {
+							if (messaggioLogin != null && !messaggioLogin.isEmpty()) {
 					%>
 					<tr>
 						<td>
@@ -73,6 +77,20 @@
 		</form>
 		<span id="registrati"> <a href="registrazione.jsp"><br />Registrati!</a>
 		</span>
+		<%
+			} else {
+		%>
+
+		<span id="Benvenuto"> <br />Benvenuto <br />
+			<%
+				out.print(utenteLoggato);
+			%>!
+		</span>
+
+		<%
+			}
+		%>
+
 	</div>
 	<div style="clear: both;"></div>
 </div>

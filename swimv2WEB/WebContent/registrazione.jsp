@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+	String utenteLoggato = (String) request.getSession().getAttribute(
+			"nomeUtente");
 
+	if (utenteLoggato != null && !utenteLoggato.isEmpty()) {
+		response.sendRedirect("index.jsp");
+	}
+%>
 <jsp:include page="Header.jsp">
 	<jsp:param name="titolo" value="registrazione" />
 </jsp:include>
@@ -8,9 +15,8 @@
 <div id="content">
 	<div class="right">
 
-		<div id="contentTitle">
-			REGISTRAZIONE
-		</div><br />
+		<div id="contentTitle">REGISTRAZIONE</div>
+		<br />
 		<div class="articles">
 			<div class="main_content">
 				<form action="Registrazione" method="post">
@@ -102,7 +108,8 @@
 							src="css/images/button-login.jpg" alt="Login" /></td>
 					</tr>
 					<%
-						String messaggioLogin = (String) request.getAttribute("messaggioLogin");
+						String messaggioLogin = (String) request
+								.getAttribute("messaggioLogin");
 
 						if (messaggioLogin != null && !messaggioLogin.isEmpty()) {
 					%>

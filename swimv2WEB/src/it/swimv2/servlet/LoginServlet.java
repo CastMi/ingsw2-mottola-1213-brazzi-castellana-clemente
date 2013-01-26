@@ -35,19 +35,22 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
-
 		String nomeUtente = request.getParameter("userName");
 		String password = request.getParameter("password");
 		UtenteEnum uEnum = iLogin.verificaLogin(nomeUtente, password);
 		if (uEnum == UtenteEnum.AMMINISTRATORE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
-			GestioneServlet.showPage(request, response, "homeAmministratore.jsp");
+			GestioneServlet.showPage(request, response,
+					"homeAmministratore.jsp");
 		} else if (uEnum == UtenteEnum.UTENTE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
 			GestioneServlet.showPage(request, response, "homeUtente.jsp");
 		} else {
 			request.setAttribute("messaggioLogin",
 					"Errore: nome utente o password errati!");
+			if (request.getSession().getAttribute("nomeUtente") != null) {
+				request.getSession().removeAttribute("nomeUtente");
+			}
 			GestioneServlet.showPage(request, response, "index.jsp");
 		}
 	}
