@@ -1,6 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerAmicizia;
+import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
@@ -52,8 +53,10 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		String nome = request.getParameter("nome");
-
+		String richiedente = request.getParameter("richiedente");
+		String destinatario = request.getParameter("destinatario");
+		iAmicizia.creaAmicizia(richiedente, destinatario);
+		GestioneServlet.showPage(request, response, "richiestaAccettata.jsp");
 	}
 
 }

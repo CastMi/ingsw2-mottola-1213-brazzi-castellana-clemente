@@ -201,6 +201,15 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>VisualizzaRichiesteAbilitaServlet</display-name>
+    <servlet-name>VisualizzaRichiesteAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.VisualizzaRichiesteAbilitaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VisualizzaRichiesteAbilitaServlet</servlet-name>
+    <url-pattern>/VisualizzaRichiesteAbilita</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <display-name>SuggerimentiServlet</display-name>
     <servlet-name>SuggerimentiServlet</servlet-name>
     <servlet-class>SuggerimentiServlet</servlet-class>
@@ -208,5 +217,15 @@
   <servlet-mapping>
     <servlet-name>SuggerimentiServlet</servlet-name>
     <url-pattern>/Suggerimenti</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RichiestaAmiciziaDaSuggerimentoServlet</display-name>
+    <servlet-name>RichiestaAmiciziaDaSuggerimentoServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.RichiestaAmiciziaDaSuggerimentoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RichiestaAmiciziaDaSuggerimentoServlet</servlet-name>
+    <url-pattern>/RichiestaAmiciziaDaSuggerimentoServlet</url-pattern>
   </servlet-mapping>
 </web-app>

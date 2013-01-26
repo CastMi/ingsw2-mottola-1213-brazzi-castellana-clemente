@@ -1,6 +1,6 @@
 package it.swimv2.servlet;
 
-import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
+import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
@@ -8,25 +8,19 @@ import it.swimv2.util.SimpleFactory;
 import java.io.IOException;
 
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TutteLeAbilita
+ * Servlet implementation class RichiediAmiciziaServlet
  */
-public class TutteLeAbilitaServlet extends HttpServlet {
+public class RichiestaAmiciziaDaSuggerimentoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final IFactory factory = new SimpleFactory();
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public TutteLeAbilitaServlet() {
-		super();
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -34,19 +28,10 @@ public class TutteLeAbilitaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		IManutenzioneAbilitaUtente manager;
-		try {
-			manager = factory.getManutentoreUtente();
-		} catch (ClassCastException | NamingException e) {
-			e.printStackTrace();
-			return;
-		}
-		String username = (String) request.getSession().getAttribute(
-				"nomeUtente");
-
-		request.getSession().setAttribute("proprieAbilita",
-				manager.getProprieAbilita(username));
-		GestioneServlet.showPage(request, response, "abilita.jsp");
+		RequestDispatcher disp;
+		disp = request.getRequestDispatcher(response
+				.encodeURL("RichiestaAmiciziaEffettuata.jsp"));
+		disp.forward(request, response);
 	}
 
 	/**
@@ -55,19 +40,21 @@ public class TutteLeAbilitaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		IManutenzioneAbilitaUtente manager;
+		IManagerRichiestaAmicizia iRichiestaAmicizia;
 		try {
-			manager = factory.getManutentoreUtente();
+			iRichiestaAmicizia = factory.getRichiestaAmicizia();
 		} catch (ClassCastException | NamingException e) {
 			e.printStackTrace();
 			return;
 		}
-		String username = (String) request.getSession().getAttribute(
-				"nomeUtente");
 
-		request.getSession().setAttribute("proprieAbilita",
-				manager.getProprieAbilita(username));
-		GestioneServlet.showPage(request, response, "abilita.jsp");
+		// ricezione dati provenienti dalla jsp
+		String richiedente = request.getParameter("richiedente");
+		String destinatario = request.getParameter("destinatario");
+		String note = request.getParameter("note");
+		iRichiestaAmicizia.creaNuovaRichiestaAmiciziaTramiteSuggerimento(richiedente,
+				destinatario, note);
+		GestioneServlet.showPage(request, response, "RichiestaAmiciziaEffettuata.jsp");
 	}
 
 }

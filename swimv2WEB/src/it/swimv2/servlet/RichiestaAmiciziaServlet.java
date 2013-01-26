@@ -1,6 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
+import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
@@ -39,8 +40,6 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		@SuppressWarnings("unused")
-		RequestDispatcher disp;
 		IManagerRichiestaAmicizia iRichiestaAmicizia;
 		try {
 			iRichiestaAmicizia = factory.getRichiestaAmicizia();
@@ -55,8 +54,7 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 		String note = request.getParameter("note");
 		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
 				destinatario, note);
-		disp = request.getRequestDispatcher(response
-				.encodeURL("RichiestaAmiciziaEffettuata.jsp"));
+		GestioneServlet.showPage(request, response, "RichiestaAmiciziaEffettuata.jsp");
 	}
 
 }

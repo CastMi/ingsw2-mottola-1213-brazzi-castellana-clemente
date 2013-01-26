@@ -30,8 +30,18 @@ public class Abilita implements Serializable, IAbilita {
 
 	public Abilita() {
 		super();
-	}	
+	}
 	
+	
+	
+	public Abilita(String nome, String descrizione) {
+		super();
+		this.nome = nome;
+		this.descrizione = descrizione;
+	}
+
+
+
 	public String getNome() {
 		return nome;
 	}
