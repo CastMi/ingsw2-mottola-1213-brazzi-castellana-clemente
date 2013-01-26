@@ -45,14 +45,19 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 	@Column(name = "suggerita")
 	private boolean suggerita;
 	
+	public boolean isSuggerita() {
+		return suggerita;
+	}
+
 	@Lob
 	@Column(name = "note")
 	private String note;
 
-	public RichiestaAmicizia(String idRichiedente, String idDestinatario, String note) {
+	public RichiestaAmicizia(String idRichiedente, String idDestinatario, String note, boolean suggerita) {
 		this.richiedente = idRichiedente;
 		this.destinatario = idDestinatario;
 		this.note = note;
+		this.suggerita = suggerita;
 	}
 	
 	public RichiestaAmicizia() {

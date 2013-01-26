@@ -16,7 +16,10 @@ import javax.persistence.Table;
 public class SuggerimentoAmicizia implements Serializable, ISuggerimentoAmicizia {
 
 	private static final long serialVersionUID = 5359986778176337837L;
-
+	
+	/**il destinatario è colui che riceve il suggerimento d'amicizia
+	 * 
+	 */
 	@Id
 	@Column(name = "destinatario")
 	private String destinatario;

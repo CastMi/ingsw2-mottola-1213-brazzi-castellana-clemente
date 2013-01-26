@@ -29,7 +29,17 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	public void creaNuovaRichiestaAmicizia(String mittente,
 			String destinatario, String note) {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
-				destinatario, note);
+				destinatario, note, false);
+		entityManager.getTransaction().begin();
+		entityManager.persist(richiestaAmicizia);
+		entityManager.getTransaction().commit();
+	}
+	
+	@Override
+	public void creaNuovaRichiestaAmiciziaTramiteSuggerimento(String mittente,
+			String destinatario, String note) {
+		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
+				destinatario, note, true);
 		entityManager.getTransaction().begin();
 		entityManager.persist(richiestaAmicizia);
 		entityManager.getTransaction().commit();

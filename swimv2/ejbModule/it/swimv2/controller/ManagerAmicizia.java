@@ -37,6 +37,10 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		entityManager.getTransaction().begin();
 		entityManager.persist(amicizia);
 		entityManager.getTransaction().commit();
+		if(richiestaAmicizia.isSuggerita()){
+			ManagerSuggerimentoAmicizia managerSuggerimentoAmicizia = new ManagerSuggerimentoAmicizia();
+			managerSuggerimentoAmicizia.gestioneSuggerimento(mittente, destinatario, amicizia);
+		}
 	}
 
 }
