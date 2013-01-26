@@ -171,23 +171,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>TutteLeAbilita</display-name>
-    <servlet-name>TutteLeAbilita</servlet-name>
-    <servlet-class>it.swimv2.servlet.TutteLeAbilita</servlet-class>
+    <display-name>TutteLeAbilitaServlet</display-name>
+    <servlet-name>TutteLeAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.TutteLeAbilitaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>TutteLeAbilita</servlet-name>
+    <servlet-name>TutteLeAbilitaServlet</servlet-name>
     <url-pattern>/TutteLeAbilita</url-pattern>
-  </servlet-mapping>
-   <servlet>
-    <description></description>
-    <display-name>AccettaRichiestaAbilita</display-name>
-    <servlet-name>AccettaRichiestaAbilita</servlet-name>
-    <servlet-class>it.swimv2.servlet.AccettaRichiestaAbilita</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AccettaRichiestaAbilita</servlet-name>
-    <url-pattern>/AccettaRichiestaAbilita</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

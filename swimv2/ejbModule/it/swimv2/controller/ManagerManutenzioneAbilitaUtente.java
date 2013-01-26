@@ -117,7 +117,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		if (utente == null)
 			return null;
 		
-		return (IAbilita[]) utente.getAbilita().toArray();
+		return (IAbilita[]) utente.getAbilita().toArray( new IAbilita[utente.getAbilita().size()]);
 	}
 	
 	@Override
