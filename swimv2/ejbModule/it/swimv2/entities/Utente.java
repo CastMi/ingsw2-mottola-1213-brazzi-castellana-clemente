@@ -53,14 +53,14 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	}
 	
 	public Utente(String nome, String cognome, String username,
-			String password, String email, Set<Abilita> abilita) {
+			String password, String email) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.abilita = abilita;
+		this.abilita = null;
 	}
 
 	public String getNome() {

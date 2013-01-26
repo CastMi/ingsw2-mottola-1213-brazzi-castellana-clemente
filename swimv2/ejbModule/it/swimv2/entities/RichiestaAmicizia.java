@@ -30,8 +30,6 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 
 	private static final long serialVersionUID = -3464474854877853025L;
 
-	// FIXME NON ESISTE PIU' L'ID DELL'UTENTE QUINDI idDestinatario E
-	// idRichiedente SONO SBAGLIATI, USARE LO USERNAME DELL'UTENTE
 	@Id
 	@GeneratedValue
 	@Column(name = "id")

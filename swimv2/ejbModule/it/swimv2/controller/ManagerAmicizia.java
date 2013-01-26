@@ -18,9 +18,6 @@ public class ManagerAmicizia implements IManagerAmicizia {
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 
-	// FIXME USARE LO USERNAME COME INPUT DELLE FUNZIONI PERCHE' L'ID NON
-	// ESISTE PIU'
-
 	/*
 	 * (non-Javadoc)
 	 * 

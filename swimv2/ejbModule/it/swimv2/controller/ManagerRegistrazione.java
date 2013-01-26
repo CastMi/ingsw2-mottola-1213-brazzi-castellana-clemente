@@ -58,7 +58,7 @@ public class ManagerRegistrazione implements IRegistrazione {
 	private void completaRegistrazione(String nome, String cognome,
 			String email, String username, String password) {
 		Utente utente = new Utente(nome, cognome, username,
-				PasswordCoder.getPasswordCodificata(password), email, null);// FIXME serve la lista delle abilià
+				PasswordCoder.getPasswordCodificata(password), email);
 		entityManager.persist(utente);
 		return;
 	}
