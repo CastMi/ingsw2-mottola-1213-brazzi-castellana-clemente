@@ -12,7 +12,7 @@ public abstract class GestioneServlet {
 			HttpServletResponse response, String page, String messaggio)
 			throws ServletException, IOException {
 		request.getSession().invalidate();
-		request.setAttribute("messaggio", messaggio + ". Navigazione annullata");
+		request.setAttribute("messaggioLogin", messaggio);
 		showPage(request, response, page);
 	}
 
