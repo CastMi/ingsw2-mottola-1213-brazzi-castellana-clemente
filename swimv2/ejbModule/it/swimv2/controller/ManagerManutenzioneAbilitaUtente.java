@@ -121,6 +121,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public IAbilita[] getTutteLeAbilita() {
 		Query query = entityManager
 				.createNamedQuery("Abilita.getTutteLeAbilita");

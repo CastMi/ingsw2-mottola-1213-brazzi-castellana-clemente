@@ -1,15 +1,20 @@
-<%@page import="it.swimv2.entities.remoteEntities.IUtente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="it.swimv2.entities.remoteEntities.IUtente"%>
+
+<%
+	String utenteLoggato = (String) request.getSession().getAttribute(
+			"nomeUtente");
+%>
+
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="index" />
+	<jsp:param name="titolo" value="Home page Utente" />
 </jsp:include>
 
 <div id="content">
 	<div class="right">
 
-		<div id="contentTitle">Dati dell'utente</div>
+		<div id="contentTitle">Home page Utente</div>
 		<div class="articles">
 			<table>
 				<%
@@ -64,20 +69,18 @@
 	</div>
 
 	<div class="left">
-		<%
-			String utenteLoggato = (String) request.getSession().getAttribute(
-					"nomeUtente");
-		%>
 
-		<span id="Benvenuto"> <br />Benvenuto <br /> <%
- 	out.print(utenteLoggato);
- %>! <br /> <br />
+		<span id="Benvenuto"><h2>
+				Benvenuto <br />
+				<%
+					out.print(utenteLoggato);
+				%>!
+			</h2>
+			<br /> <br />
 			<form action="Logout" method="post">
 				<input id="immagineLogout" name="submit" type="image"
 					src="css/images/button-logout.jpg" alt="Logout" />
-			</form>
-
-		</span>
+			</form> </span>
 
 	</div>
 	<div style="clear: both;"></div>
