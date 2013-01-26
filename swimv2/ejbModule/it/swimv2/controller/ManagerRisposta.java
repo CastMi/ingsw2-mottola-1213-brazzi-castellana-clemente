@@ -44,8 +44,13 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	}
 
 	@Override
-	public IRisposta[] getRisposteByDomanda(int domanda) {
-
+	public IRisposta[] getRisposteByDomanda(int idDomanda) {
+		Domanda domanda = null;
+		try {
+			domanda = entityManager.find(Domanda.class, idDomanda);
+		} catch (Exception e) {
+			return null;
+		}
 		Query query = entityManager
 				.createNamedQuery("Risposta.getRisposteByDomanda");
 

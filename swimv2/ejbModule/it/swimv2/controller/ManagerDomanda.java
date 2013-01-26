@@ -57,7 +57,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 	public IDomanda[] ricercaDomande(String testo) {
 		Query query = entityManager.createNamedQuery("Domanda.ricercaDomande");
 
-		query.setParameter("testo", testo);
+		query.setParameter("testo", "%" + testo + "%");
 
 		return ottieniRisultatoQuery(query);
 	}
@@ -96,7 +96,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 			entityManager.persist(temp);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
-			if(entityManager.getTransaction().isActive())
+			if (entityManager.getTransaction().isActive())
 				entityManager.getTransaction().rollback();
 			return null;
 		}

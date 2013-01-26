@@ -121,16 +121,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ApriRispostaServlet</display-name>
-    <servlet-name>ApriRispostaServlet</servlet-name>
-    <servlet-class>it.swimv2.servlet.ApriRispostaServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ApriRispostaServlet</servlet-name>
-    <url-pattern>/ApriRisposta</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>RicercaDomandeRisposteServlet</display-name>
     <servlet-name>RicercaDomandeRisposteServlet</servlet-name>
     <servlet-class>it.swimv2.servlet.RicercaDomandeRisposteServlet</servlet-class>
@@ -141,13 +131,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ApriDomandaServlet</display-name>
-    <servlet-name>ApriDomandaServlet</servlet-name>
-    <servlet-class>it.swimv2.servlet.ApriDomandaServlet</servlet-class>
+    <display-name>ApriConversazioneServlet</display-name>
+    <servlet-name>ApriConversazioneServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.ApriConversazioneServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ApriDomandaServlet</servlet-name>
-    <url-pattern>/ApriDomanda</url-pattern>
+    <servlet-name>ApriConversazioneServlet</servlet-name>
+    <url-pattern>/ApriConversazione</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

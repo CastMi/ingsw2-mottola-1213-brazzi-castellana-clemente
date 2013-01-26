@@ -50,7 +50,7 @@ public class RispondiADomandaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// leggo il codice utente dalla session
 		String userName;
-		userName = (String) request.getSession().getAttribute("userName");
+		userName = (String) request.getSession().getAttribute("nomeUtente");
 
 		if (userName == null || userName.isEmpty()) {
 			// utente non loggato

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -42,7 +43,7 @@ public class Domanda implements Serializable, IDomanda {
 	@Column(name = "description")
 	private String descrizione;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "domanda_abilita", joinColumns = @JoinColumn(name = "domanda", referencedColumnName = "id"), inverseJoinColumns = { @JoinColumn(name = "abilita", referencedColumnName = "name") })
 	private Set<Abilita> abilita;
 

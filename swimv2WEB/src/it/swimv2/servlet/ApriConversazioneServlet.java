@@ -1,13 +1,15 @@
 package it.swimv2.servlet;
 
+import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.controller.remoteController.IManagerRisposta;
+import it.swimv2.entities.remoteEntities.IAbilita;
+import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.entities.remoteEntities.IRisposta;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
 import java.io.IOException;
-
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ApriRispostaServlet
+ * Servlet implementation class ApriDomandaServlet
  */
-public class ApriRispostaServlet extends HttpServlet {
+public class ApriConversazioneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final IFactory factory = new SimpleFactory();
@@ -25,7 +27,7 @@ public class ApriRispostaServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ApriRispostaServlet() {
+	public ApriConversazioneServlet() {
 		super();
 	}
 
@@ -35,7 +37,7 @@ public class ApriRispostaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		apriRispostaEsecuzione(request, response);
+		apriDomandaEsecuzione(request, response);
 	}
 
 	/**
@@ -44,29 +46,42 @@ public class ApriRispostaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		apriRispostaEsecuzione(request, response);
+		apriDomandaEsecuzione(request, response);
 	}
 
-	private void apriRispostaEsecuzione(HttpServletRequest request,
+	private void apriDomandaEsecuzione(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			IManagerDomanda managerDomanda = factory.getManagerDomanda();
+
+			int idDomanda = 0;
+			try {
+				idDomanda = Integer.parseInt(request.getParameter("id"));
+			} catch (Exception e) {
+			}
+			IDomanda domanda = managerDomanda.apriDomanda(idDomanda);
+			
+			IAbilita[] abilita = domanda.getAbilita();
+			
+			request.setAttribute("domanda", domanda);
+			request.setAttribute("arrayAbilita", abilita);
+			
 			IManagerRisposta managerRisposta = factory.getManagerRisposta();
 
-			int idRisposta = (int) request.getAttribute("idRisposta");
+			IRisposta[] risposte = managerRisposta
+					.getRisposteByDomanda(idDomanda);
 
-			IRisposta risposta = managerRisposta.apriRisposta(idRisposta);
+			request.setAttribute("arrayRisposte", risposte);
+			
 
-			request.setAttribute("risposta", risposta);
-
-			GestioneServlet.showPage(request, response, "showRisposta.jsp");
+			GestioneServlet.showPage(request, response, "showConversazione.jsp");
 		} catch (ClassCastException | NamingException e) {
 			e.printStackTrace();
 			request.setAttribute("messaggio",
-					"Errore: Impossibile aprire una risposta.");
+					"Errore: Impossibile creare una domanda.");
 			GestioneServlet.showPage(request, response, "index.jsp");
 		}
 
 	}
-
 }
