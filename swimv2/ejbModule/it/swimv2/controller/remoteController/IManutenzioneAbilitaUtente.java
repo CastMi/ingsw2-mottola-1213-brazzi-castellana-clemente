@@ -16,5 +16,6 @@ public interface IManutenzioneAbilitaUtente {
 			String username);
 
 	public IAbilita[] getTutteLeAbilita();
-
+	
+	public IAbilita[] getProprieAbilita(String username);
 }

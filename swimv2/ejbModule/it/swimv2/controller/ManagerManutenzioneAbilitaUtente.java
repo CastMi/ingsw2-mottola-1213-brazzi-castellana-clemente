@@ -9,12 +9,10 @@ import javax.persistence.Query;
 
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.Abilita;
-import it.swimv2.entities.Domanda;
 import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.RichiestaAbilitaPK;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IAbilita;
-import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.util.InvioRichiestaAbilitaEnum;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
 
@@ -92,7 +90,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 			return ManutenzioneAbilitaEnum.ABILITA_INESISTENTE;
 		}
 
-		if (!utente.possiedeAbilita(abi) || !utente.RimuoviAbilità(abi))
+		if (!utente.RimuoviAbilità(abi))
 			return ManutenzioneAbilitaEnum.ERRORE;
 
 		try {
@@ -107,8 +105,25 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		return ManutenzioneAbilitaEnum.OK;
 	}
 
+	@Override
+	public IAbilita[] getProprieAbilita(String username) {
+		Utente utente;
+		// controllo se l'utente esiste
+		try {
+			utente = this.entityManager.find(Utente.class, username);
+		} catch (Exception e) {
+			return null;
+		}
+		if (utente == null)
+			return null;
+		
+		return (IAbilita[]) utente.getAbilita().toArray();
+	}
+	
+	@Override
 	public IAbilita[] getTutteLeAbilita() {
-		Query query = entityManager.createNamedQuery("Abilita.getTutteLeAbilita");
+		Query query = entityManager
+				.createNamedQuery("Abilita.getTutteLeAbilita");
 
 		List<Abilita> listaRis = null;
 		try {
@@ -120,7 +135,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		if (listaRis.size() == 0)
 			return null;
 
-		return (Abilita[]) listaRis.toArray();
+		return (IAbilita[]) listaRis.toArray();
 	}
 
 	@Override

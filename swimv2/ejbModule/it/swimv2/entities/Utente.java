@@ -132,7 +132,7 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	 *         viene aggiunta correttamente.
 	 */
 	public boolean AggiungiAbilità(Abilita abi) {
-		return this.abilita.add(abi);
+		return this.possiedeAbilita(abi) && this.abilita.add(abi);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	 *            - l'abilità da controllare
 	 * @return true se e solo se l'abilità è posseduta dall'utente.
 	 */
-	public boolean possiedeAbilita(Abilita abi) {
+	private boolean possiedeAbilita(Abilita abi) {
 		return this.abilita.contains(abi);
 	}
 
@@ -155,7 +155,11 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	 *         rimossa correttamente.
 	 */
 	public boolean RimuoviAbilità(Abilita abi) {
-		return this.abilita.remove(abi);
+		return this.possiedeAbilita(abi) && this.abilita.remove(abi);
+	}
+	
+	public Set<Abilita> getAbilita() {
+		return abilita;
 	}
 
 	public Utente clone() {
