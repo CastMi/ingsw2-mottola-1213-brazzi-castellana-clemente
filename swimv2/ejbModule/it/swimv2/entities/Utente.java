@@ -132,8 +132,9 @@ public class Utente implements Serializable, IUtente {
 	 * @return true se e solo se l'abilità non appartiene già all'utente e se
 	 *         viene aggiunta correttamente.
 	 */
-	public boolean AggiungiAbilità(Abilita abi) {
-		return this.possiedeAbilita(abi) && this.abilita.add(abi);
+	public boolean aggiungiAbilita(Abilita abi) {
+		this.abilita.add(abi);
+		return this.possiedeAbilita(abi);
 	}
 
 	/**

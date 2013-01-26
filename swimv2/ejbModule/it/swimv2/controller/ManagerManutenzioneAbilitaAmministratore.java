@@ -66,17 +66,13 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			esisteAbilita = false;
 		}
 
-		// se fallisce l'inserimento dell'abilità è inutile continuare
-		if (!utente.AggiungiAbilità(abi))
-			return ManutentoreRichiesteAbilitaEnum.ERRORE;
-
 		try {
 			if (!esisteAbilita) {
 				entityManager.persist(abi);
 				entityManager.flush();
 			}
+			utente.aggiungiAbilita(abi);
 			entityManager.persist(utente);
-			entityManager.flush();
 			entityManager.remove(richiestaAbilita);
 			entityManager.flush();
 		} catch (Exception w) {
