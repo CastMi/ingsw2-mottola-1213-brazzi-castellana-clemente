@@ -5,13 +5,6 @@
 	<jsp:param name="titolo" value="registrazione" />
 </jsp:include>
 
-<div id="menu">
-	<ul>
-		<li><a href="index.jsp">Home</a></li>
-		<li><a href="#">Ricerca domanda</a></li>
-	</ul>
-</div>
-
 <div id="content">
 	<div class="right">
 

@@ -22,3 +22,11 @@
 				<img src="css/images/politecnico-milano.jpg" alt="Logo polimi" />
 			</div>
 		</div>
+		
+		<div id="menu">
+			<ul>
+				<li><a href="index.jsp">Home</a></li>
+				<li><a href="#">Ricerca domanda</a></li>
+				<li><a href="ricerca.jsp">Ricerca utente</a></li>
+			</ul>
+		</div>
