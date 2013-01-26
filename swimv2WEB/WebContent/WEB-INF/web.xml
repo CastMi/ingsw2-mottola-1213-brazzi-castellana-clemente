@@ -218,7 +218,8 @@
   <servlet-mapping>
     <servlet-name>VisualizzaRichiesteAbilitaServlet</servlet-name>
     <url-pattern>/VisualizzaRichiesteAbilita</url-pattern>
-<servlet-mapping>
+</servlet-mapping>
+<servlet>
     <display-name>SuggerimentiServlet</display-name>
     <servlet-name>SuggerimentiServlet</servlet-name>
     <servlet-class>SuggerimentiServlet</servlet-class>
@@ -226,5 +227,5 @@
   <servlet-mapping>
     <servlet-name>SuggerimentiServlet</servlet-name>
     <url-pattern>/Suggerimenti</url-pattern>
-    </servlet-mapping>
+</servlet-mapping>
 </web-app>
