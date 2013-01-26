@@ -70,7 +70,11 @@ public class ManagerRegistrazione implements IRegistrazione {
 
 	private Set<Abilita> costruisciSetAbilita(String abilita) {
 		HashSet<Abilita> setAbilita = new HashSet<Abilita>();
+		try {
 		setAbilita.add((Abilita) entityManager.find(Abilita.class, abilita));
+		} catch (Exception e){
+			return null;
+		}
 		return setAbilita;
 	}
 

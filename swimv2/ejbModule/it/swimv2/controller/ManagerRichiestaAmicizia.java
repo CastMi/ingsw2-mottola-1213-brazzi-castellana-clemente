@@ -22,12 +22,12 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * it.swimv2.controller.IRichiestaAmicizia#creaNuovaRichiestaAmicizia(String,
-	 * String, java.lang.String)
+	 * it.swimv2.controller.IRichiestaAmicizia#creaNuovaRichiestaAmicizia(String
+	 * , String, java.lang.String)
 	 */
 	@Override
-	public void creaNuovaRichiestaAmicizia(String mittente, String destinatario,
-			String note) {
+	public void creaNuovaRichiestaAmicizia(String mittente,
+			String destinatario, String note) {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note);
 		entityManager.getTransaction().begin();
@@ -43,14 +43,23 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 */
 	@Override
 	public void rimuoviRichiestaAmicizia(int id) {
-		RichiestaAmicizia temp = entityManager
-				.find(RichiestaAmicizia.class, id);
-		entityManager.getTransaction().begin();
-		entityManager.remove(temp);
-		entityManager.getTransaction().commit();
+		RichiestaAmicizia temp;
+		try {
+			temp = entityManager.find(RichiestaAmicizia.class, id);
+		} catch (Exception e) {
+			return;
+		}
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(temp);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+		}
 	}
 
-	public RichiestaAmicizia getRichiestaAmicizia(String mittente, String destinatario) {
+	public RichiestaAmicizia getRichiestaAmicizia(String mittente,
+			String destinatario) {
 		Query query = entityManager
 				.createNamedQuery(
 						"RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario")
