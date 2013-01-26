@@ -66,7 +66,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			if (rEnum == RegistrazioneEnum.ERRORE_NOME_COGNOME) {
 				disp = request.getRequestDispatcher(response
 						.encodeURL("registrazione.jsp"));
-				request.setAttribute("messaggioRegistrazione", "Errore: nome o Cognome non validi!");
+				request.setAttribute("messaggioRegistrazione", "Errore: nome o cognome non validi!");
 			} else {
 				if (rEnum == RegistrazioneEnum.ERRORE_EMAIL) {
 					disp = request.getRequestDispatcher(response
