@@ -7,6 +7,7 @@ import java.util.List;
 
 import it.swimv2.controller.remoteController.IRegistrazione;
 import it.swimv2.entities.Utente;
+import it.swimv2.util.PasswordCoder;
 import it.swimv2.util.RegistrazioneEnum;
 
 import javax.ejb.Stateless;
@@ -37,7 +38,12 @@ public class ManagerRegistrazione implements IRegistrazione {
 		RegistrazioneEnum rEnum = controlloDatiInseriti(nome, cognome, email,
 				username, password);
 		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
-			completaRegistrazione(nome, cognome, email, username, password);
+			try{
+				completaRegistrazione(nome, cognome, email, username, password);
+			}
+			catch (Exception e){
+				return RegistrazioneEnum.ERRORE_EMAIL;
+			}
 		}
 		return rEnum;
 	}
@@ -51,11 +57,8 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 */
 	private void completaRegistrazione(String nome, String cognome,
 			String email, String username, String password) {
-		Utente utente = new Utente();
-		utente.setCognome(cognome);
-		utente.setNome(nome);
-		utente.setEmail(email);
-		utente.setPassword(password);
+		Utente utente = new Utente(nome, cognome, username,
+				PasswordCoder.getPasswordCodificata(password), email, null);// FIXME serve la lista delle abilià
 		entityManager.persist(utente);
 		return;
 	}
@@ -78,30 +81,29 @@ public class ManagerRegistrazione implements IRegistrazione {
 		if (checkPassword(password) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			return RegistrazioneEnum.ERRORE_PASSWORD;
 		}
-		if (checkId(username) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
+		if (checkNomeUtente(username) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 		}
 		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
-	 * @param username
+	 * @param nomeUtente
 	 */
-	@SuppressWarnings("unchecked")
-	private RegistrazioneEnum checkId(String username) {
-		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
-				.setParameter("Id", username);
-		List<Object> risultatoQuery = (List<Object>) query.getResultList();
-		if (risultatoQuery.size() > 0) {
+	private RegistrazioneEnum checkNomeUtente(String nomeUtente) {
+		Utente utente = null;
+		if (nomeUtente.equals("admin")) {
 			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 		}
-		query = entityManager
-				.createNamedQuery("Amministratore.getAmministratore");
-		risultatoQuery = (List<Object>) query.getResultList();
-		if (risultatoQuery.size() > 0) {
+		try {
+			utente = entityManager.find(Utente.class, nomeUtente);
+		} catch (Exception e) {
 			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 		}
-		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
+		if (utente == null)
+			return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
+
+		return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 	}
 
 	/**
@@ -125,24 +127,25 @@ public class ManagerRegistrazione implements IRegistrazione {
 		if (cognome.isEmpty()) {
 			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
 		}
-		if (!nome.matches("^[_A-Za-z-\\+]+(\\ [_A-Za-z]))")) {
-			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
-		}
-		if (!cognome.matches("^[_A-Za-z-\\+]+(\\ [_A-Za-z]))")) {
-			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
-		}
 		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
 	 * @param email
 	 */
+	@SuppressWarnings("unchecked")
 	private RegistrazioneEnum checkEmail(String email) {
 
 		if (email
 				.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;")) {
 			return RegistrazioneEnum.ERRORE_EMAIL;
 
+		}
+		Query query = entityManager.createNamedQuery("Utente.getUtentePerEmail");
+		query.setParameter("email", email);
+		List<Object> risultatoQuery=(List<Object>)query.getResultList();
+		if (risultatoQuery.size() > 0) {
+			return RegistrazioneEnum.ERRORE_EMAIL;
 		}
 		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 

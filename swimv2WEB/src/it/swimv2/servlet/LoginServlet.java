@@ -1,6 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.ILogin;
+import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 import it.swimv2.util.UtenteEnum;
@@ -41,41 +42,14 @@ public class LoginServlet extends HttpServlet {
 		UtenteEnum uEnum = iLogin.verificaLogin(nomeUtente, password);
 		if (uEnum == UtenteEnum.AMMINISTRATORE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
-			caricamentoHomeAmministratore(request, response);
+			GestioneServlet.showPage(request, response, "homeAmministratore.jsp");
 		} else if (uEnum == UtenteEnum.UTENTE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
-			caricamentoHomeUtente(nomeUtente, request, response);
+			GestioneServlet.showPage(request, response, "homeUtente.jsp");
 		} else {
 			request.setAttribute("messaggioLogin",
 					"Errore: nome utente o password errati!");
-			showPaginaLogin(request, response);
+			GestioneServlet.showPage(request, response, "index.jsp");
 		}
 	}
-
-	private void caricamentoHomeUtente(String nomeUtente,
-			HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher disp;
-		disp = request.getRequestDispatcher(response
-				.encodeURL("HomeAmministratore.jsp"));
-		disp.forward(request, response);
-
-	}
-
-	private void caricamentoHomeAmministratore(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher disp;
-		disp = request.getRequestDispatcher(response
-				.encodeURL("HomeUtente.jsp"));
-		disp.forward(request, response);
-
-	}
-
-	private void showPaginaLogin(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher disp;
-		disp = request.getRequestDispatcher(response.encodeURL("index.jsp"));
-		disp.forward(request, response);
-	}
-
 }

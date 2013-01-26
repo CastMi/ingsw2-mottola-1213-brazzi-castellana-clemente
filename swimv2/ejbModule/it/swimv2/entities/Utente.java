@@ -48,6 +48,21 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	@JoinTable(name = "Associazione_Utente_Abilita", joinColumns = @JoinColumn(name = "utente_id"), inverseJoinColumns = @JoinColumn(name = "abilita_name"))
 	private Set<Abilita> abilita;
 
+	public Utente(){
+		super();
+	}
+	
+	public Utente(String nome, String cognome, String username,
+			String password, String email, Set<Abilita> abilita) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.abilita = abilita;
+	}
+
 	public String getNome() {
 		return nome;
 	}
