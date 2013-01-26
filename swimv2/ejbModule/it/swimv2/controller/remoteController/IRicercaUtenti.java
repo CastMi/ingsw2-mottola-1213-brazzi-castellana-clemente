@@ -11,7 +11,7 @@ public interface IRicercaUtenti {
 	
 	public IUtente[] ricercaUtentiPerCognome(String nome);
 	
-	public IUtente[] ricercaUtentiPerUsername(String nome);
+	public IUtente ricercaUtentiPerUsername(String nome);
 	
 	public IUtente[] ricercaUtentiPerEmail(String nome);
 }

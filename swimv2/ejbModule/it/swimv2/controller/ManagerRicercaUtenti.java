@@ -5,6 +5,7 @@ import java.util.List;
 import it.swimv2.controller.remoteController.IRicercaUtenti;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IUtente;
+import it.swimv2.util.InvioRichiestaAbilitaEnum;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,13 +18,12 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
-	
 
 	@Override
 	public IUtente[] ricercaUtentiPerNome(String stringa) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentiPerNome");
 		query.setParameter("nome", stringa);
-		
+
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
 			// ci sono progetti creati dal professore
@@ -39,7 +39,8 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 
 	@Override
 	public IUtente[] ricercaUtentiPerCognome(String stringa) {
-		Query query = entityManager.createNamedQuery("Utente.getUtentiPerCognome");
+		Query query = entityManager
+				.createNamedQuery("Utente.getUtentiPerCognome");
 		query.setParameter("cognome", stringa);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
@@ -55,25 +56,20 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 	}
 
 	@Override
-	public IUtente[] ricercaUtentiPerUsername(String stringa) {
-		Query query = entityManager.createNamedQuery("Utente.getUtentePerUsername");
-		query.setParameter("username", stringa);
-		List<Object> risultatoQuery = (List<Object>) query.getResultList();
-		if (risultatoQuery.size() > 0) {
-			// ci sono progetti creati dal professore
-			Utente[] utentiTrovati = new Utente[risultatoQuery.size()];
-			// copia del risultato
-			for (int i = 0; i < risultatoQuery.size(); i++) {
-				utentiTrovati[i] = (Utente) risultatoQuery.get(i);
-			}
-			return utentiTrovati;
+	public IUtente ricercaUtentiPerUsername(String stringa) {
+		Utente risultato ;
+		try {
+			risultato = this.entityManager.find(Utente.class, stringa);
+		} catch (Exception e) {
+			risultato = null;
 		}
-		return null;
+		return risultato;
 	}
 
 	@Override
 	public IUtente[] ricercaUtentiPerEmail(String stringa) {
-		Query query = entityManager.createNamedQuery("Utente.getUtentePerEmail");
+		Query query = entityManager
+				.createNamedQuery("Utente.getUtentePerEmail");
 		query.setParameter("email", stringa);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
@@ -87,6 +83,5 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 		}
 		return null;
 	}
-	
-	
+
 }

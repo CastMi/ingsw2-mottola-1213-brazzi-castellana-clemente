@@ -169,4 +169,14 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TutteLeAbilita</display-name>
+    <servlet-name>TutteLeAbilita</servlet-name>
+    <servlet-class>it.swimv2.servlet.TutteLeAbilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TutteLeAbilita</servlet-name>
+    <url-pattern>/TutteLeAbilita</url-pattern>
+  </servlet-mapping>
 </web-app>

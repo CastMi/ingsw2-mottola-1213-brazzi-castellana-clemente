@@ -11,25 +11,23 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQueries({ 
-	//Query di estrazione dati	
-	@NamedQuery(name = "Abilita.getAbilitaPerNome",
-			query = "SELECT a FROM Abilita a WHERE a.nome = :nome"),
-})
+@NamedQueries({
+		// Query di estrazione dati
+		@NamedQuery(name = "Abilita.getTutteLeAbilita", query = "SELECT a FROM Abilita a"), })
 @Entity
-@Table(	name = "Abilita" )
+@Table(name = "Abilita")
 public class Abilita implements Serializable, IAbilita {
-	
+
 	private static final long serialVersionUID = -8113622545375125271L;
 
 	@Id
-	@Column(name="name")
+	@Column(name = "name")
 	private String nome;
-	
+
 	@Lob
-	@Column(name="description")
+	@Column(name = "description")
 	private String descrizione;
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -41,7 +39,7 @@ public class Abilita implements Serializable, IAbilita {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getDescrizione() {
 		return descrizione;
 	}

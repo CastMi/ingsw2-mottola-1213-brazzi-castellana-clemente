@@ -18,9 +18,9 @@ import javax.persistence.Table;
 @NamedQueries({
 		// Query di estrazione dati
 		@NamedQuery(name = "Utente.getTuttiIUtentiDisponibili", query = "SELECT u FROM Utente u"),
+		@NamedQuery(name = "Utente.getAbilitaUtente", query = "SELECT u.abilita FROM Utente u where u.username = :username"),
 		@NamedQuery(name = "Utente.getUtentiPerNome", query = "SELECT u FROM Utente u WHERE u.nome = :nome"),
 		@NamedQuery(name = "Utente.getUtentiPerCognome", query = "SELECT u FROM Utente u WHERE u.cognome = :cognome"),
-		@NamedQuery(name = "Utente.getUtentePerUsername", query = "SELECT u FROM Utente u WHERE u.username = :username"),
 		@NamedQuery(name = "Utente.getUtentePerEmail", query = "SELECT u FROM Utente u WHERE u.email = :email") })
 @Entity
 @Table(name = "Utente")
