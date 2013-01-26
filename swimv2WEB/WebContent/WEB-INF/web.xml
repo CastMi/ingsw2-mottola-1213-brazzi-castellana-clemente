@@ -179,6 +179,26 @@
     <servlet-name>TutteLeAbilita</servlet-name>
     <url-pattern>/TutteLeAbilita</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>AccettaRichiestaAbilita</display-name>
+    <servlet-name>AccettaRichiestaAbilita</servlet-name>
+    <servlet-class>it.swimv2.servlet.AccettaRichiestaAbilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccettaRichiestaAbilita</servlet-name>
+    <url-pattern>/AccettaRichiestaAbilita</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RifiutaRichiestaAbilita</display-name>
+    <servlet-name>RifiutaRichiestaAbilita</servlet-name>
+    <servlet-class>it.swimv2.servlet.RifiutaRichiestaAbilita</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RifiutaRichiestaAbilita</servlet-name>
+    <url-pattern>/RifiutaRichiestaAbilita</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>FormRegistrazione</display-name>
