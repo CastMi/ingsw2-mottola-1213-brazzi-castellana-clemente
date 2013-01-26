@@ -31,11 +31,11 @@ public class ManagerLogin implements ILogin {
 	 * java.lang.String)
 	 */
 	@Override
-	public UtenteEnum verificaLogin(String id, String password) {
-		if (verificaLoginAmministratore(id, password)) {
+	public UtenteEnum verificaLogin(String username, String password) {
+		if (verificaLoginAmministratore(username, password)) {
 			return UtenteEnum.AMMINISTRATORE;
 		}
-		if (verificaLoginUtente(id, password)) {
+		if (verificaLoginUtente(username, password)) {
 			return UtenteEnum.UTENTE;
 		}
 		return UtenteEnum.LOGIN_NON_VALIDO;

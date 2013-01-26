@@ -29,10 +29,10 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * String, java.lang.String)
 	 */
 	@Override
-	public void creaNuovaRichiestaAmicizia(String idMittente, String idDestinatario,
+	public void creaNuovaRichiestaAmicizia(String mittente, String destinatario,
 			String note) {
-		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(idMittente,
-				idDestinatario, note);
+		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
+				destinatario, note);
 		entityManager.getTransaction().begin();
 		entityManager.persist(richiestaAmicizia);
 		entityManager.getTransaction().commit();

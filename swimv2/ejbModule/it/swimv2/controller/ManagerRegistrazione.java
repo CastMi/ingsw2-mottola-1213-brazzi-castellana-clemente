@@ -33,11 +33,11 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 */
 	@Override
 	public RegistrazioneEnum nuovaRegistrazione(String nome, String cognome,
-			String email, String id, String password) {
+			String email, String username, String password) {
 		RegistrazioneEnum rEnum = controlloDatiInseriti(nome, cognome, email,
-				id, password);
+				username, password);
 		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
-			completaRegistrazione(nome, cognome, email, id, password);
+			completaRegistrazione(nome, cognome, email, username, password);
 		}
 		return rEnum;
 	}
@@ -46,11 +46,11 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 * @param nome
 	 * @param cognome
 	 * @param email
-	 * @param id
+	 * @param username
 	 * @param password
 	 */
 	private void completaRegistrazione(String nome, String cognome,
-			String email, String id, String password) {
+			String email, String username, String password) {
 		Utente utente = new Utente();
 		utente.setCognome(cognome);
 		utente.setNome(nome);
@@ -64,11 +64,11 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 * @param nome
 	 * @param cognome
 	 * @param email
-	 * @param nomeUtente
+	 * @param username
 	 * @param password
 	 */
 	private RegistrazioneEnum controlloDatiInseriti(String nome,
-			String cognome, String email, String nomeUtente, String password) {
+			String cognome, String email, String username, String password) {
 		if (checkNome(nome, cognome) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			return RegistrazioneEnum.ERRORE_NOME_COGNOME;
 		}
@@ -78,19 +78,19 @@ public class ManagerRegistrazione implements IRegistrazione {
 		if (checkPassword(password) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			return RegistrazioneEnum.ERRORE_PASSWORD;
 		}
-		if (checkId(nomeUtente) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
+		if (checkId(username) != RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
 		}
 		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
 	}
 
 	/**
-	 * @param nomeUtente
+	 * @param username
 	 */
 	@SuppressWarnings("unchecked")
-	private RegistrazioneEnum checkId(String nomeUtente) {
+	private RegistrazioneEnum checkId(String username) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerId")
-				.setParameter("Id", nomeUtente);
+				.setParameter("Id", username);
 		List<Object> risultatoQuery = (List<Object>) query.getResultList();
 		if (risultatoQuery.size() > 0) {
 			return RegistrazioneEnum.ERRORE_NOME_UTENTE;
