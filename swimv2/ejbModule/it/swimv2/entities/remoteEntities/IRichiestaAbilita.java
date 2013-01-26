@@ -1,14 +1,12 @@
 package it.swimv2.entities.remoteEntities;
 
-import it.swimv2.entities.Utente;
-
 public interface IRichiestaAbilita {
 
 	/**
 	 * 
 	 * @return il richiedente dell'abilità
 	 */
-	public Utente getRichiedente();
+	public IUtente getRichiedente();
 
 	/**
 	 * 
@@ -19,6 +17,6 @@ public interface IRichiestaAbilita {
 	/**
 	 * 
 	 * @return la descrizione dell'abilità
-	 */	
+	 */
 	public String getDescrizione();
 }

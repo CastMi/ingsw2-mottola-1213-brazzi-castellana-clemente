@@ -149,7 +149,7 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 		if (abi == null)
 			return ManutenzioneAbilitaEnum.ABILITA_INESISTENTE;
 
-		if (!utente.possiedeAbilita(abi) || !utente.RimuoviAbilità(abi))
+		if (!utente.RimuoviAbilità(abi))
 			return ManutenzioneAbilitaEnum.ERRORE;
 
 		try {
