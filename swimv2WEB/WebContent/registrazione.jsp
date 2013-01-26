@@ -15,9 +15,9 @@
 <div id="content">
 	<div class="right">
 
-		<h2>
-			<a>REGISTRAZIONE</a>
-		</h2>
+		<div id="contentTitle">
+			REGISTRAZIONE<br />
+		</div>
 		<div class="articles">
 			<div class="main_content">
 				<form action="RegistrazioneUtente" method="post">
@@ -49,6 +49,12 @@
 								<td class="td_campi_form"><label for="id">E-mail:</label></td>
 								<td style="height: 49px"><input name="email" type="text"
 									id="email" style="width: 185px" /></td>
+							</tr>
+							<tr>
+								<td class="td_campi_form"></td>
+								<td align=center><input id="immagineRegistrazione"
+									name="submit" type="image"
+									src="css/images/button-registrazione.jpg" alt="Registrazione" /></td>
 							</tr>
 						</table>
 					</fieldset>

@@ -28,7 +28,7 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher disp;
 		disp = request.getRequestDispatcher(response
-				.encodeURL("WEB-INF/AmiciziaAccettata.jsp"));
+				.encodeURL("AmiciziaAccettata.jsp"));
 		disp.forward(request, response);
 	}
 
