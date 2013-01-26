@@ -25,6 +25,10 @@ public class Amministratore implements Serializable, IAmministratore {
 
 	@Column(name = "password", nullable = false)
 	private String password;
+	
+	public Amministratore() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)

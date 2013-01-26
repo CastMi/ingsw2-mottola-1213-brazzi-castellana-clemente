@@ -10,6 +10,10 @@ public class AmiciziaPK implements Serializable {
 
 	private String idUtente2;
 
+	public AmiciziaPK() {
+		super();
+	}
+
 	public AmiciziaPK(String idUtente1, String idUtente2) {
 		this.idUtente1 = idUtente1;
 		this.idUtente2 = idUtente2;

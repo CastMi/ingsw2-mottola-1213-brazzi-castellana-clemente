@@ -28,10 +28,14 @@ public class Abilita implements Serializable, IAbilita {
 	@Column(name = "description")
 	private String descrizione;
 
+	public Abilita() {
+		super();
+	}	
+	
 	public String getNome() {
 		return nome;
 	}
-
+	
 	/**
 	 * 
 	 * @param nome

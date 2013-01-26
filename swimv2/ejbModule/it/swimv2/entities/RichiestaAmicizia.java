@@ -50,6 +50,10 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 		this.destinatario = idDestinatario;
 		this.note = note;
 	}
+	
+	public RichiestaAmicizia() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)

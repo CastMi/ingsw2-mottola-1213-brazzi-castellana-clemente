@@ -24,6 +24,10 @@ public class SuggerimentoAmicizia implements Serializable, ISuggerimentoAmicizia
 	@Id
 	@Column(name = "suggerito")
 	private String suggerito;
+	
+	public SuggerimentoAmicizia() {
+		super();
+	}
 
 	public SuggerimentoAmicizia(String destinatario, String suggerito) {
 		this.destinatario = destinatario;

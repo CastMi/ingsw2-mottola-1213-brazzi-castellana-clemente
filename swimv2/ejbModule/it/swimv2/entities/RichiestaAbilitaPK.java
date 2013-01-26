@@ -9,6 +9,10 @@ public class RichiestaAbilitaPK implements Serializable {
 	private String richiedente;
 
 	private String nome;
+	
+	public RichiestaAbilitaPK() {
+		super();
+	}
 
 	public RichiestaAbilitaPK(String nomeRichiestaAbilita,
 			String usernameRichiedente) {

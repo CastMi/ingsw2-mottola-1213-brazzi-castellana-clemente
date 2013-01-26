@@ -47,6 +47,10 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 	@Column(name = "descrizione")
 	private String descrizione;
 
+	public RichiestaAbilita() {
+		super();
+	}
+
 	/**
 	 * 
 	 * @param richiedente

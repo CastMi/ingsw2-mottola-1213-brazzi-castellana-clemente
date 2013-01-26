@@ -9,6 +9,10 @@ public class SuggerimentoAmiciziaPK implements Serializable {
 	private String destinatario;
 
 	private String suggerito;
+	
+	public SuggerimentoAmiciziaPK() {
+		super();
+	}
 
 	public SuggerimentoAmiciziaPK(String destinatario, String suggerito) {
 		this.destinatario = destinatario;

@@ -41,6 +41,10 @@ public class Amicizia implements Serializable, IAmicizia {
 	@Column(name="idUtente2")
 	private String idUtente2;
 	
+	public Amicizia() {
+		super();
+	}
+
 	public Amicizia(String idUtente1, String idUtente2) {
 		this.idUtente1 = idUtente1;
 		this.idUtente2 = idUtente2;
