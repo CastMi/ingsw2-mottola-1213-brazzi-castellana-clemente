@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RichiediAmiciziaServlet
  */
-public class RichiestaAmiciziaServlet extends HttpServlet {
+public class RichiestaAmiciziaDaSuggerimentoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final IFactory factory = new SimpleFactory();
@@ -52,7 +52,7 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 		String richiedente = request.getParameter("richiedente");
 		String destinatario = request.getParameter("destinatario");
 		String note = request.getParameter("note");
-		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
+		iRichiestaAmicizia.creaNuovaRichiestaAmiciziaTramiteSuggerimento(richiedente,
 				destinatario, note);
 		GestioneServlet.showPage(request, response, "RichiestaAmiciziaEffettuata.jsp");
 	}

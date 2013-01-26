@@ -1,7 +1,6 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
-import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
