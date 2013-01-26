@@ -53,6 +53,8 @@ public class CancellaAbilitaServlet extends HttpServlet {
 		case ABILITA_INESISTENTE:
 			request.setAttribute("messaggio",
 					"Errore: l'utente non possiede l'abilità che desidera cancellare.");
+			request.setAttribute("proprieAbilita",
+					manager.getProprieAbilita(username));
 			GestioneServlet.showPage(request, response, "abilita.jsp");
 			break;
 
@@ -62,8 +64,10 @@ public class CancellaAbilitaServlet extends HttpServlet {
 			break;
 
 		case OK:
-			request.getSession().setAttribute("proprieAbilita",
-					manager.getTutteLeAbilita());
+			request.setAttribute("messaggio",
+					"Abilità rimossa correttamente.");
+			request.setAttribute("proprieAbilita",
+					manager.getProprieAbilita(username));
 			GestioneServlet.showPage(request, response, "abilita.jsp");
 			break;
 		}

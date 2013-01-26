@@ -98,13 +98,11 @@ public final class ManagerManutenzioneAbilitaUtente extends
 
 		try {
 			// aggiungo la richiesta di abilità
-			entityManager.getTransaction().begin();
 			entityManager.persist(utente);
+			entityManager.flush();
 		} catch (Exception w) {
-			entityManager.getTransaction().rollback();
 			return ManutenzioneAbilitaEnum.ERRORE;
 		}
-		entityManager.getTransaction().commit();
 		return ManutenzioneAbilitaEnum.OK;
 	}
 
