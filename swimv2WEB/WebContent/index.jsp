@@ -85,7 +85,10 @@
 			<%
 				out.print(utenteLoggato);
 			%>!
+			
 		</span>
+		<input id="immagineLogout" name="submit" type="image"
+							src="css/images/button-logout.jpg" alt="Logout" />
 
 		<%
 			}
