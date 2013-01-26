@@ -13,9 +13,10 @@ public interface IRegistrazione {
 	 * @param email
 	 * @param id
 	 * @param password
+	 * @param abilita 
 	 * @return
 	 */
 	public abstract RegistrazioneEnum nuovaRegistrazione(String nome,
-			String cognome, String email, String id, String password);
+			String cognome, String email, String id, String password, String abilita);
 
 }

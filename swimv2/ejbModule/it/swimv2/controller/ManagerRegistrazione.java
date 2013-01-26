@@ -3,9 +3,12 @@
  */
 package it.swimv2.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import it.swimv2.controller.remoteController.IRegistrazione;
+import it.swimv2.entities.Abilita;
 import it.swimv2.entities.Utente;
 import it.swimv2.util.PasswordCoder;
 import it.swimv2.util.RegistrazioneEnum;
@@ -34,12 +37,12 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 */
 	@Override
 	public RegistrazioneEnum nuovaRegistrazione(String nome, String cognome,
-			String email, String username, String password) {
+			String email, String username, String password, String abilita) {
 		RegistrazioneEnum rEnum = controlloDatiInseriti(nome, cognome, email,
 				username, password);
 		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			try{
-				completaRegistrazione(nome, cognome, email, username, password);
+				completaRegistrazione(nome, cognome, email, username, password, abilita);
 			}
 			catch (Exception e){
 				return RegistrazioneEnum.ERRORE_EMAIL;
@@ -54,13 +57,21 @@ public class ManagerRegistrazione implements IRegistrazione {
 	 * @param email
 	 * @param username
 	 * @param password
+	 * @param abilita 
 	 */
 	private void completaRegistrazione(String nome, String cognome,
-			String email, String username, String password) {
+			String email, String username, String password, String abilita) {
 		Utente utente = new Utente(nome, cognome, username,
-				PasswordCoder.getPasswordCodificata(password), email);
+				PasswordCoder.getPasswordCodificata(password), email, costruisciSetAbilita(abilita));
+		
 		entityManager.persist(utente);
 		return;
+	}
+
+	private Set<Abilita> costruisciSetAbilita(String abilita) {
+		HashSet<Abilita> setAbilita = new HashSet<Abilita>();
+		setAbilita.add((Abilita) entityManager.find(Abilita.class, abilita));
+		return setAbilita;
 	}
 
 	/**

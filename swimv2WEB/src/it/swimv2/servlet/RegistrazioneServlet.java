@@ -55,8 +55,9 @@ public class RegistrazioneServlet extends HttpServlet {
 		String nomeUtente = request.getParameter("nomeUtente");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
+		String abilita = request.getParameter("abilita");
 		RegistrazioneEnum rEnum = iRegistrazione.nuovaRegistrazione(nome,
-				cognome, email, nomeUtente, password);
+				cognome, email, nomeUtente, password, abilita);
 		if (rEnum == RegistrazioneEnum.REGISTRAZIONE_VALIDA) {
 			// visualizzazione registrazioneEffettuata
 			disp = request.getRequestDispatcher(response
