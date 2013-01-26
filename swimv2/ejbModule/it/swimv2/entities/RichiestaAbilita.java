@@ -12,6 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
@@ -35,9 +36,8 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 	private static final long serialVersionUID = 707389346008617812L;
 
 	@Id
-	@ManyToOne
-	@JoinColumn(name = "richiedente")
-	private Utente richiedente;
+	@Column(name = "richiedente")
+	private String richiedente;
 
 	@Id
 	@Column(name = "nome")
@@ -51,7 +51,7 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 		super();
 	}
 	
-	public RichiestaAbilita(Utente richiedente, String nome, String descrizione) {
+	public RichiestaAbilita(String richiedente, String nome, String descrizione) {
 		super();
 		this.richiedente = richiedente;
 		this.nome = nome;
@@ -62,7 +62,7 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 	 * 
 	 * @param richiedente
 	 */
-	public void setRichiedente(Utente richiedente) {
+	public void setRichiedente(String richiedente) {
 		this.richiedente = richiedente;
 	}
 
@@ -88,7 +88,7 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 	 * 
 	 * @return il richiedente dell'abilità
 	 */
-	public Utente getRichiedente() {
+	public String getRichiedente() {
 		return richiedente;
 	}
 

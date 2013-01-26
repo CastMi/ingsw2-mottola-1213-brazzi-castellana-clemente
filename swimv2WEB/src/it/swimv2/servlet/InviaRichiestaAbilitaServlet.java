@@ -3,6 +3,7 @@ package it.swimv2.servlet;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
+import it.swimv2.util.InvioRichiestaAbilitaEnum;
 import it.swimv2.util.SimpleFactory;
 
 import java.io.IOException;
@@ -41,8 +42,8 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 		String descrizione = request.getParameter("descrizione");
 		String username = (String) request.getSession().getAttribute("nomeUtente");
 
-		switch (manager.inviareRichiestaAbilita(nomeAbilita, descrizione,
-				username)) {
+		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(nomeAbilita, descrizione, username);
+		switch (temp) {
 		case UTENTE_INESISTENTE:
 			GestioneServlet.annullaSessione(request, response, "index.jsp",
 					"Errore: utente inesistente.");

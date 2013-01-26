@@ -49,17 +49,23 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		}
 
 		// non esiste la richiesta di abilità quindi la creo
-		ra = new RichiestaAbilita(utente,nomeRichiestaAbilita.toLowerCase(),descrizione.toLowerCase());
+		
 		
 		try {
 			// aggiungo la richiesta di abilità
-			entityManager.getTransaction().begin();
+			//entityManager.getTransaction().begin();
+			ra = new RichiestaAbilita(username,nomeRichiestaAbilita.toLowerCase(),descrizione.toLowerCase());
 			entityManager.persist(ra);
+			entityManager.flush();
+			entityManager.clear();
+			//entityManager.getTransaction().commit();
 		} catch (Exception w) {
-			entityManager.getTransaction().rollback();
+			w.printStackTrace();
+			//if ( entityManager.getTransaction().isActive())
+				//entityManager.getTransaction().rollback();
 			return InvioRichiestaAbilitaEnum.ERRORE;
 		}
-		entityManager.getTransaction().commit();
+		
 		return InvioRichiestaAbilitaEnum.OK;
 	}
 

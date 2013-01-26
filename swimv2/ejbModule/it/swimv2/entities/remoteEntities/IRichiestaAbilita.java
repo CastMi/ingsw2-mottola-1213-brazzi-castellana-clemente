@@ -6,7 +6,7 @@ public interface IRichiestaAbilita {
 	 * 
 	 * @return il richiedente dell'abilità
 	 */
-	public IUtente getRichiedente();
+	public String getRichiedente();
 
 	/**
 	 * 

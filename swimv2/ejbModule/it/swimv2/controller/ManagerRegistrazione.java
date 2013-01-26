@@ -163,6 +163,7 @@ public class ManagerRegistrazione implements IRegistrazione {
 			return RegistrazioneEnum.ERRORE_EMAIL;
 		}
 		return RegistrazioneEnum.REGISTRAZIONE_VALIDA;
+		
 
 	}
 

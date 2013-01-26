@@ -21,13 +21,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>RichiediAmiciziaServlet</display-name>
-    <servlet-name>RichiediAmiciziaServlet</servlet-name>
-    <servlet-class>it.swimv2.servlet.RichiediAmiciziaServlet</servlet-class>
+    <display-name>RichiestaAmiciziaServlet</display-name>
+    <servlet-name>RichiestaAmiciziaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.RichiestaAmiciziaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RichiediAmiciziaServlet</servlet-name>
-    <url-pattern>/RichiediAmicizia</url-pattern>
+    <servlet-name>RichiestaAmiciziaServlet</servlet-name>
+    <url-pattern>/RichiestaAmicizia</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -181,22 +181,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>RifiutaRichiestaAbilita</display-name>
-    <servlet-name>RifiutaRichiestaAbilita</servlet-name>
-    <servlet-class>it.swimv2.servlet.RifiutaRichiestaAbilita</servlet-class>
+    <display-name>RifiutaRichiestaAbilitaServlet</display-name>
+    <servlet-name>RifiutaRichiestaAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.RifiutaRichiestaAbilitaServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RifiutaRichiestaAbilita</servlet-name>
+    <servlet-name>RifiutaRichiestaAbilitaServlet</servlet-name>
     <url-pattern>/RifiutaRichiestaAbilita</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>FormRegistrazione</display-name>
-    <servlet-name>FormRegistrazione</servlet-name>
+    <display-name>FormRegistrazioneServlet</display-name>
+    <servlet-name>FormRegistrazioneServlet</servlet-name>
     <servlet-class>it.swimv2.servlet.FormRegistrazioneServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>FormRegistrazione</servlet-name>
+    <servlet-name>FormRegistrazioneServlet</servlet-name>
     <url-pattern>/FormRegistrazione</url-pattern>
   </servlet-mapping>
 </web-app>
