@@ -40,10 +40,12 @@ public class LoginServlet extends HttpServlet {
 		UtenteEnum uEnum = iLogin.verificaLogin(nomeUtente, password);
 		if (uEnum == UtenteEnum.AMMINISTRATORE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
+			request.setAttribute("amministratore", iLogin.getAmministratore(nomeUtente));
 			GestioneServlet.showPage(request, response,
 					"homeAmministratore.jsp");
 		} else if (uEnum == UtenteEnum.UTENTE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
+			request.setAttribute("utente", iLogin.getUtente(nomeUtente));
 			GestioneServlet.showPage(request, response, "homeUtente.jsp");
 		} else {
 			request.setAttribute("messaggioLogin",
