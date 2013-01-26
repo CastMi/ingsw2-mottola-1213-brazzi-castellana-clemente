@@ -56,8 +56,7 @@
 									id="cognome" style="width: 185px" /></td>
 							</tr>
 							<tr>
-								<td class="td_campi_form"><label for="nomeUtente">Codice
-										Persona:</label></td>
+								<td class="td_campi_form"><label for="nomeUtente">Username:</label></td>
 								<td style="height: 49px"><input name="nomeUtente"
 									type="text" id="nomeUtente" style="width: 185px" /></td>
 							</tr>
@@ -110,7 +109,7 @@
 			<fieldset>
 				<table>
 					<tr>
-						<td><label for="userName">Codice persona:</label></td>
+						<td><label for="userName">Username:</label></td>
 					</tr>
 					<tr>
 						<td><input type="text" name="userName" id="userName" size=19 /></td>

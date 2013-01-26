@@ -34,7 +34,7 @@
 			<fieldset>
 				<table>
 					<tr>
-						<td><label for="userName">Codice persona:</label></td>
+						<td><label for="userName">Username:</label></td>
 					</tr>
 					<tr>
 						<td><input type="text" name="userName" id="userName" size=19 /></td>

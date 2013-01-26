@@ -76,7 +76,7 @@
 			</form>
 			<p>
 			<a href="TutteLeAbilita">Le tue abilità</a><p>
-			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
+			<a href="TutteLeAbilita">Aggiungi abilità</a>
 	</div>
 	<div style="clear: both;"></div>
 </div>
