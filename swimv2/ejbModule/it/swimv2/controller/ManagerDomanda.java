@@ -96,6 +96,8 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 			entityManager.persist(temp);
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
+			if(entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
 			return null;
 		}
 

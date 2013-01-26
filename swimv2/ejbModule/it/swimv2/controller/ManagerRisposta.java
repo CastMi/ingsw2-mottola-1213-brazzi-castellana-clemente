@@ -88,10 +88,16 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	@Override
 	public IRisposta aggiungiRispsota(int idDomanda, String userName,
 			String risposta) {
-		Domanda domanda = entityManager.find(Domanda.class, idDomanda);
+		Domanda domanda = null;
+		Utente utente = null;
+		try {
+			domanda = entityManager.find(Domanda.class, idDomanda);
 
-		Utente utente = entityManager.find(Utente.class, userName);
-
+			utente = entityManager.find(Utente.class, userName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		Risposta temp = new Risposta(domanda, utente, risposta);
 		try {
 			entityManager.getTransaction().begin();
@@ -99,6 +105,8 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 			entityManager.getTransaction().commit();
 			return temp;
 		} catch (Exception e) {
+			if(entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
 			e.printStackTrace();
 		}
 		return null;
