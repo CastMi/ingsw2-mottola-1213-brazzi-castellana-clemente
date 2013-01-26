@@ -18,42 +18,48 @@
 
 		<div id="contentTitle">Proprie abilità</div>
 		<div class="articles">
+
+			<%
+				IAbilita[] proprieAbilita = (IAbilita[]) request
+						.getAttribute("proprieAbilita");
+				if (proprieAbilita != null && proprieAbilita.length > 0) {
+			%>
 			<table>
+				<tr>
+					<td>Nome dell'abilità</td>
+					<td>Descrizione</td>
+				</tr>
 				<%
-					IAbilita[] proprieAbilita = (IAbilita[]) request
-							.getAttribute("proprieAbilita");
-					if (proprieAbilita != null) {
-						for (IAbilita a : proprieAbilita) {
+					for (IAbilita a : proprieAbilita) {
 				%>
 				<tr>
-					<td><label for="userName"> <%
- 	a.getNome();
- %>
+					<td><label for="userName"> <%=a.getNome()%>
 					</label></td>
 					<td rowspan="2">
 						<form method="post" action="CancellaAbilita">
-							<input type="hidden" name="nomeAbilita" value="<%a.getNome();%>">
+							<input type="hidden" name="nomeAbilita" value="<%=a.getNome()%>">
 							<input name="submit" type="submit" value="Cancella" />
 						</form>
 					</td>
 				</tr>
 				<tr>
-					<td><label for="descrizione"> <%
- 	a.getDescrizione();
- %>
+					<td><label for="descrizione"> <%=a.getDescrizione()%>
 					</label></td>
 				</tr>
 				<%
 					}
-					} else {
-				%>
-				<div>
-					<br />Non possiedi alcuna abilità
-				</div>
-				<%
-					}
 				%>
 			</table>
+			<%
+				} else {
+			%>
+			<div>
+				<br />Non possiedi alcuna abilità
+			</div>
+			<%
+				}
+			%>
+
 		</div>
 
 	</div>

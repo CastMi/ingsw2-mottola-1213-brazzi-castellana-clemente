@@ -44,7 +44,7 @@ public class TutteLeAbilitaServlet extends HttpServlet {
 		String username = (String) request.getSession().getAttribute(
 				"nomeUtente");
 
-		request.getSession().setAttribute("proprieAbilita",
+		request.setAttribute("proprieAbilita",
 				manager.getProprieAbilita(username));
 		GestioneServlet.showPage(request, response, "abilita.jsp");
 	}
@@ -65,7 +65,7 @@ public class TutteLeAbilitaServlet extends HttpServlet {
 		String username = (String) request.getSession().getAttribute(
 				"nomeUtente");
 
-		request.getSession().setAttribute("proprieAbilita",
+		request.setAttribute("proprieAbilita",
 				manager.getProprieAbilita(username));
 		GestioneServlet.showPage(request, response, "abilita.jsp");
 	}
