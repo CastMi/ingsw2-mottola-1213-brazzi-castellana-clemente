@@ -56,16 +56,16 @@
 							src="css/images/button-login.jpg" alt="Login" /></td>
 					</tr>
 					<%
-						String message = (String) request.getAttribute("messaggio");
+						String messaggioLogin = (String) request.getAttribute("messaggioLogin");
 
-						if (message != null && !message.isEmpty()) {
+						if (messaggioLogin != null && !messaggioLogin.isEmpty()) {
 					%>
 					<tr>
 						<td>
 							<div id="erroreLogin">
 
 								<%
-									out.print(message);
+									out.print(messaggioLogin);
 								%><br />
 							</div>
 						</td>
