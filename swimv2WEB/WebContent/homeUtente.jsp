@@ -1,5 +1,7 @@
+<%@page import="it.swimv2.entities.remoteEntities.IUtente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="it.swimv2.entities.remoteEntities.IUtente"%>
 <jsp:include page="Header.jsp">
 	<jsp:param name="titolo" value="index" />
 </jsp:include>
@@ -7,17 +9,56 @@
 <div id="content">
 	<div class="right">
 
-		<div id="contentTitle">Home page Amministratore</div>
+		<div id="contentTitle">Dati dell'utente</div>
 		<div class="articles">
-			<br />SWIMv2 è un software per lo scambio di informazioni di
-			assistenza.<br /> <br /> Questo obbiettivo è soddisfatto attraverso
-			un network che permette di porre domande in determinati ambiti e
-			consente agli utenti che possiedono queste abilità di fornire aiuto.<br />
-			<br /> Nel sistema gli utenti possono diventare amici, in aggiunta
-			vengono suggerite anche le possibili conoscenze in base alle proprie
-			amicizie. <br /> <br /> Il tutto è supportato da un sistema di
-			feedback per poter valutare l'affidabilità dell'utente che propone la
-			soluzione al problema.
+			<table>
+				<%
+					IUtente io = (IUtente) request.getAttribute("utente");
+				%>
+				<!-- Username -->
+				<tr>
+					<td><label>Username: </label></td>
+				</tr>
+				<tr>
+					<td><label> <%
+ 	io.getUsername();
+ %>
+					</label></td>
+				</tr>
+
+				<!-- Nome -->
+				<tr>
+					<td><label>Nome: </label></td>
+				</tr>
+				<tr>
+					<td><label> <%
+ 	io.getNome();
+ %>
+					</label></td>
+				</tr>
+
+				<!-- Cognome -->
+				<tr>
+					<td><label>Cognome: </label></td>
+				</tr>
+				<tr>
+					<td><label> <%
+ 	io.getCognome();
+ %>
+					</label></td>
+				</tr>
+
+				<!-- Email -->
+				<tr>
+					<td><label>Email: </label></td>
+				</tr>
+				<tr>
+					<td><label> <%
+ 	io.getEmail();
+ %>
+					</label></td>
+				</tr>
+			</table>
 		</div>
 
 	</div>
