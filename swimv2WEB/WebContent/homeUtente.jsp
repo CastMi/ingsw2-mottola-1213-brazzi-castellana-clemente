@@ -5,10 +5,14 @@
 <%
 	String utenteLoggato = (String) request.getSession().getAttribute(
 			"nomeUtente");
+
+	if (utenteLoggato == null || utenteLoggato.isEmpty()) {
+		response.sendRedirect("index.jsp");
+	}
 %>
 
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="Home page Utente" />
+	<jsp:param name="titolo" value="Dati Utente" />
 </jsp:include>
 
 <div id="content">
@@ -22,46 +26,35 @@
 				%>
 				<!-- Username -->
 				<tr>
-					<td><label>Username: </label></td>
+					<td><b>Username: </b></td>
 				</tr>
 				<tr>
-					<td><label> <%
- 	io.getUsername();
- %>
-					</label></td>
+					<td><%=io.getUsername()%></td>
 				</tr>
 
 				<!-- Nome -->
 				<tr>
-					<td><label>Nome: </label></td>
+					<td><b>Nome: </b></td>
 				</tr>
 				<tr>
-					<td><label> <%
- 	io.getNome();
- %>
-					</label></td>
+					<td><%=io.getNome()%></td>
 				</tr>
 
 				<!-- Cognome -->
 				<tr>
-					<td><label>Cognome: </label></td>
+					<td><b>Cognome: </b></td>
 				</tr>
 				<tr>
-					<td><label> <%
- 	io.getCognome();
- %>
-					</label></td>
+					<td><%=io.getCognome()%></td>
 				</tr>
 
 				<!-- Email -->
 				<tr>
-					<td><label>Email: </label></td>
+					<td><b>Email:</b></td>
 				</tr>
 				<tr>
-					<td><label> <%
- 	io.getEmail();
- %>
-					</label></td>
+					<td><%=io.getEmail()%>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -75,12 +68,14 @@
 				<%
 					out.print(utenteLoggato);
 				%>!
-			</h2>
-			<br /> <br />
+			</h2> <br /> <br />
 			<form action="Logout" method="post">
 				<input id="immagineLogout" name="submit" type="image"
 					src="css/images/button-logout.jpg" alt="Logout" />
 			</form> </span>
+			<p>
+			<a href="abilita.jsp">Le tue abilità</a><p>
+			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
 
 	</div>
 	<div style="clear: both;"></div>

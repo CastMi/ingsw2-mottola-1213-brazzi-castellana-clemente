@@ -2,8 +2,8 @@ package it.swimv2.controller.remoteController;
 
 import javax.ejb.Remote;
 
-import it.swimv2.entities.Amministratore;
-import it.swimv2.entities.Utente;
+import it.swimv2.entities.remoteEntities.IAmministratore;
+import it.swimv2.entities.remoteEntities.IUtente;
 import it.swimv2.util.UtenteEnum;
 
 @Remote
@@ -15,10 +15,10 @@ public interface ILogin {
 	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String,
 	 * java.lang.String)
 	 */
-	public abstract UtenteEnum verificaLogin(String username, String password);
+	public UtenteEnum verificaLogin(String username, String password);
 
-	public abstract Amministratore getAmministratore(String nomeUtente);
+	public IAmministratore getAmministratore(String nomeUtente);
 
-	public abstract Utente getUtente(String nomeUtente);
+	public IUtente getUtente(String nomeUtente);
 
 }

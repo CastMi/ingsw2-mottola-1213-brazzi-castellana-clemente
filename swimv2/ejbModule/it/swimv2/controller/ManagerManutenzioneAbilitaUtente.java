@@ -49,10 +49,8 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		}
 
 		// non esiste la richiesta di abilità quindi la creo
-		ra = new RichiestaAbilita();
-		ra.setDescrizione(descrizione.toLowerCase());
-		ra.setNome(nomeRichiestaAbilita.toLowerCase());
-		ra.setRichiedente(utente);
+		ra = new RichiestaAbilita(utente,nomeRichiestaAbilita.toLowerCase(),descrizione.toLowerCase());
+		
 		try {
 			// aggiungo la richiesta di abilità
 			entityManager.getTransaction().begin();

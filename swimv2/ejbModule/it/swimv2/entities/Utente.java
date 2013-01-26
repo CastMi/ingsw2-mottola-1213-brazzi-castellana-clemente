@@ -24,7 +24,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "Utente.getUtentePerEmail", query = "SELECT u FROM Utente u WHERE u.email = :email") })
 @Entity
 @Table(name = "Utente")
-public class Utente implements Serializable, IUtente, Cloneable {
+public class Utente implements Serializable, IUtente {
 
 	private static final long serialVersionUID = 7553687756826590720L;
 
@@ -160,14 +160,5 @@ public class Utente implements Serializable, IUtente, Cloneable {
 	
 	public Set<Abilita> getAbilita() {
 		return abilita;
-	}
-
-	public Utente clone() {
-		try {
-			return (Utente) super.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 }

@@ -50,6 +50,13 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 	public RichiestaAbilita() {
 		super();
 	}
+	
+	public RichiestaAbilita(Utente richiedente, String nome, String descrizione) {
+		super();
+		this.richiedente = richiedente;
+		this.nome = nome;
+		this.descrizione = descrizione;
+	}
 
 	/**
 	 * 
@@ -82,7 +89,7 @@ public class RichiestaAbilita implements Serializable, IRichiestaAbilita {
 	 * @return il richiedente dell'abilità
 	 */
 	public Utente getRichiedente() {
-		return richiedente.clone();
+		return richiedente;
 	}
 
 	public String getNome() {
