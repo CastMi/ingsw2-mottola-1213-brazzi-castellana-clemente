@@ -12,7 +12,7 @@
 <div id="content">
 	<div class="right">
 
-		<div id="contentTitle">Home page Amministratore</div>
+		<div id="contentTitle">Home page Utente</div>
 		<div class="articles">
 			<br />SWIMv2 è un software per lo scambio di informazioni di
 			assistenza.<br /> <br /> Questo obbiettivo è soddisfatto attraverso
