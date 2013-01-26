@@ -57,7 +57,6 @@ public final class ManagerManutenzioneAbilitaUtente extends
 			ra = new RichiestaAbilita(username,nomeRichiestaAbilita.toLowerCase(),descrizione.toLowerCase());
 			entityManager.persist(ra);
 			entityManager.flush();
-			entityManager.clear();
 			//entityManager.getTransaction().commit();
 		} catch (Exception w) {
 			w.printStackTrace();
