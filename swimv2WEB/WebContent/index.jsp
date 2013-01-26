@@ -81,14 +81,17 @@
 			} else {
 		%>
 
-		<span id="Benvenuto"> <br />Benvenuto <br />
-			<%
-				out.print(utenteLoggato);
-			%>!
-			
+		<span id="Benvenuto"> <br />Benvenuto <br /> <%
+ 	out.print(utenteLoggato);
+ %>! <br />
+		<br />
+			<form action="Logout" method="post">
+				<input id="immagineLogout" name="submit" type="image"
+					src="css/images/button-logout.jpg" alt="Logout" />
+			</form>
+
 		</span>
-		<input id="immagineLogout" name="submit" type="image"
-							src="css/images/button-logout.jpg" alt="Logout" />
+
 
 		<%
 			}
