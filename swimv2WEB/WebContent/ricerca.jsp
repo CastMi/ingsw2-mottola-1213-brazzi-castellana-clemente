@@ -3,7 +3,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="Ricerca" />
+	<jsp:param name="titolo" value="Ricerca Utente" />
 </jsp:include>
 
 <div id="content">
@@ -33,28 +33,22 @@
 				%>
 				<table>
 					<tr>
-						<td style="height: 49px">Nomeutente</td>
-						<td style="height: 49px">Nome</td>
-						<td style="height: 49px">Cognome</td>
+						<td style="height: 20px">Nomeutente</td>
+						<td style="height: 20px">Nome</td>
+						<td style="height: 20px">Cognome</td>
 					</tr>
 					<%
 						for (int i = 0; i < risultato.length; i++) {
 					%>
 					<tr>
-						<td style="height: 49px">
-							<%
-								risultato[i].getUsername();
-							%>
+						<td style="height: 20px">
+							<%=risultato[i].getUsername()%>
 						</td>
-						<td style="height: 49px">
-							<%
-								risultato[i].getNome();
-							%>
+						<td style="height: 20px">
+							<%=risultato[i].getNome()%>
 						</td>
-						<td style="height: 49px">
-							<%
-								risultato[i].getCognome();
-							%>
+						<td style="height: 20px">
+							<%=risultato[i].getCognome()%>
 						</td>
 					</tr>
 					<%

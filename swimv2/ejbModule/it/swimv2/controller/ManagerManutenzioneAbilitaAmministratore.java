@@ -71,12 +71,16 @@ public final class ManagerManutenzioneAbilitaAmministratore extends
 			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 
 		try {
-			if (!esisteAbilita)
+			if (!esisteAbilita) {
 				entityManager.persist(abi);
+				entityManager.flush();
+			}
 			entityManager.persist(utente);
+			entityManager.flush();
 			entityManager.remove(richiestaAbilita);
 			entityManager.flush();
 		} catch (Exception w) {
+			w.printStackTrace();
 			return ManutentoreRichiesteAbilitaEnum.ERRORE;
 		}
 		return ManutentoreRichiesteAbilitaEnum.OK;

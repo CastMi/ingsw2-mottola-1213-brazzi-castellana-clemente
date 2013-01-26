@@ -23,6 +23,24 @@ public class RicercaUtenteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		IRicercaUtenti manager;
+		try {
+			manager = factory.getRicercaUtenti();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+		String testo = request.getParameter("testoRicerca");
+		request.setAttribute("risultatoRicerca", manager.ricercaUtentiPerUsername(testo));
+		GestioneServlet.showPage(request, response, "ricerca.jsp");
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		IRicercaUtenti manager;

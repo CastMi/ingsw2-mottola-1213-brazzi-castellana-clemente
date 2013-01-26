@@ -56,12 +56,12 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 	}
 
 	@Override
-	public IUtente ricercaUtentiPerUsername(String stringa) {
-		Utente risultato;
+	public IUtente[] ricercaUtentiPerUsername(String stringa) {
+		Utente[] risultato = new Utente[1];
 		try {
-			risultato = this.entityManager.find(Utente.class, stringa);
+			risultato[0] = this.entityManager.find(Utente.class, stringa);
 		} catch (Exception e) {
-			risultato = null;
+			risultato[0] = null;
 		}
 		return risultato;
 	}
