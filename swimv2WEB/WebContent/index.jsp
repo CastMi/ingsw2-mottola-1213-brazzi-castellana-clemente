@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="index" />
+	<jsp:param name="titolo" value="Index" />
 </jsp:include>
 
 <div id="content">
@@ -81,9 +81,9 @@
 			} else {
 		%>
 
-		<span id="Benvenuto"> <br />Benvenuto <br /> <%
+		<span id="Benvenuto"> <h2>Benvenuto <br /> <%
  	out.print(utenteLoggato);
- %>! <br />
+ %>! </h2><br />
 		<br />
 			<form action="Logout" method="post">
 				<input id="immagineLogout" name="submit" type="image"
