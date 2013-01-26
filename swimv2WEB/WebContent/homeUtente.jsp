@@ -75,12 +75,11 @@
 				<%
 					out.print(utenteLoggato);
 				%>!
-			</h2>
-			<br /> <br />
+			</h2> <br /> <br /></span>
 			<form action="Logout" method="post">
 				<input id="immagineLogout" name="submit" type="image"
 					src="css/images/button-logout.jpg" alt="Logout" />
-			</form> </span>
+			</form> 
 
 	</div>
 	<div style="clear: both;"></div>

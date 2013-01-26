@@ -84,13 +84,13 @@
 		<span id="Benvenuto"> <h2>Benvenuto <br /> <%
  	out.print(utenteLoggato);
  %>! </h2><br />
-		<br />
+		<br /></span>
 			<form action="Logout" method="post">
 				<input id="immagineLogout" name="submit" type="image"
 					src="css/images/button-logout.jpg" alt="Logout" />
 			</form>
 
-		</span>
+		
 
 
 		<%
