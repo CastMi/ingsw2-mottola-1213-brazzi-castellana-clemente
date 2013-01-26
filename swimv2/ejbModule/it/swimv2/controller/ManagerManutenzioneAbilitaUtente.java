@@ -135,7 +135,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		if (listaRis.size() == 0)
 			return null;
 
-		return (IAbilita[]) listaRis.toArray();
+		return (IAbilita[]) listaRis.toArray(new IAbilita[listaRis.size()]);
 	}
 
 	@Override

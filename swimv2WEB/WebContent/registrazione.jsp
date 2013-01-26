@@ -1,3 +1,5 @@
+
+<%@page import="it.swimv2.entities.remoteEntities.IAbilita"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
@@ -69,6 +71,23 @@
 								<td class="td_campi_form"><label for="email">E-mail:</label></td>
 								<td style="height: 49px"><input name="email" type="text"
 									id="email" style="width: 185px" /></td>
+							</tr>
+							<tr>
+								<% 
+										IAbilita[] iAbilita = (IAbilita[]) request.getAttribute("abilita");
+										if(iAbilita != null) {%>
+								<td class="td_campi_form"><label for="abilita">Abilità:</label></td>
+								<td style="height: 49px"><select name="abilita">
+										<%for(IAbilita a: iAbilita){%>
+											<option value="<%=a.getNome()%>"><%=a.getNome()%></option>
+											
+			
+										<%
+										}%>
+										</select></td>
+										<%}
+										%>
+								
 							</tr>
 							<tr>
 								<td class="td_campi_form"></td>

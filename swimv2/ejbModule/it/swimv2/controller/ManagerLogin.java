@@ -30,6 +30,9 @@ public class ManagerLogin implements ILogin {
 	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String,
 	 * java.lang.String)
 	 */
+	/* (non-Javadoc)
+	 * @see it.swimv2.controller.ILogin#verificaLogin(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public UtenteEnum verificaLogin(String username, String password) {
 		if (verificaLoginAmministratore(username, password)) {
@@ -39,6 +42,30 @@ public class ManagerLogin implements ILogin {
 			return UtenteEnum.UTENTE;
 		}
 		return UtenteEnum.LOGIN_NON_VALIDO;
+	}
+	
+	/* (non-Javadoc)
+	 * @see it.swimv2.controller.ILogin#getAmministratore(java.lang.String)
+	 */
+	@Override
+	public Amministratore getAmministratore(String nomeUtente){
+		try {
+			return entityManager.find(Amministratore.class, nomeUtente);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see it.swimv2.controller.ILogin#getUtente(java.lang.String)
+	 */
+	@Override
+	public Utente getUtente(String nomeUtente){
+		try {
+			return entityManager.find(Utente.class, nomeUtente);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	/**
