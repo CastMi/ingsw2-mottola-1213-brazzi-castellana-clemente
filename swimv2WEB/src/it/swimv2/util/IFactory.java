@@ -4,6 +4,7 @@ import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.controller.remoteController.ILogin;
 import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.controller.remoteController.IManagerRisposta;
+import it.swimv2.controller.remoteController.IManagerSuggerimentoAmicizia;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.controller.remoteController.IRegistrazione;
@@ -39,5 +40,9 @@ public interface IFactory {
 
 	public IManagerRisposta getManagerRisposta() throws NamingException,
 			ClassCastException;
+	
+	public IManagerSuggerimentoAmicizia getManagerSuggerimento() throws NamingException,
+	ClassCastException;
+
 
 }

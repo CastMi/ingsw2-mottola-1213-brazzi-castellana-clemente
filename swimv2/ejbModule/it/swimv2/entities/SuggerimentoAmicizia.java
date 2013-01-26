@@ -8,7 +8,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+
+@NamedQueries({
+	// Query di estrazione dati
+	@NamedQuery(name = "SuggerimentoAmicizia.getSuggerimentoPerDestinatario", 
+			query = "SELECT s FROM SuggerimentoAmicizia s WHERE s.destinatario = :nomeUtente")
+})
 
 @Entity
 @Table(	name = "SuggerimentoAmicizia" )

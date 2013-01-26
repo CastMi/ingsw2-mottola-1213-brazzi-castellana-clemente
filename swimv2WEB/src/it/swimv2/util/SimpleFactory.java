@@ -7,6 +7,7 @@ import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.controller.remoteController.ILogin;
 import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.controller.remoteController.IManagerRisposta;
+import it.swimv2.controller.remoteController.IManagerSuggerimentoAmicizia;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaAmministratore;
 import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.controller.remoteController.IRegistrazione;
@@ -25,6 +26,7 @@ public class SimpleFactory implements IFactory {
 	private final String managerRichiestaAmicizia = "ManagerRichiestaAmicizia";
 	private final String managerDomanda = "ManagerDomanda";
 	private final String managerRisposta = "ManagerRisposta";
+	private final String managerSuggerimento = "ManagerSuggerimentoAmicizia";
 
 	private Object cercaClasseConcreta(String nomeClasseConcreta)
 			throws NamingException {
@@ -109,5 +111,14 @@ public class SimpleFactory implements IFactory {
 
 		return (IManagerRisposta) PortableRemoteObject.narrow(obj,
 				IManagerRisposta.class);
+	}
+	
+	@Override
+	public IManagerSuggerimentoAmicizia getManagerSuggerimento() throws NamingException,
+			ClassCastException {
+		Object obj = this.cercaClasseConcreta(this.managerSuggerimento);
+
+		return (IManagerSuggerimentoAmicizia) PortableRemoteObject.narrow(obj,
+				IManagerSuggerimentoAmicizia.class);
 	}
 }
