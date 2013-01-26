@@ -27,14 +27,14 @@
 				%>
 				<tr>
 					<td><label for="username"> <%
- 	a.getRichiedente().getUsername();
+ 	a.getRichiedente();
  %>
 					</label></td>
 					<td>
 						<form method="post" action="AccettaRichiesta">
 							<input type="hidden" name="nomeRichiesta"
 								value="<%a.getNome();%>"> <input type="hidden"
-								name="username" value="<%a.getRichiedente().getUsername();%>">
+								name="username" value="<%a.getRichiedente();%>">
 							<input name="submit" type="submit" value="Cancella" />
 						</form>
 					</td>
@@ -48,7 +48,7 @@
 						<form method="post" action="RifiutaRichiesta">
 							<input type="hidden" name="nomeRichiesta"
 								value="<%a.getNome();%>"> <input type="hidden"
-								name="username" value="<%a.getRichiedente().getUsername();%>">
+								name="username" value="<%a.getRichiedente();%>">
 							<input name="submit" type="submit" value="Cancella" />
 						</form>
 					</td>

@@ -199,4 +199,14 @@
     <servlet-name>FormRegistrazioneServlet</servlet-name>
     <url-pattern>/FormRegistrazione</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CancellaAbilitaServlet</display-name>
+    <servlet-name>CancellaAbilitaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.CancellaAbilitaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancellaAbilitaServlet</servlet-name>
+    <url-pattern>/CancellaAbilita</url-pattern>
+  </servlet-mapping>
 </web-app>
