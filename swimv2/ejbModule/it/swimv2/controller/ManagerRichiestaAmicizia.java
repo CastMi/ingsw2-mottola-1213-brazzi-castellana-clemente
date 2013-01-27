@@ -35,8 +35,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, false);
 		entityManager.persist(richiestaAmicizia);
-		entityManager.getTransaction().commit();
-		
+		entityManager.flush();
 	}
 	
 	@Override
@@ -66,8 +65,9 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		}
 		try {
 			entityManager.remove(temp);
+			entityManager.flush();
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			return;
 		}
 	}
 
