@@ -2,6 +2,7 @@ package it.swimv2.controller;
 
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
+import it.swimv2.entities.SuggerimentoAmicizia;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,9 +31,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 			String destinatario, String note) {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, false);
-		entityManager.getTransaction().begin();
 		entityManager.persist(richiestaAmicizia);
-		entityManager.getTransaction().commit();
 	}
 	
 	@Override
@@ -40,9 +39,18 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 			String destinatario, String note) {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, true);
-		entityManager.getTransaction().begin();
 		entityManager.persist(richiestaAmicizia);
-		entityManager.getTransaction().commit();
+		SuggerimentoAmicizia sugg;
+		try {
+			sugg = entityManager.find(SuggerimentoAmicizia.class, destinatario);
+		} catch (Exception e) {
+			return;
+		}
+		try {
+			entityManager.remove(sugg);
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+		}
 	}
 
 	/*
@@ -60,9 +68,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 			return;
 		}
 		try {
-			entityManager.getTransaction().begin();
 			entityManager.remove(temp);
-			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
 		}

@@ -28,13 +28,13 @@
 				for(String s: suggerimenti){
 					%>
 					
-					<td>Username<br/></td>
+					<td>Username: </td>
 					
 				
 					
 					<td><%=s%></td>
 					<td>
-						<form action="RichiestaAmiciziaDaSuggerimentoServlet" method="post">
+						<form action="RichiestaAmiciziaDaSuggerimento" method="post">
 							<input type="hidden" name="destinatario"
 								value="<%=s%>"> <input type="hidden"
 								name="richiedente" value="<%=utenteLoggato%>"> <input
