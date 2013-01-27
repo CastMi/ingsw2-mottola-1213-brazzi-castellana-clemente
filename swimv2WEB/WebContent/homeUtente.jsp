@@ -22,7 +22,7 @@
 		<div class="articles">
 			<table>
 				<%
-					IUtente io = (IUtente) request.getAttribute("utente");
+					IUtente io = (IUtente) request.getSession().getAttribute("utente");
 				%>
 				<!-- Username -->
 				<tr>
@@ -53,8 +53,7 @@
 					<td><b>Email:</b></td>
 				</tr>
 				<tr>
-					<td><%=io.getEmail()%>
-					</td>
+					<td><%=io.getEmail()%></td>
 				</tr>
 			</table>
 		</div>
@@ -63,19 +62,20 @@
 
 	<div class="left">
 
-		<span id="Benvenuto"><h2>
-				Benvenuto <br />
-				<%
-					out.print(utenteLoggato);
-				%>!
-				
-			</h2> <br /> <br /></span>
-			<form action="Logout" method="post">
-				<input id="immagineLogout" name="submit" type="image"
-					src="css/images/button-logout.jpg" alt="Logout" />
-			</form>
-			<p>
-			<a href="TutteLeAbilita">Le tue abilità</a><p>
+		<h2>
+			<span id="Benvenuto"> Benvenuto <br /> <%
+ 	out.print(utenteLoggato);
+ %>! <br /> <br /></span>
+		</h2>
+		<form action="Logout" method="post">
+			<input id="immagineLogout" name="submit" type="image"
+				src="css/images/button-logout.jpg" alt="Logout" />
+		</form>
+		<br />
+			<a href="homeUtente.jsp">Profilo</a>
+		<br />
+			<a href="TutteLeAbilita">Le tue abilità</a>
+		<br />
 			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
 	</div>
 	<div style="clear: both;"></div>
