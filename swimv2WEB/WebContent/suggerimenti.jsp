@@ -18,35 +18,43 @@
 
 		<div id="contentTitle">Suggerimenti per le richieste d'amicizia:</div>
 		<div class="articles">
-			
+
+
+
+			<%
+				String[] suggerimenti = (String[]) request
+						.getAttribute("suggerimenti");
+				if (suggerimenti == null || suggerimenti.length == 0) {
+					out.print("<tr><br/>Non ci sono suggerimenti!</tr>");
+				} else {
+			%>
 			<table>
-				
-			<%String[] suggerimenti = (String[]) request.getAttribute("suggerimenti");
-			if(suggerimenti==null||suggerimenti.length==0){
-				out.print("<tr><br/>Non ci sono suggerimenti!</tr>");
-			}else{
-				for(String s: suggerimenti){
-					%>
-					
-					<td>Username: </td>
-					
-				
-					
+				<tr>
+					<td>Username:</td>
+				</tr>
+				<%
+					for (String s : suggerimenti) {
+				%>
+				<tr>
 					<td><%=s%></td>
 					<td>
 						<form action="RichiestaAmiciziaDaSuggerimento" method="post">
-							<input type="hidden" name="destinatario"
-								value="<%=s%>"> <input type="hidden"
-								name="richiedente" value="<%=utenteLoggato%>"> <input
-								name="submit" type="submit" value="Accetta" />
+							<input type="hidden" name="destinatario" value="<%=s%>">
+							<input type="hidden" name="richiedente"
+								value="<%=utenteLoggato%>"> <input name="submit"
+								type="submit" value="Accetta" />
 						</form>
 					</td>
-				 
-					<%
+				</tr>
+
+				<%
+					}
+				%>
+			</table>
+			<%
 				}
-			}
 			%>
-		</table>
+
 		</div>
 
 	</div>
