@@ -5,7 +5,6 @@ import java.util.List;
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
 import it.swimv2.entities.SuggerimentoAmicizia;
-import it.swimv2.entities.SuggerimentoAmiciziaPK;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -44,7 +43,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, true);
 		entityManager.persist(richiestaAmicizia);
-		SuggerimentoAmicizia app =entityManager.find(SuggerimentoAmicizia.class, new SuggerimentoAmiciziaPK(mittente, destinatario));
+		SuggerimentoAmicizia app =entityManager.find(SuggerimentoAmicizia.class, new SuggerimentoAmicizia(mittente, destinatario));
 		entityManager.remove(app);
 		entityManager.flush();
 	}
@@ -59,8 +58,20 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	public void rimuoviRichiestaAmicizia(String destinatario, String richiedente, String note) {
 		RichiestaAmicizia temp;
 		try {
-			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, false));
+			
 			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, true));
+		} catch (Exception e) {
+			return;
+		}
+		try {
+			entityManager.remove(temp);
+			entityManager.flush();
+		} catch (Exception e) {
+			return;
+		}
+		try {
+			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, false));
+			
 		} catch (Exception e) {
 			return;
 		}
@@ -79,21 +90,19 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 						"RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario")
 				.setParameter("idRichiedente", mittente)
 				.setParameter("idDestinatario", destinatario);
-
-		return (RichiestaAmicizia) query.getSingleResult();
+		
+		return (RichiestaAmicizia) query.getResultList().get(0);
 	}
 
-	@SuppressWarnings({ "unchecked", "null" })
+	
+	@SuppressWarnings("unchecked")
 	public RichiestaAmicizia[] getTutteRichiesteAmiciziaPerUtente(String utente){
 		Query query = entityManager
 				.createNamedQuery(
 						"RichiestaAmicizia.getRichiesteAmiciziePerIdUtente")
 				.setParameter("userName", utente);
 		List<RichiestaAmicizia> listaRichieste = (List<RichiestaAmicizia>) query.getResultList();
-		List<String> listaNomiRichiedenti = null;
-		for (RichiestaAmicizia r :listaRichieste){
-			listaNomiRichiedenti.add(r.getIdRichiedente());
-		}
+		
 		return (RichiestaAmicizia[]) listaRichieste.toArray(new RichiestaAmicizia[listaRichieste.size()]);
 	}
 }

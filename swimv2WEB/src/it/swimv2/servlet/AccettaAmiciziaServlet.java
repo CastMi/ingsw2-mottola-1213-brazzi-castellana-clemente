@@ -6,7 +6,6 @@ import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,22 +26,7 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher disp;
-		disp = request.getRequestDispatcher(response
-				.encodeURL("richiestaAmiciziaAccettata.jsp"));
-		disp.forward(request, response);
-	}
 
-	/**
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse)
-	 * 
-	 */
-	@SuppressWarnings("unused")
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher disp;
 		IManagerAmicizia iAmicizia;
 
 		try {
@@ -55,7 +39,36 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		// ricezione dati provenienti dalla jsp
 		String richiedente = request.getParameter("richiedente");
 		String destinatario = request.getParameter("destinatario");
-		iAmicizia.creaAmicizia(richiedente, destinatario);
+		String note = request.getParameter("note");
+		iAmicizia.creaAmicizia(richiedente, destinatario, note, false);
+		GestioneServlet.showPage(request, response, "richiestaAmiciziaAccettata.jsp");
+	}
+
+
+	/**
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
+	 * 
+	 */
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		
+	
+		IManagerAmicizia iAmicizia;
+
+		try {
+			iAmicizia = factory.getManagerAmicizia();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		// ricezione dati provenienti dalla jsp
+		String richiedente = request.getParameter("richiedente");
+		String destinatario = request.getParameter("destinatario");
+		String note = request.getParameter("note");
+		iAmicizia.creaAmicizia(richiedente, destinatario,note, false);
 		GestioneServlet.showPage(request, response, "richiestaAmiciziaAccettata.jsp");
 	}
 

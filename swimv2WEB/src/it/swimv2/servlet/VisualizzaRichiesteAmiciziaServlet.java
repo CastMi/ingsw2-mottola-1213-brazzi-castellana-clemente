@@ -54,7 +54,7 @@ public class VisualizzaRichiesteAmiciziaServlet extends HttpServlet {
 		String nomeUtente = (String) request.getSession().getAttribute("nomeUtente");
 		request.setAttribute("richiesteAmicizia", iManagerRichiestaAmicizia.getTutteRichiesteAmiciziaPerUtente(nomeUtente));
 		GestioneServlet.showPage(request, response,
-				"suggerimenti.jsp");
+				"accettaRichiesteAmicizia.jsp");
 	}
 
 }

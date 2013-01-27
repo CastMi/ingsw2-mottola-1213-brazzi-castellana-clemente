@@ -30,7 +30,7 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher disp;
 		disp = request.getRequestDispatcher(response
-				.encodeURL("RichiestaAmiciziaEffettuata.jsp"));
+				.encodeURL("richiestaAmiciziaEffettuata.jsp"));
 		disp.forward(request, response);
 	}
 
@@ -56,7 +56,7 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
 				destinatario, note);
 		GestioneServlet.showPage(request, response,
-				"RichiestaAmiciziaEffettuata.jsp");
+				"richiestaAmiciziaEffettuata.jsp");
 	}
 
 }

@@ -2,8 +2,6 @@ package it.swimv2.controller;
 
 import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.entities.Amicizia;
-import it.swimv2.entities.RichiestaAmicizia;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,16 +23,14 @@ public class ManagerAmicizia implements IManagerAmicizia {
 	 * RichiestaAmicizia)
 	 */
 	@Override
-	public void creaAmicizia(String mittente, String destinatario) {
+	public void creaAmicizia(String mittente, String destinatario, String note, boolean suggerita) {
 		ManagerRichiestaAmicizia managerRichiestaAmicizia = new ManagerRichiestaAmicizia();
-		RichiestaAmicizia richiestaAmicizia = managerRichiestaAmicizia
-				.getRichiestaAmicizia(mittente, destinatario);
-		Amicizia amicizia = new Amicizia(richiestaAmicizia.getIdRichiedente(),
-				richiestaAmicizia.getIdDestinatario());
-		managerRichiestaAmicizia.rimuoviRichiestaAmicizia(richiestaAmicizia.getIdDestinatario(), richiestaAmicizia.getIdRichiedente(), richiestaAmicizia.getNote());
+		Amicizia amicizia = new Amicizia(mittente,
+				destinatario);
+		managerRichiestaAmicizia.rimuoviRichiestaAmicizia(destinatario, mittente, note);
 		// aggiungo la nuova amicizia
 		entityManager.persist(amicizia);
-		if(richiestaAmicizia.isSuggerita()){
+		if(suggerita){
 			ManagerSuggerimentoAmicizia managerSuggerimentoAmicizia = new ManagerSuggerimentoAmicizia();
 			managerSuggerimentoAmicizia.gestioneSuggerimento(mittente, destinatario, amicizia);
 		}

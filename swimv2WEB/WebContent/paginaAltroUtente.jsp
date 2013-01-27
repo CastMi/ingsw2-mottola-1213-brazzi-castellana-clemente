@@ -56,8 +56,8 @@
 					<td><%=utente.getEmail()%></td>
 				</tr>
 			</table>
-			<form action="RichiestaAmiciziaServlet" method="post">
-				<input type="hidden" name="username"
+			<form action="RichiestaAmicizia" method="post">
+				<input type="hidden" name="destinatario"
 					value="<%=utente.getUsername()%>">
 				<textarea name="note" rows="3"> </textarea>
 				<input value="Invia Richiesta Amicizia" type="submit" alt="Logout" />

@@ -25,7 +25,7 @@
 				RichiestaAmicizia[] richiesteAmicizia = (RichiestaAmicizia[]) request
 						.getAttribute("richiesteAmicizia");
 				if (richiesteAmicizia == null || richiesteAmicizia.length == 0) {
-					out.print("<br/>Non ci sono suggerimenti!");
+					out.print("<br/>Non ci sono richieste d'amicizia!");
 				} else {
 			%>
 			<table>
@@ -50,7 +50,8 @@
 						<form action="RifiutaRichiestaAmicizia" method="post">
 							<input type="hidden" name="destinatario" value="<%=utenteLoggato%>">
 							<input type="hidden" name="richiedente"
-								value="<%=r.getIdRichiedente()%>"> <input name="submit"
+								value="<%=r.getIdRichiedente()%>"> 
+								<input type="hidden" name="note" value="<%=r.getNote()%>"><input name="submit"
 								type="submit" value="Rifiuta" />
 						</form>
 					</td>
