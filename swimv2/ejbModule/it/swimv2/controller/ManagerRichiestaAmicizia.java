@@ -35,8 +35,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, false);
 		entityManager.persist(richiestaAmicizia);
-		entityManager.getTransaction().commit();
-		
+		entityManager.flush();
 	}
 	
 	@Override
@@ -57,18 +56,18 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * it.swimv2.controller.IRichiestaAmicizia#rimuoviRichiestaAmicizia(int)
 	 */
 	@Override
-	public void rimuoviRichiestaAmicizia(String richiedente, String destinatario, String note) {
+	public void rimuoviRichiestaAmicizia(int id) {
 		RichiestaAmicizia temp;
 		try {
-			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, false));
-			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, true));
+			temp = entityManager.find(RichiestaAmicizia.class, id);
 		} catch (Exception e) {
 			return;
 		}
 		try {
 			entityManager.remove(temp);
+			entityManager.flush();
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			return;
 		}
 	}
 
