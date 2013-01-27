@@ -80,7 +80,7 @@
 		href="TutteLeAbilita">Le tue abilità</a> <br /> <a
 		href="nuovaabilita.jsp">Aggiungi abilità</a> <br /> <a
 		href="Suggerimenti">Suggerimenti</a> <br /> <a
-		href="VisualizzaRichiesteAmicizia">Accetta Amicizia</a> <a
+		href="VisualizzaRichiesteAmicizia">Accetta Amicizia</a><br />  <a
 		href="VisualizzaTuttiGliAmici">Lista Amici</a>
 	<%
 		} else {

@@ -25,7 +25,7 @@
 						.getAttribute("propriAmici");
 				if (propriAmici != null && propriAmici.length > 0) {
 			%>
-			<table id="domrisp">
+			<table >
 				<tr>
 					<th>Username</th>
 				</tr>
@@ -40,7 +40,7 @@
 								b = a.getIdUtente1();
 				%>
 				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
-					<td><h3><%=b%></h3></td>
+					<td><%=b%></td>
 				</tr>
 				<%
 					}
