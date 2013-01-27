@@ -19,8 +19,6 @@
 		<div id="contentTitle">Suggerimenti per le richieste d'amicizia:</div>
 		<div class="articles">
 
-
-
 			<%
 				String[] suggerimenti = (String[]) request
 						.getAttribute("suggerimenti");
@@ -28,14 +26,16 @@
 					out.print("<br/>Non ci sono suggerimenti!");
 				} else {
 			%>
-			<table>
+			<table id="domrisp">
 				<tr>
-					<td>Username:</td>
+					<th>Username:</th>
 				</tr>
 				<%
+				int i = 0;
 					for (String s : suggerimenti) {
+						i++;
 				%>
-				<tr>
+				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
 					<td><%=s%></td>
 					<td>
 						<form action="RichiestaAmiciziaDaSuggerimento" method="post">

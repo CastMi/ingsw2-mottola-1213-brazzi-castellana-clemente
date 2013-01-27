@@ -25,16 +25,21 @@
 					out.print("<br/>Non ci sono richieste d'amicizia!");
 				} else {
 			%>
-			<table>
+			<table id="domrisp">
 				<tr>
-					<td>Username:</td>
+					<th>Username:</th>
+					<th>Note</th>
+					<th></th>
+					<th></th>
 				</tr>
 				<%
+				int i = 0;
 					for (RichiestaAmicizia r : richiesteAmicizia) {
+						i++;
 				%>
-				<tr>
+				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
 					<td><%=r.getIdRichiedente()%></td>
-					<td><%=r.getNote()%></td>
+					<td><%=(r.getNote()==null)?"":r.getNote()%></td>
 					<td>
 						<form action="AccettaAmicizia" method="post">
 							<input type="hidden" name="idRichiestaAmicizia"

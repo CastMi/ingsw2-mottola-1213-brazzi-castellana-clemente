@@ -23,17 +23,19 @@
 						.getAttribute("proprieAbilita");
 				if (proprieAbilita != null && proprieAbilita.length > 0) {
 			%>
-			<table>
+			<table id="domrisp">
 				<tr>
-					<td>Nome dell'abilità</td>
-					<td>Descrizione</td>
+					<th>Nome dell'abilità</th>
+					<th>Descrizione</th>
 				</tr>
 				<%
+				int i = 0;
 					for (IAbilita a : proprieAbilita) {
+						i++;
 				%>
-				<tr>
-					<td><label for="userName"> <%=a.getNome()%>
-					</label></td>
+				<tr<%if ((i % 2) == 0) {%> class="alt" <%}%>>
+					<td><h3><%=a.getNome()%></h3> 
+					</td>
 					<td rowspan="2">
 						<form method="post" action="CancellaAbilita">
 							<input type="hidden" name="nomeAbilita" value="<%=a.getNome()%>">
@@ -41,9 +43,8 @@
 						</form>
 					</td>
 				</tr>
-				<tr>
-					<td><label for="descrizione"> <%=a.getDescrizione()%>
-					</label></td>
+				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
+					<td><%=a.getDescrizione()%></td>
 				</tr>
 				<%
 					}

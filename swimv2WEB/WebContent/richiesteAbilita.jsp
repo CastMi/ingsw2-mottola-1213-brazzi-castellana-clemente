@@ -23,16 +23,20 @@
 						.getAttribute("richiesteAbilita");
 				if (richiesteAbilita != null && richiesteAbilita.length > 0) {
 			%>
-			<table>
+			<table id="domrisp">
 				<tr>
-					<td>Username e nome dell'abilità</td>
-					<td>Accetta/Rifiuta</td>
+					<th>Richiedente</th>
+					<th>Nome dell'abilità</th>
+					<th>Accetta/Rifiuta</th>
 				</tr>
 				<%
+				int i = 0;
 					for (IRichiestaAbilita a : richiesteAbilita) {
+						i++;
 				%>
-				<tr>
-					<td><%=a.getRichiedente()%></td>
+				<tr<%if ((i % 2) == 0) {%> class="alt" <%}%>>
+					<td rowspan=2><%=a.getRichiedente()%></td>
+					<td rowspan=2><%=a.getNome()%></td>
 					<td>
 						<form method="post" action="AccettaRichiestaAbilita">
 							<input type="hidden" name="nomeRichiesta"
@@ -42,8 +46,7 @@
 						</form>
 					</td>
 				</tr>
-				<tr>
-					<td><%=a.getNome()%></td>
+				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
 					<td>
 						<form method="post" action="RifiutaRichiestaAbilita">
 							<input type="hidden" name="nomeRichiesta"

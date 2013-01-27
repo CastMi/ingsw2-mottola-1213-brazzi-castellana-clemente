@@ -62,10 +62,10 @@
 
 
 	<div style="height: 65px;">
-	<h2>
-		Benvenuto<br>
-		<%=leftCodeUtenteLoggato.toString()%>!
-	</h2>	
+		<h2>
+			Benvenuto<br>
+			<%=leftCodeUtenteLoggato.toString()%>!
+		</h2>
 	</div>
 	<form action="Logout" method="post">
 		<input id="immagineLogout" name="submit" type="image"
@@ -81,6 +81,11 @@
 		href="nuovaabilita.jsp">Aggiungi abilità</a> <br /> <a
 		href="Suggerimenti">Suggerimenti</a> <br /> <a
 		href="VisualizzaRichiesteAmicizia">Accetta Amicizia</a>
+	<%
+		} else {
+	%>
+	<br /> <a href="homeAmministratore.jsp">Home Amministratore</a>
+
 	<%
 		}
 
