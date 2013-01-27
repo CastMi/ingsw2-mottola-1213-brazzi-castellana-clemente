@@ -149,10 +149,11 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		query.setParameter("nomeUtente", utente);
 		List<SuggerimentoAmicizia> suggerimentiPerUtente = (List<SuggerimentoAmicizia>) query.getResultList();
 		Set<String> nomiAmici = new HashSet<String>();
+		if(suggerimentiPerUtente!=null){
 		for(SuggerimentoAmicizia s: suggerimentiPerUtente){
 			nomiAmici.add(s.getSuggerito());
-		}
-		return null;
+		}}
+		return nomiAmici;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -162,6 +163,8 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		query.setParameter("idUtente", utente);
 		List<Amicizia> amiciUtente = (List<Amicizia>) query.getResultList();
 		Set<String> nomiAmici = new HashSet<String>();
+		if(amiciUtente!=null){
+		
 		for(Amicizia s:amiciUtente){
 			if(s.getIdUtente1().equals(utente)){
 				nomiAmici.add(s.getIdUtente2());
@@ -169,6 +172,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 			else{
 				nomiAmici.add(s.getIdUtente1());
 			}
+		}
 		}
 		return nomiAmici;
 	}
