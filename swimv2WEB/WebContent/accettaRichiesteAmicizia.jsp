@@ -16,11 +16,8 @@
 
 <div id="content">
 	<div class="right">
-
 		<div id="contentTitle">Richieste d'amicizia:</div>
 		<div class="articles">
-			
-				
 			<%
 				RichiestaAmicizia[] richiesteAmicizia = (RichiestaAmicizia[]) request
 						.getAttribute("richiesteAmicizia");
@@ -36,23 +33,23 @@
 					for (RichiestaAmicizia r : richiesteAmicizia) {
 				%>
 				<tr>
-					<td><%=r.getIdRichiedente()%> </td>
-					<td> <%=r.getNote()%></td>
+					<td><%=r.getIdRichiedente()%></td>
+					<td><%=r.getNote()%></td>
 					<td>
 						<form action="AccettaAmicizia" method="post">
-							<input type="hidden" name="destinatario" value="<%=utenteLoggato%>">
-							<input type="hidden" name="richiedente"
-								value="<%=r.getIdRichiedente()%>"> <input name="submit"
-								type="submit" value="Accetta" />
+							<input type="hidden" name="destinatario"
+								value="<%=utenteLoggato%>"> <input type="hidden"
+								name="richiedente" value="<%=r.getIdRichiedente()%>"> <input
+								name="submit" type="submit" value="Accetta" />
 						</form>
 					</td>
 					<td>
 						<form action="RifiutaRichiestaAmicizia" method="post">
-							<input type="hidden" name="destinatario" value="<%=utenteLoggato%>">
-							<input type="hidden" name="richiedente"
-								value="<%=r.getIdRichiedente()%>"> 
-								<input type="hidden" name="note" value="<%=r.getNote()%>"><input name="submit"
-								type="submit" value="Rifiuta" />
+							<input type="hidden" name="destinatario"
+								value="<%=utenteLoggato%>"> <input type="hidden"
+								name="richiedente" value="<%=r.getIdRichiedente()%>"> <input
+								type="hidden" name="note" value="<%=r.getNote()%>"><input
+								name="submit" type="submit" value="Rifiuta" />
 						</form>
 					</td>
 				</tr>
@@ -64,29 +61,9 @@
 			<%
 				}
 			%>
-</div>
+		</div>
 	</div>
-
-	<div class="left">
-
-		<%
-			utenteLoggato = (String) request.getSession().getAttribute(
-					"nomeUtente");
-		%>
-
-		<span id="Benvenuto"><h2>
-				Benvenuto <br />
-				<%
-					out.print(utenteLoggato);
-				%>!
-			</h2> <br /> <br /></span>
-		<form action="Logout" method="post">
-			<input id="immagineLogout" name="submit" type="image"
-				src="css/images/button-logout.jpg" alt="Logout" />
-		</form>
-
-
-	</div>
+	<jsp:include page="leftCode.jsp" />
 	<div style="clear: both;"></div>
 </div>
 
