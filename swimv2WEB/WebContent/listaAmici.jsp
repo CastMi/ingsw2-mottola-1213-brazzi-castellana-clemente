@@ -28,6 +28,7 @@
 			<table>
 				<tr>
 					<th>Username</th>
+					<th></th>
 				</tr>
 				<%
 					int i = 0;
