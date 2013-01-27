@@ -86,6 +86,7 @@ public class ManagerRicercaUtenti implements IRicercaUtenti {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public IUtente[] ricercaUtentiPerUnQualsiasiCampo(String testo) {
 		Query query = entityManager.createNamedQuery("Utente.getUtentePerUnQualiasiCampo");
