@@ -70,9 +70,13 @@ public class RispondiADomandaServlet extends HttpServlet {
 				String descrizioneRisposta = request
 						.getParameter("descrizioneRisposta");
 
-				managerRisposta.aggiungiRisposta(idDomanda, userName,
-						descrizioneRisposta);
+				IRisposta risposta = managerRisposta.aggiungiRisposta(
+						idDomanda, userName, descrizioneRisposta);
 
+				if (risposta == null) {
+					request.setAttribute("messaggioRisposta",
+							"Impossibile inserire la risposta per amncanza di abilità.");
+				}
 				IDomanda domanda = managerDomanda.apriDomanda(idDomanda);
 
 				request.setAttribute("domanda", domanda);

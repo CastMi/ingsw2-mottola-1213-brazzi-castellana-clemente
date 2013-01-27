@@ -17,6 +17,8 @@
 	if (domanda == null) {
 		response.sendRedirect("index.jsp");
 	}
+	String messaggioRisposta = (String) request
+			.getAttribute("messaggioRisposta");
 
 	int idDomanda = domanda.getId();
 	String nomeCreatore = domanda.getCreatore().getUsername();
@@ -77,12 +79,12 @@
 					%>
 				</tr>
 				<%
-				int i = 0;
-					for (IRisposta r : risposte) {
-						i++;
+					int i = 0;
+						for (IRisposta r : risposte) {
+							i++;
 							int feedback = r.getFeedback();
 				%>
-				<tr<%if ((i % 2) == 0) {%> class="alt" <%}%>>
+				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
 					<td><%=r.getDescrizione()%></td>
 					<td><%=feedback%></td>
 					<td><%=r.getUtente().getUsername()%></td>
@@ -135,6 +137,15 @@
 					</table>
 				</fieldset>
 			</form>
+			<%
+				if (messaggioRisposta != null && messaggioRisposta.length() > 0) {
+			%>
+			<div id="erroreRegistrazione">
+				<%=messaggioRisposta%>
+			</div>
+			<%
+				}
+			%>
 		</div>
 	</div>
 	<jsp:include page="leftCode.jsp" />
