@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Stateless
@@ -24,48 +26,53 @@ public class ManagerSuggerimentoAmicizia implements Serializable,
 	public void gestioneSuggerimento(String utente1, String utente2,
 			Amicizia amicizia) {
 
-		List<Amicizia> amiciUtente1 = getQuerySetAmiciziePerUtente(utente1);
-		List<Amicizia> amiciUtente2 = getQuerySetAmiciziePerUtente(utente2);
-			List<Amicizia> suggerimentiAUtente1 = new ArrayList<Amicizia>();
+		Set<String> amiciUtente1 = getQuerySetAmiciziePerUtente(utente1);
+		Set<String> amiciUtente2 = getQuerySetAmiciziePerUtente(utente2);
+		Set<String> suggerimentiAUtente1 = new HashSet<String>();
 		if (amiciUtente2.size() != 0) {
 			suggerimentiAUtente1.addAll(amiciUtente2);
 			suggerimentiAUtente1.removeAll(amiciUtente1);
-			suggerimentiAUtente1.remove(amicizia);
+			suggerimentiAUtente1.remove(utente1);
+			suggerimentiAUtente1.remove(utente2);
 		}
-		List<Amicizia> suggerimentiAUtente2 = new ArrayList<Amicizia>();
+		Set<String> suggerimentiAUtente2 = new HashSet<String>();
 		if (amiciUtente1.size() != 0) {
 			suggerimentiAUtente2.addAll(amiciUtente1);
 			suggerimentiAUtente2.removeAll(amiciUtente2);
-			suggerimentiAUtente2.remove(amicizia);
+			suggerimentiAUtente2.remove(utente1);
+			suggerimentiAUtente2.remove(utente2);
 		}
 		creaSuggerimento(utente1, utente2, suggerimentiAUtente1);
 		creaSuggerimento(utente2, utente1, suggerimentiAUtente2);
 
 	}
 
+	@SuppressWarnings("unused")
 	private void creaSuggerimento(String utente, String utente2,
-			List<Amicizia> suggerimentiAUtente) {
-		SuggerimentoAmicizia suggerimento = new SuggerimentoAmicizia();
-		for(Amicizia a : suggerimentiAUtente){
+			Set<String> suggerimentiAUtente1) {
+		for(String a : suggerimentiAUtente1){
+			SuggerimentoAmicizia suggerimento = new SuggerimentoAmicizia();
 			suggerimento.setDestinatario(utente);
-			suggerimento.setSuggerito(getSuggerito(a, utente2));
 			entityManager.persist(suggerimento);
 		}
 	}
 
-	private String getSuggerito(Amicizia amicizia, String utente2) {
-		if (amicizia.getIdUtente1().equals(utente2))
-			return amicizia.getIdUtente2();
-		return amicizia.getIdUtente1();
-	}
-
 	@SuppressWarnings("unchecked")
-	private List<Amicizia> getQuerySetAmiciziePerUtente(String utente) {
+	private Set<String> getQuerySetAmiciziePerUtente(String utente) {
 		Query query = entityManager
 				.createNamedQuery("Amicizia.getAmiciziePerIdUtente");
 		query.setParameter("idUtente", utente);
 		List<Amicizia> amiciUtente = (List<Amicizia>) query.getResultList();
-		return amiciUtente;
+		Set<String> nomiAmici = new HashSet<String>();
+		for(Amicizia s:amiciUtente){
+			if(s.getIdUtente1().equals(utente)){
+				nomiAmici.add(s.getIdUtente1());
+			}
+			else{
+				nomiAmici.add(s.getIdUtente2());
+			}
+		}
+		return nomiAmici;
 	}
 	
 	public String[] ottieniSuggerimenti(String nomeUtente){
