@@ -3,16 +3,11 @@ package it.swimv2.controller;
 import it.swimv2.controller.remoteController.IManagerSuggerimentoAmicizia;
 import it.swimv2.entities.Amicizia;
 import it.swimv2.entities.SuggerimentoAmicizia;
-
 import java.io.Serializable;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-import org.jboss.logging.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +17,6 @@ public class ManagerSuggerimentoAmicizia implements Serializable,
 		IManagerSuggerimentoAmicizia {
 
 	private static final long serialVersionUID = 829024488493804653L;
-	private static final Logger log = Logger.getLogger(ManagerSuggerimentoAmicizia.class.getName());
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 
@@ -86,7 +80,7 @@ public class ManagerSuggerimentoAmicizia implements Serializable,
 		for(SuggerimentoAmicizia l: listaSuggerimenti){
 			listaUtentiSuggeriti.add(l.getSuggerito());
 		}
-		log.error("lunghezza 3:"+Integer.toString(listaUtentiSuggeriti.size()));
+
 		return (String[]) listaUtentiSuggeriti.toArray(new String[listaUtentiSuggeriti.size()]);
 	}
 
