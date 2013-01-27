@@ -218,4 +218,14 @@
     <servlet-name>RichiestaAmiciziaDaSuggerimentoServlet</servlet-name>
     <url-pattern>/RichiestaAmiciziaDaSuggerimento</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VisualizzaRichiesteAmiciziaServlet</display-name>
+    <servlet-name>VisualizzaRichiesteAmiciziaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.VisualizzaRichiesteAmiciziaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VisualizzaRichiesteAmiciziaServlet</servlet-name>
+    <url-pattern>/VisualizzaRichiesteAmicizia</url-pattern>
+  </servlet-mapping>
 </web-app>
