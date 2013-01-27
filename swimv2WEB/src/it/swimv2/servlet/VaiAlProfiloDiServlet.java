@@ -51,6 +51,14 @@ public class VaiAlProfiloDiServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
+		String io = (String) request.getSession().getAttribute(
+				"nomeUtente");
+		if (io == null || io.isEmpty()) {
+			request.setAttribute("messaggio",
+					"Errore: non ti è permesso vedere il profilo dell'utente.");
+			GestioneServlet.showPage(request, response, "nuovaabilita.jsp");
+			return;
+		}
 		String username = request.getParameter("username");
 		request.setAttribute("altroUtente",
 				manager.getUtente(username));

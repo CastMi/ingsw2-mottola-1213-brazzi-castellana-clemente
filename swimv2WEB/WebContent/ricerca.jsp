@@ -45,7 +45,7 @@
 						<td style="height: 20px; min-width: 60px"><%=risultato[i].getNome()%></td>
 						<td style="height: 20px; min-width: 60px"><%=risultato[i].getCognome()%></td>
 						<td><form method="post" action="VaiAlProfiloDi">
-								<input type="hidden" name="username"
+								<input type="hidden" name="destinatario"
 									value="<%=risultato[i].getUsername()%>"> <input
 									type="submit" value="Vai al profilo" />
 							</form></td>

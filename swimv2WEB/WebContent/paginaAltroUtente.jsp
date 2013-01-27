@@ -56,8 +56,10 @@
 					<td><%=utente.getEmail()%></td>
 				</tr>
 			</table>
-			<form action="InviaRichiestaAmicizia" method="post">
-				<input value="Invia Richiesta Amicizia" type="submit" alt="Logout" />
+			<form action="RichiestaAmicizia" method="post">
+				<input type="hidden" name="username"
+					value="<%=utente.getUsername()%>"> <input
+					value="Invia Richiesta Amicizia" type="submit" alt="Logout" />
 			</form>
 		</div>
 
@@ -74,13 +76,9 @@
 			<input id="immagineLogout" name="submit" type="image"
 				src="css/images/button-logout.jpg" alt="Logout" />
 		</form>
-		<br />
-			<a href="homeUtente.jsp">Profilo</a>
-		<br />
-			<a href="TutteLeAbilita">Le tue abilità</a>
-		<br />
-			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
-			<a href="Suggerimenti">Suggerimenti</a>
+		<br /> <a href="homeUtente.jsp">Profilo</a> <br /> <a
+			href="TutteLeAbilita">Le tue abilità</a> <br /> <a
+			href="nuovaabilita.jsp">Aggiungi abilità</a> <a href="Suggerimenti">Suggerimenti</a>
 	</div>
 	<div style="clear: both;"></div>
 </div>

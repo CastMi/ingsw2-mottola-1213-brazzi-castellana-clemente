@@ -49,12 +49,14 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		String richiedente = request.getParameter("richiedente");
+		String richiedente = (String) request.getSession().getAttribute(
+				"nomeUtente");
 		String destinatario = request.getParameter("destinatario");
 		String note = request.getParameter("note");
 		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
 				destinatario, note);
-		GestioneServlet.showPage(request, response, "RichiestaAmiciziaEffettuata.jsp");
+		GestioneServlet.showPage(request, response,
+				"RichiestaAmiciziaEffettuata.jsp");
 	}
 
 }
