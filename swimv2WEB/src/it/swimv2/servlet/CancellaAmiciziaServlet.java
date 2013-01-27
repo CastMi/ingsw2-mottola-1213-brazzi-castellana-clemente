@@ -57,7 +57,7 @@ public class CancellaAmiciziaServlet extends HttpServlet {
 			GestioneServlet.showPage(request, response, "listaAmici.jsp");
 		} else {
 			GestioneServlet.annullaSessione(request, response, "index.jsp",
-					"Errore: esiste già una richiesta per tale abilità.");
+					"Errore: errore inaspettato.");
 		}
 	}
 }

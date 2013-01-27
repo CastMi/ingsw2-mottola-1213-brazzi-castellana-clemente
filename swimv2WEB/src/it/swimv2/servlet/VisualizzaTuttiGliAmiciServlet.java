@@ -1,15 +1,11 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerAmicizia;
-import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
-import it.swimv2.entities.remoteEntities.IAmicizia;
-import it.swimv2.entities.remoteEntities.IUtente;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
