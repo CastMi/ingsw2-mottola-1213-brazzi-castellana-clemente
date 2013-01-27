@@ -53,15 +53,11 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		
 		try {
 			// aggiungo la richiesta di abilità
-			//entityManager.getTransaction().begin();
 			ra = new RichiestaAbilita(username,nomeRichiestaAbilita.toLowerCase(),descrizione.toLowerCase());
 			entityManager.persist(ra);
 			entityManager.flush();
-			//entityManager.getTransaction().commit();
 		} catch (Exception w) {
 			w.printStackTrace();
-			//if ( entityManager.getTransaction().isActive())
-				//entityManager.getTransaction().rollback();
 			return InvioRichiestaAbilitaEnum.ERRORE;
 		}
 		
