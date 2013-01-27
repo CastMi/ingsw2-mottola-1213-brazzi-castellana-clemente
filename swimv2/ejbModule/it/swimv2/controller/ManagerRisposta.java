@@ -1,13 +1,17 @@
 package it.swimv2.controller;
 
 import it.swimv2.controller.remoteController.IManagerRisposta;
+import it.swimv2.entities.Abilita;
 import it.swimv2.entities.Domanda;
 import it.swimv2.entities.Risposta;
 import it.swimv2.entities.Utente;
+import it.swimv2.entities.remoteEntities.IAbilita;
 import it.swimv2.entities.remoteEntities.IRisposta;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -102,13 +106,23 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 			e.printStackTrace();
 			return null;
 		}
-		Risposta temp = new Risposta(domanda, utente, risposta);
-		try {
-			entityManager.persist(temp);
-			entityManager.flush();
-			return temp;
-		} catch (Exception e) {
-			e.printStackTrace();
+		IAbilita[] abilitaDomanda = domanda.getAbilita();
+		Set<Abilita> abilitaUtente = utente.getAbilita();
+		boolean presenzaAbilita = false;
+		for (IAbilita a : abilitaDomanda) {
+			if (abilitaUtente.contains((Abilita) a)) {
+				presenzaAbilita = true;
+			}
+		}
+		if (presenzaAbilita) {
+			Risposta temp = new Risposta(domanda, utente, risposta);
+			try {
+				entityManager.persist(temp);
+				entityManager.flush();
+				return temp;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 
