@@ -40,9 +40,15 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 		}
 		String nomeAbilita = request.getParameter("nomeAbilita");
 		String descrizione = request.getParameter("descrizione");
-		String username = (String) request.getSession().getAttribute("nomeUtente");
-
-		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(nomeAbilita, descrizione, username);
+		String username = (String) request.getSession().getAttribute(
+				"nomeUtente");
+		if (nomeAbilita.isEmpty()) {
+			request.setAttribute("messaggio",
+					"Errore: esiste già una richiesta per tale abilità.");
+			return;
+		}
+		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(
+				nomeAbilita, descrizione, username);
 		switch (temp) {
 		case UTENTE_INESISTENTE:
 			GestioneServlet.annullaSessione(request, response, "index.jsp",
@@ -67,7 +73,7 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 			break;
 		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -83,9 +89,11 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 		}
 		String nomeAbilita = request.getParameter("nomeAbilita");
 		String descrizione = request.getParameter("descrizione");
-		String username = (String) request.getSession().getAttribute("nomeUtente");
+		String username = (String) request.getSession().getAttribute(
+				"nomeUtente");
 
-		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(nomeAbilita, descrizione, username);
+		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(
+				nomeAbilita, descrizione, username);
 		switch (temp) {
 		case UTENTE_INESISTENTE:
 			GestioneServlet.annullaSessione(request, response, "index.jsp",
