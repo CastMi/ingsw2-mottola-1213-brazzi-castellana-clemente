@@ -57,10 +57,11 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * it.swimv2.controller.IRichiestaAmicizia#rimuoviRichiestaAmicizia(int)
 	 */
 	@Override
-	public void rimuoviRichiestaAmicizia(int id) {
+	public void rimuoviRichiestaAmicizia(String richiedente, String destinatario, String note) {
 		RichiestaAmicizia temp;
 		try {
-			temp = entityManager.find(RichiestaAmicizia.class, id);
+			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, false));
+			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, true));
 		} catch (Exception e) {
 			return;
 		}

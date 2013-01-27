@@ -1,6 +1,13 @@
 package it.swimv2.servlet;
 
+import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
+import it.swimv2.util.GestioneServlet;
+import it.swimv2.util.IFactory;
+import it.swimv2.util.SimpleFactory;
+
 import java.io.IOException;
+
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 public class RifiutaRichiestaAmiciziaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private final IFactory factory = new SimpleFactory();
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -25,7 +34,25 @@ public class RifiutaRichiestaAmiciziaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		IManagerRichiestaAmicizia iRichiestaAmicizia;
+		try {
+			iRichiestaAmicizia = factory.getRichiestaAmicizia();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		// ricezione dati provenienti dalla jsp
+		String richiedente = (String) request.getSession().getAttribute(
+				"nomeUtente");
+		String destinatario = request.getParameter("destinatario");
+		String note = request.getParameter("note");
+		iRichiestaAmicizia.rimuoviRichiestaAmicizia(richiedente,
+				destinatario, note);
+		GestioneServlet.showPage(request, response,
+				"RichiestaAmiciziaRifiutata.jsp");
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -33,6 +60,26 @@ public class RifiutaRichiestaAmiciziaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		IManagerRichiestaAmicizia iRichiestaAmicizia;
+		try {
+			iRichiestaAmicizia = factory.getRichiestaAmicizia();
+		} catch (ClassCastException | NamingException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		// ricezione dati provenienti dalla jsp
+		String richiedente = (String) request.getSession().getAttribute(
+				"nomeUtente");
+		String destinatario = request.getParameter("destinatario");
+		String note = request.getParameter("note");
+		iRichiestaAmicizia.rimuoviRichiestaAmicizia(richiedente,
+				destinatario, note);
+		GestioneServlet.showPage(request, response,
+				"richiestaAmiciziaRifiutata.jsp");
 	}
+	
+	
+	
 
 }
