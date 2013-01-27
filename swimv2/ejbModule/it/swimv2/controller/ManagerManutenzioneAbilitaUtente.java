@@ -13,7 +13,9 @@ import it.swimv2.entities.RichiestaAbilita;
 import it.swimv2.entities.RichiestaAbilitaPK;
 import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IAbilita;
+import it.swimv2.entities.remoteEntities.IUtente;
 import it.swimv2.util.InvioRichiestaAbilitaEnum;
+import it.swimv2.util.ManutentoreRichiesteAbilitaEnum;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
 
 @Stateless
@@ -49,22 +51,23 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		}
 
 		// non esiste la richiesta di abilità quindi la creo
-		
-		
+
 		try {
 			// aggiungo la richiesta di abilità
-			//entityManager.getTransaction().begin();
-			ra = new RichiestaAbilita(username,nomeRichiestaAbilita.toLowerCase(),descrizione.toLowerCase());
+			// entityManager.getTransaction().begin();
+			ra = new RichiestaAbilita(username,
+					nomeRichiestaAbilita.toLowerCase(),
+					descrizione.toLowerCase());
 			entityManager.persist(ra);
 			entityManager.flush();
-			//entityManager.getTransaction().commit();
+			// entityManager.getTransaction().commit();
 		} catch (Exception w) {
 			w.printStackTrace();
-			//if ( entityManager.getTransaction().isActive())
-				//entityManager.getTransaction().rollback();
+			// if ( entityManager.getTransaction().isActive())
+			// entityManager.getTransaction().rollback();
 			return InvioRichiestaAbilitaEnum.ERRORE;
 		}
-		
+
 		return InvioRichiestaAbilitaEnum.OK;
 	}
 
@@ -117,10 +120,23 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		}
 		if (utente == null)
 			return null;
-		
-		return (IAbilita[]) utente.getAbilita().toArray( new IAbilita[utente.getAbilita().size()]);
+
+		return (IAbilita[]) utente.getAbilita().toArray(
+				new IAbilita[utente.getAbilita().size()]);
 	}
-	
+
+	@Override
+	public IUtente getUtente(String username) {
+		Utente utente;
+		// controllo se l'utente esiste
+		try {
+			utente = this.entityManager.find(Utente.class, username);
+		} catch (Exception e) {
+			return null;
+		}
+		return (IUtente) utente;
+	}
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public IAbilita[] getTutteLeAbilita() {

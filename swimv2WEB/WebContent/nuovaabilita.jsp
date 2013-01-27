@@ -9,7 +9,7 @@
 	}
 %>
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="richiesta abilità" />
+	<jsp:param name="titolo" value="Richiesta abilità" />
 </jsp:include>
 
 <div id="content">

@@ -26,7 +26,7 @@
 				%>
 				<!-- Username -->
 				<tr>
-					<td><b>Username: </b></td>
+					<td><b>Username:</b></td>
 				</tr>
 				<tr>
 					<td><%=io.getUsername()%></td>
@@ -34,7 +34,7 @@
 
 				<!-- Nome -->
 				<tr>
-					<td><b>Nome: </b></td>
+					<td><b>Nome:</b></td>
 				</tr>
 				<tr>
 					<td><%=io.getNome()%></td>
@@ -42,7 +42,7 @@
 
 				<!-- Cognome -->
 				<tr>
-					<td><b>Cognome: </b></td>
+					<td><b>Cognome:</b></td>
 				</tr>
 				<tr>
 					<td><%=io.getCognome()%></td>
