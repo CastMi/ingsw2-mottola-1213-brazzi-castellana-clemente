@@ -60,11 +60,8 @@ public final class ManagerManutenzioneAbilitaUtente extends
 					descrizione.toLowerCase());
 			entityManager.persist(ra);
 			entityManager.flush();
-			// entityManager.getTransaction().commit();
-		} catch (Exception w) {
+			} catch (Exception w) {
 			w.printStackTrace();
-			// if ( entityManager.getTransaction().isActive())
-			// entityManager.getTransaction().rollback();
 			return InvioRichiestaAbilitaEnum.ERRORE;
 		}
 
@@ -121,8 +118,7 @@ public final class ManagerManutenzioneAbilitaUtente extends
 		if (utente == null)
 			return null;
 
-		return (IAbilita[]) utente.getAbilita().toArray(
-				new IAbilita[utente.getAbilita().size()]);
+		return (IAbilita[]) utente.getAbilita().toArray( new IAbilita[utente.getAbilita().size()]);
 	}
 
 	@Override

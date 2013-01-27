@@ -34,9 +34,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		managerRichiestaAmicizia.rimuoviRichiestaAmicizia(richiestaAmicizia
 				.getIdRichiestaAmicizia());
 		// aggiungo la nuova amicizia
-		entityManager.getTransaction().begin();
 		entityManager.persist(amicizia);
-		entityManager.getTransaction().commit();
 		if(richiestaAmicizia.isSuggerita()){
 			ManagerSuggerimentoAmicizia managerSuggerimentoAmicizia = new ManagerSuggerimentoAmicizia();
 			managerSuggerimentoAmicizia.gestioneSuggerimento(mittente, destinatario, amicizia);
