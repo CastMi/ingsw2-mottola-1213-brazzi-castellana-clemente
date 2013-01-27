@@ -93,4 +93,18 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		
 		return (RichiestaAmicizia[]) listaRichieste.toArray(new RichiestaAmicizia[listaRichieste.size()]);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean hannoRichiesteInCorso(String utenteA,String utenteB){
+		Query query = entityManager
+				.createNamedQuery(
+						"RichiestaAmicizia.getRichiesteAmicizieABBA");
+		query.setParameter("utenteA", utenteA);
+		query.setParameter("utenteB", utenteB);
+		List<RichiestaAmicizia> listaRichieste = (List<RichiestaAmicizia>) query.getResultList();
+		if(listaRichieste==null || listaRichieste.size()==0){
+			return false;
+		}
+		return true;
+	}
 }

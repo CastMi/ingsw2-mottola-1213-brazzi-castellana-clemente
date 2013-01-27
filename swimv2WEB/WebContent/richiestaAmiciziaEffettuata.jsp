@@ -6,8 +6,8 @@
 
 <div id="content">
 	<div class="right">
-		<div id="contentTitle">Richiesta d'amicizia inoltrata con
-			successo!</div>
+		<div id="contentTitle">
+			<%=request.getAttribute("messaggioAmicizia")%></div>
 	</div>
 
 	<jsp:include page="leftCode.jsp" />

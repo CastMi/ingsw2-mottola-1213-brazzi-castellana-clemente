@@ -16,5 +16,7 @@ public interface IManagerRichiestaAmicizia {
 	public void rimuoviRichiestaAmicizia(int idRichiestaAmicizia);
 	
 	public RichiestaAmicizia[] getTutteRichiesteAmiciziaPerUtente(String utente);
+	
+	public boolean hannoRichiesteInCorso(String utenteA,String utenteB);
 
 }

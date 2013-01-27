@@ -23,7 +23,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "RichiestaAmicizia.getTutteRichiesteAmicizia", query = "SELECT r FROM RichiestaAmicizia r"),
 		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerIdUtente", query = "SELECT r FROM RichiestaAmicizia r WHERE r.destinatario = :userName"),
 		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario", query = "SELECT r FROM RichiestaAmicizia r WHERE r.destinatario = :destinatario AND r.richiedente = :richiedente"),
-		@NamedQuery(name = "RichiestaAmicizia.getProssimoIdRichiestaAmicizia", query = "SELECT MAX(r.id)+1 as max_id FROM RichiestaAmicizia r") })
+		@NamedQuery(name = "RichiestaAmicizia.getRichiesteAmicizieABBA", query = "SELECT r FROM RichiestaAmicizia r WHERE (r.destinatario = :utenteA AND r.richiedente = :utenteB) OR (r.destinatario = :utenteB AND r.richiedente = :utenteA)") })
 @Entity
 @Table(name = "RichiestaAmicizia")
 public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
@@ -40,10 +40,10 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 
 	@Column(name = "richiedente")
 	private String richiedente;
-	
+
 	@Column(name = "suggerita")
 	private boolean suggerita;
-	
+
 	public boolean isSuggerita() {
 		return suggerita;
 	}
@@ -52,13 +52,14 @@ public class RichiestaAmicizia implements Serializable, IRichiestaAmicizia {
 	@Column(name = "note")
 	private String note;
 
-	public RichiestaAmicizia(String idRichiedente, String idDestinatario, String note, boolean suggerita) {
+	public RichiestaAmicizia(String idRichiedente, String idDestinatario,
+			String note, boolean suggerita) {
 		this.richiedente = idRichiedente;
 		this.destinatario = idDestinatario;
 		this.note = note;
 		this.suggerita = suggerita;
 	}
-	
+
 	public RichiestaAmicizia() {
 		super();
 	}

@@ -7,4 +7,5 @@ public interface IManagerAmicizia {
 
 	public void creaAmicizia(int idRichiestaAmicizia);
 
+	public boolean sonoAmici(String utenteA, String utenteB);
 }

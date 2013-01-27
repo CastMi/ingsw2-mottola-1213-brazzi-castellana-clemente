@@ -1,5 +1,6 @@
 package it.swimv2.servlet;
 
+import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
@@ -40,21 +41,39 @@ public class RichiestaAmiciziaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		IManagerAmicizia  managerAmicizia;
 		IManagerRichiestaAmicizia iRichiestaAmicizia;
 		try {
 			iRichiestaAmicizia = factory.getRichiestaAmicizia();
+			managerAmicizia = factory.getManagerAmicizia();
 		} catch (ClassCastException | NamingException e) {
 			e.printStackTrace();
 			return;
 		}
-
 		// ricezione dati provenienti dalla jsp
 		String richiedente = (String) request.getSession().getAttribute(
 				"nomeUtente");
 		String destinatario = request.getParameter("destinatario");
 		String note = request.getParameter("note");
+
+		//controllo se sono amici
+		if(managerAmicizia.sonoAmici(richiedente, destinatario)){
+			request.setAttribute("messaggioAmicizia", "errore sei già amico");
+			GestioneServlet.showPage(request, response,
+					"richiestaAmiciziaEffettuata.jsp");
+			return;
+		}
+		
+		if(iRichiestaAmicizia.hannoRichiesteInCorso(richiedente, destinatario)){
+			request.setAttribute("messaggioAmicizia", "errore richiesta amicizia già inviata");
+			GestioneServlet.showPage(request, response,
+					"richiestaAmiciziaEffettuata.jsp");
+			return;
+		}
+		
 		iRichiestaAmicizia.creaNuovaRichiestaAmicizia(richiedente,
 				destinatario, note);
+		request.setAttribute("messaggioAmicizia", "Richiesta d'amicizia inoltrata con successo!");
 		GestioneServlet.showPage(request, response,
 				"richiestaAmiciziaEffettuata.jsp");
 	}

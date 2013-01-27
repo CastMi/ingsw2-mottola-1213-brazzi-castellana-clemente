@@ -2,6 +2,7 @@ package it.swimv2.controller;
 
 import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.entities.Amicizia;
+import it.swimv2.entities.AmiciziaPK;
 import it.swimv2.entities.RichiestaAmicizia;
 
 import javax.ejb.Stateless;
@@ -48,5 +49,26 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		}
 		entityManager.remove(richiestaAmicizia);
 		entityManager.flush();
+	}
+
+	public boolean sonoAmici(String utenteA, String utenteB) {
+		Amicizia amiciziaAB;
+		Amicizia amiciziaBA;
+		try {
+			amiciziaAB = entityManager.find(Amicizia.class, new AmiciziaPK(
+					utenteA, utenteB));
+		} catch (Exception e) {
+			amiciziaAB = null;
+		}
+
+		try {
+			amiciziaBA = entityManager.find(Amicizia.class, new AmiciziaPK(
+					utenteB, utenteA));
+		} catch (Exception e) {
+			amiciziaBA = null;
+		}
+
+		return (amiciziaAB != null || amiciziaBA != null);
+
 	}
 }
