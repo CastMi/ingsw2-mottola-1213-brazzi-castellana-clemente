@@ -1,6 +1,5 @@
 package it.swimv2.servlet;
 
-import it.swimv2.controller.remoteController.IManagerAmicizia;
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
@@ -41,11 +40,9 @@ public class RichiestaAmiciziaDaSuggerimentoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		IManagerAmicizia  managerAmicizia;
 		IManagerRichiestaAmicizia iRichiestaAmicizia;
 		try {
 			iRichiestaAmicizia = factory.getRichiestaAmicizia();
-			managerAmicizia = factory.getManagerAmicizia();
 		} catch (ClassCastException | NamingException e) {
 			e.printStackTrace();
 			return;
