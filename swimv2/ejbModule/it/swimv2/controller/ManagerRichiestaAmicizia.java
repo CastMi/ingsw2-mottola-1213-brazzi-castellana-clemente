@@ -61,7 +61,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		try {
 			Query query = entityManager
 					.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario").setParameter("destinatario", destinatario).setParameter("richiedente", richiedente);
-			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getSingleResult();
+			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getResultList().get(0);
 			temp = entityManager.find(RichiestaAmicizia.class, richiestaAmicizia.getIdRichiestaAmicizia());
 		} catch (Exception e) {
 			return;
@@ -75,7 +75,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		try {
 			Query query = entityManager
 					.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario").setParameter("destinatario", destinatario).setParameter("richiedente", richiedente);
-			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getSingleResult();
+			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getResultList().get(0);
 			temp = entityManager.find(RichiestaAmicizia.class, richiestaAmicizia);
 			
 		} catch (Exception e) {
