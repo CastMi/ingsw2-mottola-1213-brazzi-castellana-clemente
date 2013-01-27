@@ -51,10 +51,11 @@ public class RichiestaAmiciziaDaSuggerimentoServlet extends HttpServlet {
 		String richiedente = (String) request.getSession().getAttribute(
 				"nomeUtente");
 		String destinatario = request.getParameter("destinatario");
-		String note = new String("*Richiesta suggerita dal sitema*");
+		String note = new String("*Richiesta suggerita dal sistema*");
 		
 		iRichiestaAmicizia.creaNuovaRichiestaAmiciziaTramiteSuggerimento(richiedente,
 				destinatario, note);
+		request.setAttribute("messaggioAmicizia", "Richiesta di amicizia inviata con successo");
 		GestioneServlet.showPage(request, response, "richiestaAmiciziaEffettuata.jsp");
 	}
 
