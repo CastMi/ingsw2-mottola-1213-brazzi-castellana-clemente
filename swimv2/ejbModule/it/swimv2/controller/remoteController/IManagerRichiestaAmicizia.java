@@ -12,5 +12,7 @@ public interface IManagerRichiestaAmicizia {
 			String destinatario, String note);
 
 	public void rimuoviRichiestaAmicizia(int id);
+	
+	public String[] getTutteRichiesteAmiciziaPerUtente(String utente);
 
 }

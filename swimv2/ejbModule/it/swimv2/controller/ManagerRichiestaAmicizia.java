@@ -1,5 +1,7 @@
 package it.swimv2.controller;
 
+import java.util.List;
+
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
 import it.swimv2.entities.SuggerimentoAmicizia;
@@ -80,4 +82,17 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		return (RichiestaAmicizia) query.getSingleResult();
 	}
 
+	@SuppressWarnings({ "unchecked", "null" })
+	public String[] getTutteRichiesteAmiciziaPerUtente(String utente){
+		Query query = entityManager
+				.createNamedQuery(
+						"RichiestaAmicizia.getRichiesteAmiciziePerIdUtente")
+				.setParameter("userName", utente);
+		List<RichiestaAmicizia> listaRichieste = (List<RichiestaAmicizia>) query.getResultList();
+		List<String> listaNomiRichiedenti = null;
+		for (RichiestaAmicizia r :listaRichieste){
+			listaNomiRichiedenti.add(r.getIdRichiedente());
+		}
+		return (String[]) listaRichieste.toArray(new String[listaRichieste.size()]);
+	}
 }
