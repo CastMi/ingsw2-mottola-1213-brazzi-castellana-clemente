@@ -35,6 +35,8 @@ public class ManagerAmicizia implements IManagerAmicizia {
 	@Override
 	public void creaAmicizia(int idRichiestaAmicizia) {
 		RichiestaAmicizia richiestaAmicizia = null;
+		String idRichiedente = new String();
+		String idDestinatario = new String();
 		boolean suggerita;
 		try {
 			richiestaAmicizia = entityManager.find(RichiestaAmicizia.class,
@@ -43,18 +45,18 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		} catch (Exception e) {
 			return;
 		}
-
-		Amicizia amicizia = new Amicizia(richiestaAmicizia.getIdRichiedente(),
-				richiestaAmicizia.getIdDestinatario());
+		idRichiedente = richiestaAmicizia.getIdRichiedente();
+		idDestinatario = richiestaAmicizia.getIdDestinatario();
+		Amicizia amicizia = new Amicizia(idRichiedente,	idDestinatario);
+		
 		entityManager.persist(amicizia);
-
+		entityManager.remove(richiestaAmicizia);
+		entityManager.flush();
 		if (!suggerita) {
 			gestioneSuggerimento(
 					richiestaAmicizia.getIdRichiedente(),
 					richiestaAmicizia.getIdDestinatario());
 		}
-		entityManager.remove(richiestaAmicizia);
-		entityManager.flush();
 	}
 
 	public boolean sonoAmici(String utenteA, String utenteB) {
@@ -97,6 +99,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public IAmicizia[] tuttiGliAmici(String utente) {
 		Query query = entityManager
@@ -126,6 +129,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 			suggerimentiAUtente1.removeAll(amiciUtente1);
 			suggerimentiAUtente1.remove(utente1);
 			suggerimentiAUtente1.remove(utente2);
+			suggerimentiAUtente1.removeAll(tuttiISuggerimentiDiUtente(utente1));
 		}
 		Set<String> suggerimentiAUtente2 = new HashSet<String>();
 		if (amiciUtente1.size() != 0) {
@@ -133,11 +137,25 @@ public class ManagerAmicizia implements IManagerAmicizia {
 			suggerimentiAUtente2.removeAll(amiciUtente2);
 			suggerimentiAUtente2.remove(utente1);
 			suggerimentiAUtente2.remove(utente2);
+			suggerimentiAUtente2.removeAll(tuttiISuggerimentiDiUtente(utente2));
 		}
 		creaSuggerimento(utente1, utente2, suggerimentiAUtente1);
 		creaSuggerimento(utente2, utente1, suggerimentiAUtente2);
 
 	}
+	@SuppressWarnings("unchecked")
+	private Set<String> tuttiISuggerimentiDiUtente(String utente) {
+		Query query = entityManager
+				.createNamedQuery("SuggerimentoAmicizia.getSuggerimentoPerDestinatario");
+		query.setParameter("nomeUtente", utente);
+		List<SuggerimentoAmicizia> suggerimentiPerUtente = (List<SuggerimentoAmicizia>) query.getResultList();
+		Set<String> nomiAmici = new HashSet<String>();
+		for(SuggerimentoAmicizia s: suggerimentiPerUtente){
+			nomiAmici.add(s.getSuggerito());
+		}
+		return null;
+	}
+
 	@SuppressWarnings("unchecked")
 	private Set<String> getQuerySetAmiciziePerUtente(String utente) {
 		Query query = entityManager
@@ -147,20 +165,19 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		Set<String> nomiAmici = new HashSet<String>();
 		for(Amicizia s:amiciUtente){
 			if(s.getIdUtente1().equals(utente)){
-				nomiAmici.add(s.getIdUtente1());
+				nomiAmici.add(s.getIdUtente2());
 			}
 			else{
-				nomiAmici.add(s.getIdUtente2());
+				nomiAmici.add(s.getIdUtente1());
 			}
 		}
 		return nomiAmici;
 	}
 	
-	@SuppressWarnings("unused")
 	private void creaSuggerimento(String utente, String utente2,
 			Set<String> suggerimentiAUtente1) {
 		for(String a : suggerimentiAUtente1){
-			SuggerimentoAmicizia suggerimento = new SuggerimentoAmicizia();
+			SuggerimentoAmicizia suggerimento = new SuggerimentoAmicizia(utente, a);
 			suggerimento.setDestinatario(utente);
 			entityManager.persist(suggerimento);
 		}
