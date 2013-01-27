@@ -24,26 +24,6 @@
 				<form action="Registrazione" method="post">
 					<fieldset>
 						<table>
-							<%
-								String messaggioRegistrazione = (String) request
-										.getAttribute("messaggioRegistrazione");
-
-								if (messaggioRegistrazione != null
-										&& !messaggioRegistrazione.isEmpty()) {
-							%>
-							<tr>
-								<td>
-									<div id="erroreRegistrazione">
-
-										<%
-											out.print(messaggioRegistrazione);
-										%><br />
-									</div>
-								</td>
-							</tr>
-							<%
-								}
-							%>
 							<tr>
 								<td class="td_campi_form"><label for="nome">Nome:</label></td>
 								<td style="height: 49px"><input name="nome" type="text"
@@ -101,7 +81,23 @@
 						</table>
 					</fieldset>
 				</form>
+				<%
+					String messaggioRegistrazione = (String) request
+							.getAttribute("messaggioRegistrazione");
 
+					if (messaggioRegistrazione != null
+							&& !messaggioRegistrazione.isEmpty()) {
+				%>
+				<br />
+				<div id="erroreRegistrazione">
+
+					<%
+						out.print(messaggioRegistrazione);
+					%>
+				</div>
+				<%
+					}
+				%>
 			</div>
 
 		</div>
