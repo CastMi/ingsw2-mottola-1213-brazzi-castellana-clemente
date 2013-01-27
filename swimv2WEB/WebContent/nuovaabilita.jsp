@@ -29,38 +29,33 @@
 							</tr>
 							<tr>
 								<td class="td_campi_form"><label for="descrizione">Descrizione:</label></td>
-								<td style="height: 49px"><input name="descrizione" type="text"
-									style="width: 185px" /></td>
+								<td style="height: 49px"><input name="descrizione"
+									type="text" style="width: 185px" /></td>
 							</tr>
 							<tr>
 								<td class="td_campi_form"></td>
-								<td align=center>
-								<input name="submit" type="submit"
+								<td align=center><input name="submit" type="submit"
 									alt="InviaRichiestaAbilita" /></td>
 							</tr>
-							<%
-								String messaggioRegistrazione = (String) request
-										.getAttribute("messaggio");
-
-								if (messaggioRegistrazione != null
-										&& !messaggioRegistrazione.isEmpty()) {
-							%>
-							<tr>
-								<td>
-									<div id="erroreRegistrazione">
-
-										<%
-											out.print(messaggioRegistrazione);
-										%><br />
-									</div>
-								</td>
-							</tr>
-							<%
-								}
-							%>
 						</table>
 					</fieldset>
 				</form>
+				<%
+					String messaggioRegistrazione = (String) request
+							.getAttribute("messaggio");
+
+					if (messaggioRegistrazione != null
+							&& !messaggioRegistrazione.isEmpty()) {
+				%>
+				<div id="erroreRegistrazione">
+
+					<%
+						out.print(messaggioRegistrazione);
+					%><br />
+				</div>
+				<%
+					}
+				%>
 			</div>
 		</div>
 

@@ -38,13 +38,14 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
-		String nomeAbilita = request.getParameter("nomeAbilita");
+		String nomeAbilita = request.getParameter("nomeAbilita").trim();
 		String descrizione = request.getParameter("descrizione");
 		String username = (String) request.getSession().getAttribute(
 				"nomeUtente");
-		if (nomeAbilita.isEmpty()) {
+		if (nomeAbilita.isEmpty() || nomeAbilita == null) {
 			request.setAttribute("messaggio",
-					"Errore: esiste già una richiesta per tale abilità.");
+					"Errore: inserire un nome per l'abilità richiesta.");
+			GestioneServlet.showPage(request, response, "nuovaabilita.jsp");
 			return;
 		}
 		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(
@@ -87,10 +88,17 @@ public final class InviaRichiestaAbilitaServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
-		String nomeAbilita = request.getParameter("nomeAbilita");
+		String nomeAbilita = request.getParameter("nomeAbilita").trim();
 		String descrizione = request.getParameter("descrizione");
 		String username = (String) request.getSession().getAttribute(
 				"nomeUtente");
+		
+		if (nomeAbilita.isEmpty() || nomeAbilita == null) {
+			request.setAttribute("messaggio",
+					"Errore: inserire un nome per l'abilità richiesta.");
+			GestioneServlet.showPage(request, response, "nuovaabilita.jsp");
+			return;
+		}
 
 		InvioRichiestaAbilitaEnum temp = manager.inviareRichiestaAbilita(
 				nomeAbilita, descrizione, username);
