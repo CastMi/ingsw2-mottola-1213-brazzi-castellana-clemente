@@ -54,8 +54,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		entityManager.flush();
 		if (!suggerita) {
 			gestioneSuggerimento(
-					richiestaAmicizia.getIdRichiedente(),
-					richiestaAmicizia.getIdDestinatario());
+					idRichiedente,idDestinatario);
 		}
 	}
 
@@ -139,8 +138,8 @@ public class ManagerAmicizia implements IManagerAmicizia {
 			suggerimentiAUtente2.remove(utente2);
 			suggerimentiAUtente2.removeAll(tuttiISuggerimentiDiUtente(utente2));
 		}
-		creaSuggerimento(utente1, utente2, suggerimentiAUtente1);
-		creaSuggerimento(utente2, utente1, suggerimentiAUtente2);
+		creaSuggerimento(utente1, suggerimentiAUtente1);
+		creaSuggerimento(utente2, suggerimentiAUtente2);
 
 	}
 	@SuppressWarnings("unchecked")
@@ -174,7 +173,7 @@ public class ManagerAmicizia implements IManagerAmicizia {
 		return nomiAmici;
 	}
 	
-	private void creaSuggerimento(String utente, String utente2,
+	private void creaSuggerimento(String utente,
 			Set<String> suggerimentiAUtente1) {
 		for(String a : suggerimentiAUtente1){
 			SuggerimentoAmicizia suggerimento = new SuggerimentoAmicizia(utente, a);
