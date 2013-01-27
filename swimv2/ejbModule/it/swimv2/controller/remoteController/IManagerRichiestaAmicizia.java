@@ -13,7 +13,7 @@ public interface IManagerRichiestaAmicizia {
 	public void creaNuovaRichiestaAmiciziaTramiteSuggerimento(String mittente,
 			String destinatario, String note);
 
-	public void rimuoviRichiestaAmicizia(String richiedente, String destinatario, String note);
+	public void rimuoviRichiestaAmicizia(int idRichiestaAmicizia);
 	
 	public RichiestaAmicizia[] getTutteRichiesteAmiciziaPerUtente(String utente);
 

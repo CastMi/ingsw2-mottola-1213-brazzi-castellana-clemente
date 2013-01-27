@@ -43,12 +43,9 @@ public class RifiutaRichiestaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		String richiedente = (String) request.getSession().getAttribute(
-				"nomeUtente");
-		String destinatario = request.getParameter("destinatario");
-		String note = request.getParameter("note");
-		iRichiestaAmicizia.rimuoviRichiestaAmicizia(richiedente,
-				destinatario, note);
+		int idRichiestaAmicizia = Integer.parseInt(request
+				.getParameter("idRichiestaAmicizia"));
+		iRichiestaAmicizia.rimuoviRichiestaAmicizia(idRichiestaAmicizia);
 		GestioneServlet.showPage(request, response,
 				"RichiestaAmiciziaRifiutata.jsp");
 	}
@@ -69,12 +66,9 @@ public class RifiutaRichiestaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		String richiedente = (String) request.getSession().getAttribute(
-				"nomeUtente");
-		String destinatario = request.getParameter("destinatario");
-		String note = request.getParameter("note");
-		iRichiestaAmicizia.rimuoviRichiestaAmicizia(richiedente,
-				destinatario, note);
+		int idRichiestaAmicizia = Integer.parseInt(request
+				.getParameter("idRichiestaAmicizia"));
+		iRichiestaAmicizia.rimuoviRichiestaAmicizia(idRichiestaAmicizia);
 		GestioneServlet.showPage(request, response,
 				"richiestaAmiciziaRifiutata.jsp");
 	}

@@ -37,13 +37,13 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		String richiedente = request.getParameter("richiedente");
-		String destinatario = request.getParameter("destinatario");
-		String note = request.getParameter("note");
-		iAmicizia.creaAmicizia(richiedente, destinatario, note, false);
-		GestioneServlet.showPage(request, response, "richiestaAmiciziaAccettata.jsp");
-	}
+		int idRichiestaAmicizia = Integer.parseInt(request
+				.getParameter("idRichiestaAmicizia"));
 
+		iAmicizia.creaAmicizia(idRichiestaAmicizia);
+		GestioneServlet.showPage(request, response,
+				"richiestaAmiciziaAccettata.jsp");
+	}
 
 	/**
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest,
@@ -53,8 +53,7 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-	
+
 		IManagerAmicizia iAmicizia;
 
 		try {
@@ -65,11 +64,11 @@ public class AccettaAmiciziaServlet extends HttpServlet {
 		}
 
 		// ricezione dati provenienti dalla jsp
-		String richiedente = request.getParameter("richiedente");
-		String destinatario = request.getParameter("destinatario");
-		String note = request.getParameter("note");
-		iAmicizia.creaAmicizia(richiedente, destinatario,note, false);
-		GestioneServlet.showPage(request, response, "richiestaAmiciziaAccettata.jsp");
+		int idRichiestaAmicizia = Integer.parseInt(request
+				.getParameter("idRichiestaAmicizia"));
+		iAmicizia.creaAmicizia(idRichiestaAmicizia);
+		GestioneServlet.showPage(request, response,
+				"richiestaAmiciziaAccettata.jsp");
 	}
 
 }

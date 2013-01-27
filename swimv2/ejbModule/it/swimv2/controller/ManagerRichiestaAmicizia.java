@@ -8,7 +8,6 @@ import it.swimv2.entities.SuggerimentoAmicizia;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -56,13 +55,10 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * it.swimv2.controller.IRichiestaAmicizia#rimuoviRichiestaAmicizia(int)
 	 */
 	@Override
-	public void rimuoviRichiestaAmicizia(String destinatario, String richiedente, String note) {
+	public void rimuoviRichiestaAmicizia(int idRichiestaAmicizia) {
 		RichiestaAmicizia temp;
 		try {
-			Query query = entityManager
-					.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario").setParameter("destinatario", destinatario).setParameter("richiedente", richiedente);
-			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getResultList().get(0);
-			temp = entityManager.find(RichiestaAmicizia.class, richiestaAmicizia.getIdRichiestaAmicizia());
+			temp = entityManager.find(RichiestaAmicizia.class, idRichiestaAmicizia);
 		} catch (Exception e) {
 			return;
 		}
@@ -72,21 +68,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		} catch (Exception e) {
 			return;
 		}
-		try {
-			Query query = entityManager
-					.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario").setParameter("destinatario", destinatario).setParameter("richiedente", richiedente);
-			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getResultList().get(0);
-			temp = entityManager.find(RichiestaAmicizia.class, richiestaAmicizia);
-			
-		} catch (Exception e) {
-			return;
-		}
-		try {
-			entityManager.remove(temp);
-			entityManager.flush();
-		} catch (Exception e) {
-			return;
-		}
+
 	}
 
 	public RichiestaAmicizia getRichiestaAmicizia(String mittente,

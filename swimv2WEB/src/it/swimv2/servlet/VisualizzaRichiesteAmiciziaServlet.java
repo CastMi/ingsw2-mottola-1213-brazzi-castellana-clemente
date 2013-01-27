@@ -1,7 +1,6 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
-import it.swimv2.controller.remoteController.IManagerSuggerimentoAmicizia;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;

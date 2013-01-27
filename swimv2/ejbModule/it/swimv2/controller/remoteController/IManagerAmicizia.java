@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 @Remote
 public interface IManagerAmicizia {
 
-	public void creaAmicizia(String mittente, String destinatario, String note, boolean suggerita);
+	public void creaAmicizia(int idRichiestaAmicizia);
 
 }

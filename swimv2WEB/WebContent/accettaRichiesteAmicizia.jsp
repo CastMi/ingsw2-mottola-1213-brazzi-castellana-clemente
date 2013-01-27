@@ -37,18 +37,15 @@
 					<td><%=r.getNote()%></td>
 					<td>
 						<form action="AccettaAmicizia" method="post">
-							<input type="hidden" name="destinatario"
-								value="<%=utenteLoggato%>"> <input type="hidden"
-								name="richiedente" value="<%=r.getIdRichiedente()%>"> <input
+							<input type="hidden" name="idRichiestaAmicizia"
+								value="<%=r.getIdRichiestaAmicizia()%>"><input
 								name="submit" type="submit" value="Accetta" />
 						</form>
 					</td>
 					<td>
 						<form action="RifiutaRichiestaAmicizia" method="post">
-							<input type="hidden" name="destinatario"
-								value="<%=utenteLoggato%>"> <input type="hidden"
-								name="richiedente" value="<%=r.getIdRichiedente()%>"> <input
-								type="hidden" name="note" value="<%=r.getNote()%>"><input
+							<input type="hidden" name="idRichiestaAmicizia"
+								value="<%=r.getIdRichiestaAmicizia()%>"><input
 								name="submit" type="submit" value="Rifiuta" />
 						</form>
 					</td>
