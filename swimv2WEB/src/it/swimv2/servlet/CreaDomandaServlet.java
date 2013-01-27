@@ -1,12 +1,12 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerDomanda;
+import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.naming.NamingException;
@@ -59,21 +59,29 @@ public class CreaDomandaServlet extends HttpServlet {
 			try {
 				IManagerDomanda managerDomanda = factory.getManagerDomanda();
 				
-				String titoloDomanda = (String) request.getAttribute("titoloDomanda");
+				IManutenzioneAbilitaUtente iManutenzioneAbilitaUtente = factory.getManutentoreUtente();
 				
-				String descrizioneDomanda = (String) request.getAttribute("descrizioneDomanda");
+				String titoloDomanda = (String) request.getParameter("titoloDomanda");
 				
-				String[] arrayAbilita = (String[]) request.getAttribute("arrayAbilita");
+				String descrizioneDomanda = (String) request.getParameter("descrizioneDomanda");
+				
+				String nomeAbilita = (String) request.getParameter("nomeAbilita");
 				
 				Set<String> setAbilita = new HashSet<String>();
 				
-				Collections.addAll(setAbilita, arrayAbilita);
+				setAbilita.add(nomeAbilita);
+				//Collections.addAll(setAbilita, arrayAbilita);
 								
-				IDomanda domanda = managerDomanda.creaDomanda(userName, titoloDomanda, descrizioneDomanda, setAbilita);
+				managerDomanda.creaDomanda(userName, titoloDomanda, descrizioneDomanda, setAbilita);
 				
-				request.setAttribute("domanda", domanda);
+				IDomanda[] domande = managerDomanda.proprieDomande(userName);
 				
-				GestioneServlet.showPage(request, response, "showDomanda.jsp");
+				request.setAttribute("abilita", iManutenzioneAbilitaUtente.getTutteLeAbilita());
+				
+				request.setAttribute("arrayProprieDomande", domande);
+
+				GestioneServlet.showPage(request, response,
+						"proprieDomande.jsp");
 			} catch (ClassCastException | NamingException e) {
 				e.printStackTrace();
 				request.setAttribute("messaggio","Errore: Impossibile creare una domanda.");

@@ -65,9 +65,8 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 			Risposta risposta = entityManager.find(Risposta.class, idRisposta);
 			Utente utente = entityManager.find(Utente.class, userName);
 			if (risposta.getDomanda().getCreatore().equals(utente)) {
-				entityManager.getTransaction().begin();
 				risposta.setFeedback(voto);
-				entityManager.getTransaction().commit();
+				entityManager.flush();
 				return true;
 			}
 		} catch (Exception e) {
@@ -91,7 +90,7 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 	}
 
 	@Override
-	public IRisposta aggiungiRispsota(int idDomanda, String userName,
+	public IRisposta aggiungiRisposta(int idDomanda, String userName,
 			String risposta) {
 		Domanda domanda = null;
 		Utente utente = null;
@@ -105,13 +104,10 @@ public class ManagerRisposta implements Serializable, IManagerRisposta {
 		}
 		Risposta temp = new Risposta(domanda, utente, risposta);
 		try {
-			entityManager.getTransaction().begin();
 			entityManager.persist(temp);
-			entityManager.getTransaction().commit();
+			entityManager.flush();
 			return temp;
 		} catch (Exception e) {
-			if(entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
 			e.printStackTrace();
 		}
 		return null;

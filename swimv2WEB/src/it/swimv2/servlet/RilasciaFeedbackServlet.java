@@ -1,6 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerRisposta;
+import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.entities.remoteEntities.IRisposta;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
@@ -61,9 +62,10 @@ public class RilasciaFeedbackServlet extends HttpServlet {
 			try {
 				IManagerRisposta managerRisposta = factory.getManagerRisposta();
 
-				int idRisposta = (int) request.getAttribute("idRisposta");
+				int idRisposta = Integer.parseInt(request
+						.getParameter("idRisposta"));
 
-				int voto = (int) request.getAttribute("voto");
+				int voto = Integer.parseInt(request.getParameter("voto"));
 
 				if (managerRisposta
 						.rilasciaFeedback(idRisposta, userName, voto)) {
@@ -74,9 +76,17 @@ public class RilasciaFeedbackServlet extends HttpServlet {
 
 				IRisposta risposta = managerRisposta.apriRisposta(idRisposta);
 
-				request.setAttribute("risposta", risposta);
+				IDomanda domanda = risposta.getDomanda();
 
-				GestioneServlet.showPage(request, response, "showRisposta.jsp");
+				request.setAttribute("domanda", domanda);
+
+				IRisposta[] risposte = managerRisposta
+						.getRisposteByDomanda(domanda.getId());
+
+				request.setAttribute("arrayRisposte", risposte);
+
+				GestioneServlet.showPage(request, response,
+						"showConversazione.jsp");
 			} catch (ClassCastException | NamingException e) {
 				e.printStackTrace();
 				request.setAttribute("messaggio",

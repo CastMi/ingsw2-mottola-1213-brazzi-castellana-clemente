@@ -1,6 +1,8 @@
 package it.swimv2.servlet;
 
+import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.controller.remoteController.IManagerRisposta;
+import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.entities.remoteEntities.IRisposta;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
@@ -60,18 +62,27 @@ public class RispondiADomandaServlet extends HttpServlet {
 		} else {
 			try {
 				IManagerRisposta managerRisposta = factory.getManagerRisposta();
+				IManagerDomanda managerDomanda = factory.getManagerDomanda();
 
-				int idDomanda = (int) request.getAttribute("idDomanda");
+				int idDomanda = Integer.parseInt(request
+						.getParameter("idDomanda"));
 
-				String descrizioneRisposta = (String) request
-						.getAttribute("descrizioneRisposta");
+				String descrizioneRisposta = request
+						.getParameter("descrizioneRisposta");
 
-				IRisposta risposta = managerRisposta.aggiungiRispsota(
-						idDomanda, userName, descrizioneRisposta);
+				managerRisposta.aggiungiRisposta(idDomanda, userName,
+						descrizioneRisposta);
 
-				request.setAttribute("risposta", risposta);
+				IDomanda domanda = managerDomanda.apriDomanda(idDomanda);
 
-				GestioneServlet.showPage(request, response, "showRisposta.jsp");
+				request.setAttribute("domanda", domanda);
+
+				IRisposta[] risposte = managerRisposta
+						.getRisposteByDomanda(idDomanda);
+
+				request.setAttribute("arrayRisposte", risposte);
+				GestioneServlet.showPage(request, response,
+						"showConversazione.jsp");
 			} catch (ClassCastException | NamingException e) {
 				e.printStackTrace();
 				request.setAttribute("messaggio",

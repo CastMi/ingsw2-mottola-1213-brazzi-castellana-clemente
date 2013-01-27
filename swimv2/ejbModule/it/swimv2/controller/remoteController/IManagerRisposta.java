@@ -15,7 +15,7 @@ public interface IManagerRisposta {
 
 	public boolean rilasciaFeedback(int risposta, String userName, int voto);
 
-	public IRisposta aggiungiRispsota(int domanda, String userName,
+	public IRisposta aggiungiRisposta(int domanda, String userName,
 			String risposta);
 
 }

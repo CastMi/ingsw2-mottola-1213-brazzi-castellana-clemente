@@ -1,6 +1,7 @@
 package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerDomanda;
+import it.swimv2.controller.remoteController.IManutenzioneAbilitaUtente;
 import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.util.GestioneServlet;
 import it.swimv2.util.IFactory;
@@ -61,11 +62,14 @@ public class ProprieDomandeServlet extends HttpServlet {
 		} else {
 			try {
 				IManagerDomanda managerDomanda = factory.getManagerDomanda();
+				IManutenzioneAbilitaUtente iManutenzioneAbilitaUtente = factory.getManutentoreUtente();
 
 				IDomanda[] domande = managerDomanda.proprieDomande(userName);
 
 				request.setAttribute("arrayProprieDomande", domande);
-
+				
+				request.setAttribute("abilita", iManutenzioneAbilitaUtente.getTutteLeAbilita());
+				
 				GestioneServlet.showPage(request, response,
 						"proprieDomande.jsp");
 			} catch (ClassCastException | NamingException e) {

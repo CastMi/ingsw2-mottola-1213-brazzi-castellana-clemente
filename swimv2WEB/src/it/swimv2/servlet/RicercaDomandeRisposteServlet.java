@@ -16,14 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.logging.Logger;
-
 /**
  * Servlet implementation class RicercaDomandeRisposteServlet
  */
 public class RicercaDomandeRisposteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(RicercaDomandeRisposteServlet.class.getName());
+
 	private final IFactory factory = new SimpleFactory();
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,9 +41,6 @@ public class RicercaDomandeRisposteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String testo;
-		testo = (String) request.getParameter("testo");
-		log.error("RicercaDomandeRisposte 1: "+testo);
 		ricercaDomandeRisposteEsecuzione(request, response);
 	}
 
@@ -58,7 +53,6 @@ public class RicercaDomandeRisposteServlet extends HttpServlet {
 			IManagerRisposta managerRisposta = factory.getManagerRisposta();
 			
 			IManagerDomanda managerDomanda = factory.getManagerDomanda();
-			log.error("RicercaDomandeRisposte 2: "+testo);
 			
 			IDomanda[] domande = managerDomanda.ricercaDomande(testo);
 			

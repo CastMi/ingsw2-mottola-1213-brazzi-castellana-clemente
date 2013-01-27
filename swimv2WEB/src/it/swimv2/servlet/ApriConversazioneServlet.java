@@ -2,7 +2,6 @@ package it.swimv2.servlet;
 
 import it.swimv2.controller.remoteController.IManagerDomanda;
 import it.swimv2.controller.remoteController.IManagerRisposta;
-import it.swimv2.entities.remoteEntities.IAbilita;
 import it.swimv2.entities.remoteEntities.IDomanda;
 import it.swimv2.entities.remoteEntities.IRisposta;
 import it.swimv2.util.GestioneServlet;
@@ -62,10 +61,7 @@ public class ApriConversazioneServlet extends HttpServlet {
 			}
 			IDomanda domanda = managerDomanda.apriDomanda(idDomanda);
 			
-			IAbilita[] abilita = domanda.getAbilita();
-			
 			request.setAttribute("domanda", domanda);
-			request.setAttribute("arrayAbilita", abilita);
 			
 			IManagerRisposta managerRisposta = factory.getManagerRisposta();
 
@@ -74,7 +70,6 @@ public class ApriConversazioneServlet extends HttpServlet {
 
 			request.setAttribute("arrayRisposte", risposte);
 			
-
 			GestioneServlet.showPage(request, response, "showConversazione.jsp");
 		} catch (ClassCastException | NamingException e) {
 			e.printStackTrace();

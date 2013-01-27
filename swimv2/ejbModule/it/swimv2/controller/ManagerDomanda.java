@@ -46,7 +46,7 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 		if (utente == null) {
 			return null;
 		}
-		Query query = entityManager.createNamedQuery("Domanda.prorieDomande");
+		Query query = entityManager.createNamedQuery("Domanda.proprieDomande");
 
 		query.setParameter("utente", utente);
 
@@ -92,12 +92,9 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 		Domanda temp = new Domanda(titoloDomanda, descrizioneDomanda,
 				setClasseAbilita, utente);
 		try {
-			entityManager.getTransaction().begin();
 			entityManager.persist(temp);
-			entityManager.getTransaction().commit();
+			entityManager.flush();
 		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
 			return null;
 		}
 
@@ -112,7 +109,6 @@ public class ManagerDomanda implements Serializable, IManagerDomanda {
 		} catch (Exception e) {
 			return null;
 		}
-
 		if (listaRis.size() == 0)
 			return null;
 

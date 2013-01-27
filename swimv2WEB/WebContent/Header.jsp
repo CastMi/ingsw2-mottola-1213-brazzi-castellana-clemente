@@ -26,7 +26,8 @@
 		<div id="menu">
 			<ul>
 				<li><a href="index.jsp">Home</a></li>
-				<li><a href="#">Ricerca domanda</a></li>
+				<li><a href="RicercaDomandeRisposte">Ricerca Domande/Risposte</a></li>
 				<li><a href="ricerca.jsp">Ricerca utente</a></li>
+				<li><a href="ProprieDomande">Proprie Domande</a></li>
 			</ul>
 		</div>

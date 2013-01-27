@@ -91,16 +91,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>VisualizzaRisposteServlet</display-name>
-    <servlet-name>VisualizzaRisposteServlet</servlet-name>
-    <servlet-class>it.swimv2.servlet.VisualizzaRisposteServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>VisualizzaRisposteServlet</servlet-name>
-    <url-pattern>/VisualizzaRisposte</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>RilasciaFeedbackServlet</display-name>
     <servlet-name>RilasciaFeedbackServlet</servlet-name>
     <servlet-class>it.swimv2.servlet.RilasciaFeedbackServlet</servlet-class>
@@ -212,7 +202,7 @@
   <servlet>
     <display-name>SuggerimentiServlet</display-name>
     <servlet-name>SuggerimentiServlet</servlet-name>
-    <servlet-class>SuggerimentiServlet</servlet-class>
+    <servlet-class>it.swimv2.servlet.SuggerimentiServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SuggerimentiServlet</servlet-name>
@@ -226,6 +216,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RichiestaAmiciziaDaSuggerimentoServlet</servlet-name>
-    <url-pattern>/RichiestaAmiciziaDaSuggerimentoServlet</url-pattern>
+    <url-pattern>/RichiestaAmiciziaDaSuggerimento</url-pattern>
   </servlet-mapping>
 </web-app>
