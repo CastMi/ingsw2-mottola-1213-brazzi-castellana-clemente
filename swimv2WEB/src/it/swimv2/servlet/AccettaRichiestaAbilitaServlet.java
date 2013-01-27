@@ -8,7 +8,6 @@ import it.swimv2.util.IFactory;
 import it.swimv2.util.SimpleFactory;
 
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,15 +59,5 @@ public class AccettaRichiestaAbilitaServlet extends HttpServlet {
 			GestioneServlet.showPage(request, response, "richiesteAbilita.jsp");
 			break;
 		}
-	}
-
-	private void PaginaErrore(HttpServletRequest request,
-			HttpServletResponse response, String messaggioDiErrore)
-			throws ServletException, IOException {
-		RequestDispatcher disp;
-		request.setAttribute("messaggio", messaggioDiErrore);
-		disp = request.getRequestDispatcher(response
-				.encodeURL("AmministrazioneAbilita.jsp"));
-		disp.forward(request, response);
 	}
 }
