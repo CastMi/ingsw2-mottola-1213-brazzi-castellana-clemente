@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 					"homeAmministratore.jsp");
 		} else if (uEnum == UtenteEnum.UTENTE) {
 			request.getSession().setAttribute("nomeUtente", nomeUtente);
-			request.setAttribute("utente", iLogin.getUtente(nomeUtente));
+			request.getSession().setAttribute("utente", iLogin.getUtente(nomeUtente));
 			GestioneServlet.showPage(request, response, "homeUtente.jsp");
 		} else {
 			request.setAttribute("messaggioLogin",

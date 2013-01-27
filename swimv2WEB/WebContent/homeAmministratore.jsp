@@ -18,7 +18,8 @@
 
 		<div id="contentTitle">Home page Amministratore</div>
 		<div class="articles">
-			<a href="VisualizzaRichiesteAbilita">Vai alle richieste di abilità</a>
+			<br /> <a href="VisualizzaRichiesteAbilita">Vai alle richieste
+				di abilità</a>
 		</div>
 
 	</div>
@@ -30,15 +31,17 @@
 					"nomeUtente");
 		%>
 
-		<span id="Benvenuto"><h2> Benvenuto <br /> <%
+		<h2>
+			<span id="Benvenuto"> Benvenuto <br /> <%
  	out.print(utenteLoggato);
- %>!</h2> <br /> <br /></span>
-			<form action="Logout" method="post">
-				<input id="immagineLogout" name="submit" type="image"
-					src="css/images/button-logout.jpg" alt="Logout" />
-			</form>
+ %>! <br /> <br /></span>
+		</h2>
+		<form action="Logout" method="post">
+			<input id="immagineLogout" name="submit" type="image"
+				src="css/images/button-logout.jpg" alt="Logout" />
+		</form>
 
-		
+
 	</div>
 	<div style="clear: both;"></div>
 </div>
