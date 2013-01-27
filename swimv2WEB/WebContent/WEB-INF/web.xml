@@ -226,6 +226,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>VaiAlProfiloDiServlet</servlet-name>
-    <url-pattern>/VaiAlProfiloDiServlet</url-pattern>
+    <url-pattern>/VaiAlProfiloDi</url-pattern>
   </servlet-mapping>
 </web-app>
