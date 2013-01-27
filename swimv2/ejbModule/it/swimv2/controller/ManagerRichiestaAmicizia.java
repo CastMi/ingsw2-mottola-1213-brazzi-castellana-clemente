@@ -56,10 +56,11 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	 * it.swimv2.controller.IRichiestaAmicizia#rimuoviRichiestaAmicizia(int)
 	 */
 	@Override
-	public void rimuoviRichiestaAmicizia(int id) {
+	public void rimuoviRichiestaAmicizia(String destinatario, String richiedente, String note) {
 		RichiestaAmicizia temp;
 		try {
-			temp = entityManager.find(RichiestaAmicizia.class, id);
+			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, false));
+			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, true));
 		} catch (Exception e) {
 			return;
 		}
@@ -83,7 +84,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	}
 
 	@SuppressWarnings({ "unchecked", "null" })
-	public String[] getTutteRichiesteAmiciziaPerUtente(String utente){
+	public RichiestaAmicizia[] getTutteRichiesteAmiciziaPerUtente(String utente){
 		Query query = entityManager
 				.createNamedQuery(
 						"RichiestaAmicizia.getRichiesteAmiciziePerIdUtente")
@@ -93,6 +94,6 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		for (RichiestaAmicizia r :listaRichieste){
 			listaNomiRichiedenti.add(r.getIdRichiedente());
 		}
-		return (String[]) listaRichieste.toArray(new String[listaRichieste.size()]);
+		return (RichiestaAmicizia[]) listaRichieste.toArray(new RichiestaAmicizia[listaRichieste.size()]);
 	}
 }

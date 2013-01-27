@@ -56,10 +56,11 @@
 					<td><%=utente.getEmail()%></td>
 				</tr>
 			</table>
-			<form action="RichiestaAmicizia" method="post">
+			<form action="RichiestaAmiciziaServlet" method="post">
 				<input type="hidden" name="username"
-					value="<%=utente.getUsername()%>"> <input
-					value="Invia Richiesta Amicizia" type="submit" alt="Logout" />
+					value="<%=utente.getUsername()%>">
+				<textarea name="note" rows="3"> </textarea>
+				<input value="Invia Richiesta Amicizia" type="submit" alt="Logout" />
 			</form>
 		</div>
 

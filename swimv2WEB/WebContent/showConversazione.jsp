@@ -122,8 +122,9 @@
 					<table>
 						<tr>
 							<td class="td_campi_form"><label for="descrizioneRisposta">Risposta:</label></td>
-							<td style="height: 49px"><input name="descrizioneRisposta"
-								type="text" style="width: 185px" /></td>
+							<td style="height: 49px"><textarea
+									name="descrizioneRisposta" role="combobox" rows="3"></textarea>
+							</td>
 						</tr>
 						<tr>
 							<td class="td_campi_form"></td>

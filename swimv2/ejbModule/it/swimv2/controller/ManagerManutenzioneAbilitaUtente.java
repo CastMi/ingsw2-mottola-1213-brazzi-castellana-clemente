@@ -15,7 +15,6 @@ import it.swimv2.entities.Utente;
 import it.swimv2.entities.remoteEntities.IAbilita;
 import it.swimv2.entities.remoteEntities.IUtente;
 import it.swimv2.util.InvioRichiestaAbilitaEnum;
-import it.swimv2.util.ManutentoreRichiesteAbilitaEnum;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
 
 @Stateless

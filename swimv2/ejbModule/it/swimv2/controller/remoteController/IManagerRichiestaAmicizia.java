@@ -1,5 +1,7 @@
 package it.swimv2.controller.remoteController;
 
+import it.swimv2.entities.RichiestaAmicizia;
+
 import javax.ejb.Remote;
 
 @Remote
@@ -13,6 +15,6 @@ public interface IManagerRichiestaAmicizia {
 
 	public void rimuoviRichiestaAmicizia(String richiedente, String destinatario, String note);
 	
-	public String[] getTutteRichiesteAmiciziaPerUtente(String utente);
+	public RichiestaAmicizia[] getTutteRichiesteAmiciziaPerUtente(String utente);
 
 }

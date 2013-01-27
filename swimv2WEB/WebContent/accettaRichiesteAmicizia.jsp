@@ -1,3 +1,4 @@
+<%@page import="it.swimv2.entities.RichiestaAmicizia"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="it.swimv2.entities.remoteEntities.IRichiestaAbilita"%>
@@ -19,43 +20,50 @@
 		<div id="contentTitle">Richieste d'amicizia:</div>
 		<div class="articles">
 			
-			<table>
 				
-			<%String[] suggerimenti = (String[]) request.getAttribute("richiesteAmicizia");
-			if(suggerimenti==null||suggerimenti.length==0){
-				out.print("<tr><br/>Non ci sono richieste d'amicizia!</tr>");
-			}else{
-				for(String s: suggerimenti){
-					%>
-					
-					<td>Username<br/></td>
-					
-				
-					
-					<td><%=s%></td>
-					<td>
-						<form action="accettaAmicizia" method="post">
-							<input type="hidden" name="richiedente"
-								value="<%=s%>"> <input type="hidden"
-								name="destinatario" value="<%=utenteLoggato%>"> <input
-								name="submit" type="submit" value="Accetta" />
-						</form>
-					</td>
-				 	<td>
-						<form action="rifiutaRichiestaAmicizia" method="post">
-							<input type="hidden" name="richiedente"
-								value="<%=s%>"> <input type="hidden"
-								name="destinatario" value="<%=utenteLoggato%>"> <input
-								name="submit" type="submit" value="Rifiuta" />
-						</form>
-					</td>
-					<%
-				}
-			}
+			<%
+				RichiestaAmicizia[] richiesteAmicizia = (RichiestaAmicizia[]) request
+						.getAttribute("richiesteAmicizia");
+				if (richiesteAmicizia == null || richiesteAmicizia.length == 0) {
+					out.print("<br/>Non ci sono suggerimenti!");
+				} else {
 			%>
-		</table>
-		</div>
+			<table>
+				<tr>
+					<td>Username:</td>
+				</tr>
+				<%
+					for (RichiestaAmicizia r : richiesteAmicizia) {
+				%>
+				<tr>
+					<td><%=r.getIdRichiedente()%> </td>
+					<td> <%=r.getNote()%></td>
+					<td>
+						<form action="AccettaAmicizia" method="post">
+							<input type="hidden" name="destinatario" value="<%=utenteLoggato%>">
+							<input type="hidden" name="richiedente"
+								value="<%=r.getIdRichiedente()%>"> <input name="submit"
+								type="submit" value="Accetta" />
+						</form>
+					</td>
+					<td>
+						<form action="RifiutaRichiestaAmicizia" method="post">
+							<input type="hidden" name="destinatario" value="<%=utenteLoggato%>">
+							<input type="hidden" name="richiedente"
+								value="<%=r.getIdRichiedente()%>"> <input name="submit"
+								type="submit" value="Rifiuta" />
+						</form>
+					</td>
+				</tr>
 
+				<%
+					}
+				%>
+			</table>
+			<%
+				}
+			%>
+</div>
 	</div>
 
 	<div class="left">
