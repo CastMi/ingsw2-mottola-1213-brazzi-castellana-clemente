@@ -8,6 +8,7 @@ import it.swimv2.entities.SuggerimentoAmicizia;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -43,7 +44,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, true);
 		entityManager.persist(richiestaAmicizia);
-		SuggerimentoAmicizia app =entityManager.find(SuggerimentoAmicizia.class, new SuggerimentoAmicizia(mittente, destinatario));
+		SuggerimentoAmicizia app = entityManager.find(SuggerimentoAmicizia.class, new SuggerimentoAmicizia(mittente, destinatario));
 		entityManager.remove(app);
 		entityManager.flush();
 	}
@@ -58,8 +59,10 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 	public void rimuoviRichiestaAmicizia(String destinatario, String richiedente, String note) {
 		RichiestaAmicizia temp;
 		try {
-			
-			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, true));
+			Query query = entityManager
+					.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario").setParameter("destinatario", destinatario).setParameter("richiedente", richiedente);
+			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getSingleResult();
+			temp = entityManager.find(RichiestaAmicizia.class, richiestaAmicizia.getIdRichiestaAmicizia());
 		} catch (Exception e) {
 			return;
 		}
@@ -70,7 +73,10 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 			return;
 		}
 		try {
-			temp = entityManager.find(RichiestaAmicizia.class, new RichiestaAmicizia(richiedente, destinatario, note, false));
+			Query query = entityManager
+					.createNamedQuery("RichiestaAmicizia.getRichiesteAmiciziePerMittenteEDestinatario").setParameter("destinatario", destinatario).setParameter("richiedente", richiedente);
+			RichiestaAmicizia richiestaAmicizia = (RichiestaAmicizia)query.getSingleResult();
+			temp = entityManager.find(RichiestaAmicizia.class, richiestaAmicizia);
 			
 		} catch (Exception e) {
 			return;
