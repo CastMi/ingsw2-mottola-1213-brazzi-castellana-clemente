@@ -61,7 +61,7 @@
 					<tr>
 						<td class="td_campi_form"><label for="descrizioneDomanda">Descrizione:</label></td>
 						<td style="height: 49px"><textarea name="descrizioneDomanda"
-								role="combobox" rows="3"></textarea></td>
+								rows="3"></textarea></td>
 					</tr>
 					<tr>
 						<%
@@ -93,27 +93,7 @@
 		</form>
 	</div>
 
-	<div class="left">
-		<%
-			String utenteLoggato = (String) request.getSession().getAttribute(
-					"nomeUtente");
-			if (utenteLoggato != null && !utenteLoggato.isEmpty()) {
-		%>
-		<span id="Benvenuto"><h2>
-				Benvenuto <br />
-				<%
-					out.print(utenteLoggato);
-				%>!
-
-			</h2> <br /> <br /></span>
-		<form action="Logout" method="post">
-			<input id="immagineLogout" name="submit" type="image"
-				src="css/images/button-logout.jpg" alt="Logout" />
-		</form>
-		<%
-			}
-		%>
-	</div>
+	<jsp:include page="leftCode.jsp" />
 	<div style="clear: both;"></div>
 </div>
 

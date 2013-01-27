@@ -71,21 +71,26 @@
 									id="email" style="width: 185px" /></td>
 							</tr>
 							<tr>
-								<% 
-										IAbilita[] iAbilita = (IAbilita[]) request.getAttribute("abilita");
-										if(iAbilita != null) {%>
+								<%
+									IAbilita[] iAbilita = (IAbilita[]) request.getAttribute("abilita");
+									if (iAbilita != null) {
+								%>
 								<td class="td_campi_form"><label for="abilita">Abilità:</label></td>
 								<td style="height: 49px"><select name="abilita">
-										<%for(IAbilita a: iAbilita){%>
-											<option value="<%=a.getNome()%>"><%=a.getNome()%></option>
-											
-			
 										<%
-										}%>
-										</select></td>
-										<%}
+											for (IAbilita a : iAbilita) {
 										%>
-								
+										<option value="<%=a.getNome()%>"><%=a.getNome()%></option>
+
+
+										<%
+											}
+										%>
+								</select></td>
+								<%
+									}
+								%>
+
 							</tr>
 							<tr>
 								<td class="td_campi_form"></td>
@@ -101,55 +106,7 @@
 
 		</div>
 	</div>
-	<div class="left">
-
-		<h2>Login</h2>
-		<form action="Login" method="post">
-			<fieldset>
-				<table>
-					<tr>
-						<td><label for="userName">Username:</label></td>
-					</tr>
-					<tr>
-						<td><input type="text" name="userName" id="userName" size=19 /></td>
-					</tr>
-					<tr>
-						<td><label for="password">Password:</label></td>
-					</tr>
-					<tr>
-						<td><input type="password" name="password" id="password"
-							size=19 /></td>
-					</tr>
-					<tr></tr>
-					<tr>
-						<td><input id="immagineLogin" name="submit" type="image"
-							src="css/images/button-login.jpg" alt="Login" /></td>
-					</tr>
-					<%
-						String messaggioLogin = (String) request
-								.getAttribute("messaggioLogin");
-
-						if (messaggioLogin != null && !messaggioLogin.isEmpty()) {
-					%>
-					<tr>
-						<td>
-							<div id="erroreLogin">
-
-								<%
-									out.print(messaggioLogin);
-								%><br />
-							</div>
-						</td>
-					</tr>
-					<%
-						}
-					%>
-
-				</table>
-
-			</fieldset>
-		</form>
-	</div>
+	<jsp:include page="leftCode.jsp" />
 	<div style="clear: both;"></div>
 </div>
 

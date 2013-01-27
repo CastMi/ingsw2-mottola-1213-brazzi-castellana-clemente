@@ -71,26 +71,7 @@
 
 	</div>
 
-	<div class="left">
-
-		<%
-			utenteLoggato = (String) request.getSession().getAttribute(
-					"nomeUtente");
-		%>
-
-		<span id="Benvenuto"><h2>
-				Benvenuto <br />
-				<%
-					out.print(utenteLoggato);
-				%>!
-			</h2> <br /> <br /></span>
-		<form action="Logout" method="post">
-			<input id="immagineLogout" name="submit" type="image"
-				src="css/images/button-logout.jpg" alt="Logout" />
-		</form>
-
-
-	</div>
+	<jsp:include page="leftCode.jsp" />
 	<div style="clear: both;"></div>
 </div>
 

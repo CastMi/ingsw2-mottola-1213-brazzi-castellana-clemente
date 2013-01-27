@@ -66,21 +66,7 @@
 
 	</div>
 
-	<div class="left">
-
-		<h2>
-			<span id="Benvenuto"> Benvenuto <br /> <%
- 	out.print(utenteLoggato);
- %>! <br /> <br /></span>
-		</h2>
-		<form action="Logout" method="post">
-			<input id="immagineLogout" name="submit" type="image"
-				src="css/images/button-logout.jpg" alt="Logout" />
-		</form>
-		<br /> <a href="homeUtente.jsp">Profilo</a> <br /> <a
-			href="TutteLeAbilita">Le tue abilità</a> <br /> <a
-			href="nuovaabilita.jsp">Aggiungi abilità</a> <a href="Suggerimenti">Suggerimenti</a>
-	</div>
+	<jsp:include page="leftCode.jsp" />
 	<div style="clear: both;"></div>
 </div>
 
