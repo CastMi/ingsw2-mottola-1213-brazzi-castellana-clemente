@@ -53,7 +53,7 @@ public class SuggerimentiServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
-		String nomeUtente = (String)request.getAttribute("nomeUtente");
+		String nomeUtente = (String) request.getSession().getAttribute("nomeUtente");
 		request.setAttribute("suggerimenti", iManagerSuggerimentoAmicizia.ottieniSuggerimenti(nomeUtente));
 		GestioneServlet.showPage(request, response,
 				"suggerimenti.jsp");

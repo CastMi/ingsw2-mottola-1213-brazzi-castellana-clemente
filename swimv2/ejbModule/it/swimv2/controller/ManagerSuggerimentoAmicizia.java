@@ -11,6 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,23 +22,23 @@ public class ManagerSuggerimentoAmicizia implements Serializable,
 		IManagerSuggerimentoAmicizia {
 
 	private static final long serialVersionUID = 829024488493804653L;
-
+	private static final Logger log = Logger.getLogger(ManagerSuggerimentoAmicizia.class.getName());
 	@PersistenceContext(unitName = "swimv2DB")
 	private EntityManager entityManager;
 
-	@SuppressWarnings("null")
+
 	public void gestioneSuggerimento(String utente1, String utente2,
 			Amicizia amicizia) {
 
 		List<Amicizia> amiciUtente1 = getQuerySetAmiciziePerUtente(utente1);
 		List<Amicizia> amiciUtente2 = getQuerySetAmiciziePerUtente(utente2);
-			List<Amicizia> suggerimentiAUtente1 = null;
+			List<Amicizia> suggerimentiAUtente1 = new ArrayList<Amicizia>();
 		if (amiciUtente2.size() != 0) {
 			suggerimentiAUtente1.addAll(amiciUtente2);
 			suggerimentiAUtente1.removeAll(amiciUtente1);
 			suggerimentiAUtente1.remove(amicizia);
 		}
-		List<Amicizia> suggerimentiAUtente2 = null;
+		List<Amicizia> suggerimentiAUtente2 = new ArrayList<Amicizia>();
 		if (amiciUtente1.size() != 0) {
 			suggerimentiAUtente2.addAll(amiciUtente1);
 			suggerimentiAUtente2.removeAll(amiciUtente2);
@@ -76,13 +79,14 @@ public class ManagerSuggerimentoAmicizia implements Serializable,
 		return getSuggeritiDaSuggerimenti(listaSuggerimenti);
 	}
 	
-	@SuppressWarnings("null")
+
 	private String[] getSuggeritiDaSuggerimenti(
 			List<SuggerimentoAmicizia> listaSuggerimenti) {
-		List<String> listaUtentiSuggeriti = null;
+		List<String> listaUtentiSuggeriti = new ArrayList<String>();
 		for(SuggerimentoAmicizia l: listaSuggerimenti){
 			listaUtentiSuggeriti.add(l.getSuggerito());
 		}
+		log.error("lunghezza 3:"+Integer.toString(listaUtentiSuggeriti.size()));
 		return (String[]) listaUtentiSuggeriti.toArray(new String[listaUtentiSuggeriti.size()]);
 	}
 
