@@ -77,6 +77,7 @@
 			<p>
 			<a href="TutteLeAbilita">Le tue abilità</a><p>
 			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
+			<a href="Suggerimenti">Suggerimenti</a>
 	</div>
 	<div style="clear: both;"></div>
 </div>
