@@ -25,7 +25,7 @@
 				String[] suggerimenti = (String[]) request
 						.getAttribute("suggerimenti");
 				if (suggerimenti == null || suggerimenti.length == 0) {
-					out.print("<tr><br/>Non ci sono suggerimenti!</tr>");
+					out.print("<br/>Non ci sono suggerimenti!");
 				} else {
 			%>
 			<table>
