@@ -5,6 +5,7 @@ import java.util.List;
 import it.swimv2.controller.remoteController.IManagerRichiestaAmicizia;
 import it.swimv2.entities.RichiestaAmicizia;
 import it.swimv2.entities.SuggerimentoAmicizia;
+import it.swimv2.entities.SuggerimentoAmiciziaPK;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,7 +44,7 @@ public class ManagerRichiestaAmicizia implements IManagerRichiestaAmicizia {
 		RichiestaAmicizia richiestaAmicizia = new RichiestaAmicizia(mittente,
 				destinatario, note, true);
 		entityManager.persist(richiestaAmicizia);
-		SuggerimentoAmicizia app = entityManager.find(SuggerimentoAmicizia.class, new SuggerimentoAmicizia(mittente, destinatario));
+		SuggerimentoAmicizia app = entityManager.find(SuggerimentoAmicizia.class, new SuggerimentoAmiciziaPK(mittente, destinatario));
 		entityManager.remove(app);
 		entityManager.flush();
 	}
