@@ -25,7 +25,7 @@
 						.getAttribute("propriAmici");
 				if (propriAmici != null && propriAmici.length > 0) {
 			%>
-			<table >
+			<table>
 				<tr>
 					<th>Username</th>
 				</tr>
@@ -41,6 +41,12 @@
 				%>
 				<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
 					<td><%=b%></td>
+					<td>
+						<form method="post" action="CancellaAmicizia">
+							<input type="hidden" name="utenteAmico" value="<%=b%>">
+							<input name="submit" type="submit" value="Cancella Amico" />
+						</form>
+					</td>
 				</tr>
 				<%
 					}

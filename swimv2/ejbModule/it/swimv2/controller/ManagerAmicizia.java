@@ -76,6 +76,25 @@ public class ManagerAmicizia implements IManagerAmicizia {
 
 	}
 
+	public boolean rimuoviAmicizia(String utenteA, String utenteB) {
+		Amicizia amiciziaAB;
+
+		try {
+			amiciziaAB = entityManager.find(Amicizia.class, new AmiciziaPK(
+					utenteA, utenteB));
+		} catch (Exception e) {
+			amiciziaAB = null;
+		}
+
+		try {
+			this.entityManager.remove(amiciziaAB);
+			this.entityManager.flush();
+		} catch (Exception r) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public IAmicizia[] tuttiGliAmici(String utente) {
 		Query query = entityManager

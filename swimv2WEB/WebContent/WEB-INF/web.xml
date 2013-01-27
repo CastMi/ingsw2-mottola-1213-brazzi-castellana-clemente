@@ -257,4 +257,14 @@
     <servlet-name>VisualizzaTuttiGliAmiciServlet</servlet-name>
     <url-pattern>/VisualizzaTuttiGliAmici</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CancellaAmiciziaServlet</display-name>
+    <servlet-name>CancellaAmiciziaServlet</servlet-name>
+    <servlet-class>it.swimv2.servlet.CancellaAmiciziaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancellaAmiciziaServlet</servlet-name>
+    <url-pattern>/CancellaAmicizia</url-pattern>
+  </servlet-mapping>
 </web-app>

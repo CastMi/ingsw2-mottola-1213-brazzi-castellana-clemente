@@ -12,4 +12,6 @@ public interface IManagerAmicizia {
 	public boolean sonoAmici(String utenteA, String utenteB);
 
 	public IAmicizia[] tuttiGliAmici(String utente);
+	
+	public boolean rimuoviAmicizia(String utenteA, String utenteB);
 }
