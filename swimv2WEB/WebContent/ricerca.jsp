@@ -2,6 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
+<%
+	String utenteLoggato = (String) request.getSession().getAttribute(
+			"nomeUtente");
+%>
+
 <jsp:include page="Header.jsp">
 	<jsp:param name="titolo" value="Ricerca utenti" />
 </jsp:include>
@@ -39,6 +44,10 @@
 					</tr>
 					<%
 						for (int i = 0; i < risultato.length; i++) {
+								if ((utenteLoggato == null
+										|| utenteLoggato.isEmpty()
+										|| !utenteLoggato
+												.equals(risultato[i].getUsername()))) {
 					%>
 					<tr>
 						<td style="height: 20px; min-width: 60px"><%=risultato[i].getUsername()%></td>
@@ -52,6 +61,7 @@
 					</tr>
 					<%
 						}
+							}
 					%>
 				</table>
 				<%
@@ -66,8 +76,6 @@
 
 	<div class="left">
 		<%
-			String utenteLoggato = (String) request.getSession().getAttribute(
-					"nomeUtente");
 			if (utenteLoggato != null && !utenteLoggato.isEmpty()) {
 		%>
 		<h2>
