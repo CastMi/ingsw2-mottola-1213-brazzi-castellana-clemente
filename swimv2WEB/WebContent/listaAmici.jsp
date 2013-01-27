@@ -25,7 +25,7 @@
 						.getAttribute("propriAmici");
 				if (propriAmici != null && propriAmici.length > 0) {
 			%>
-			<table>
+			<table id="domrisp">
 				<tr>
 					<th>Username</th>
 					<th></th>
@@ -44,8 +44,8 @@
 					<td><%=b%></td>
 					<td>
 						<form method="post" action="CancellaAmicizia">
-							<input type="hidden" name="utenteAmico" value="<%=b%>">
-							<input name="submit" type="submit" value="Cancella Amico" />
+							<input type="hidden" name="utenteAmico" value="<%=b%>"> <input
+								name="submit" type="submit" value="Cancella Amico" />
 						</form>
 					</td>
 				</tr>
