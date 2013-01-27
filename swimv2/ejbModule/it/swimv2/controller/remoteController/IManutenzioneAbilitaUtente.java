@@ -1,6 +1,7 @@
 package it.swimv2.controller.remoteController;
 
 import it.swimv2.entities.remoteEntities.IAbilita;
+import it.swimv2.entities.remoteEntities.IUtente;
 import it.swimv2.util.InvioRichiestaAbilitaEnum;
 import it.swimv2.util.ManutenzioneAbilitaEnum;
 
@@ -18,4 +19,6 @@ public interface IManutenzioneAbilitaUtente {
 	public IAbilita[] getTutteLeAbilita();
 	
 	public IAbilita[] getProprieAbilita(String username);
+	
+	public IUtente getUtente(String username);
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="it.swimv2.entities.remoteEntities.IAbilita"%>
+<%@page import="it.swimv2.entities.remoteEntities.IUtente"%>
+
 <%
 	String utenteLoggato = (String) request.getSession().getAttribute(
 			"nomeUtente");
@@ -9,57 +10,55 @@
 		response.sendRedirect("index.jsp");
 	}
 %>
+
 <jsp:include page="Header.jsp">
-	<jsp:param name="titolo" value="Proprie abilità" />
+	<jsp:param name="titolo" value="Dati Utente" />
 </jsp:include>
 
 <div id="content">
 	<div class="right">
 
-		<div id="contentTitle">Proprie abilità</div>
+		<div id="contentTitle">Home page Utente</div>
 		<div class="articles">
-
-			<%
-				IAbilita[] proprieAbilita = (IAbilita[]) request
-						.getAttribute("proprieAbilita");
-				if (proprieAbilita != null && proprieAbilita.length > 0) {
-			%>
 			<table>
-				<tr>
-					<td>Nome dell'abilità</td>
-					<td>Descrizione</td>
-				</tr>
 				<%
-					for (IAbilita a : proprieAbilita) {
+					IUtente utente = (IUtente) request.getAttribute("altroUtente");
 				%>
+				<!-- Username -->
 				<tr>
-					<td><label for="userName"> <%=a.getNome()%>
-					</label></td>
-					<td rowspan="2">
-						<form method="post" action="CancellaAbilita">
-							<input type="hidden" name="nomeAbilita" value="<%=a.getNome()%>">
-							<input name="submit" type="submit" value="Cancella" />
-						</form>
-					</td>
+					<td><b>Username:</b></td>
 				</tr>
 				<tr>
-					<td><label for="descrizione"> <%=a.getDescrizione()%>
-					</label></td>
+					<td><%=utente.getUsername()%></td>
 				</tr>
-				<%
-					}
-				%>
-			</table>
-			<%
-				} else {
-			%>
-			<div>
-				<br />Non possiedi alcuna abilità
-			</div>
-			<%
-				}
-			%>
 
+				<!-- Nome -->
+				<tr>
+					<td><b>Nome:</b></td>
+				</tr>
+				<tr>
+					<td><%=utente.getNome()%></td>
+				</tr>
+
+				<!-- Cognome -->
+				<tr>
+					<td><b>Cognome:</b></td>
+				</tr>
+				<tr>
+					<td><%=utente.getCognome()%></td>
+				</tr>
+
+				<!-- Email -->
+				<tr>
+					<td><b>Email:</b></td>
+				</tr>
+				<tr>
+					<td><%=utente.getEmail()%></td>
+				</tr>
+			</table>
+			<form action="InviaRichiestaAmicizia" method="post">
+				<input value="Invia Richiesta Amicizia" type="submit" alt="Logout" />
+			</form>
 		</div>
 
 	</div>
@@ -81,6 +80,7 @@
 			<a href="TutteLeAbilita">Le tue abilità</a>
 		<br />
 			<a href="nuovaabilita.jsp">Aggiungi abilità</a>
+			<a href="Suggerimenti">Suggerimenti</a>
 	</div>
 	<div style="clear: both;"></div>
 </div>
