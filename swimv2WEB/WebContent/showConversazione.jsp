@@ -63,31 +63,33 @@
 				if (risposte != null && risposte.length > 0) {
 			%>
 
-			<table>
+			<table id="domrisp">
 				<tr>
-					<td style="height: 49px">Risposta</td>
-					<td style="height: 49px">Punteggio</td>
-					<td style="height: 49px">Nome Utente</td>
+					<th>Risposta</th>
+					<th>Punteggio</th>
+					<th>Nome Utente</th>
 					<%
 						if (nomeCreatore.equals(utenteLoggato)) {
 					%>
-					<td style="height: 49px">Feedback</td>
+					<th>Feedback</th>
 					<%
 						}
 					%>
 				</tr>
 				<%
+				int i = 0;
 					for (IRisposta r : risposte) {
+						i++;
 							int feedback = r.getFeedback();
 				%>
-				<tr>
-					<td style="height: 49px"><%=r.getDescrizione()%></td>
-					<td style="height: 49px"><%=feedback%></td>
-					<td style="height: 49px"><%=r.getUtente().getUsername()%></td>
+				<tr<%if ((i % 2) == 0) {%> class="alt" <%}%>>
+					<td><%=r.getDescrizione()%></td>
+					<td><%=feedback%></td>
+					<td><%=r.getUtente().getUsername()%></td>
 					<%
 						if (nomeCreatore.equals(utenteLoggato)) {
 					%>
-					<td style="height: 49px">
+					<td>
 						<form action="RilasciaFeedback" method="post">
 							<fieldset>
 								<input name="idRisposta" type="hidden" value="<%=r.getId()%>" />

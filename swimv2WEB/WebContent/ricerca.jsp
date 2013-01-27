@@ -35,22 +35,24 @@
 							.getAttribute("risultatoRicerca");
 					if (risultato != null && risultato.length > 0) {
 				%>
-				<table>
+				<table id="domrisp">
 					<tr>
-						<td style="height: 20px; min-width: 60px">Username</td>
-						<td style="height: 20px; min-width: 60px">Nome</td>
-						<td style="height: 20px; min-width: 60px">Cognome</td>
-						<td></td>
+						<th>Username</th>
+						<th>Nome</th>
+						<th>Cognome</th>
+						<th></th>
 					</tr>
 					<%
+					int c = 0;
 						for (int i = 0; i < risultato.length; i++) {
 								if ((utenteLoggato == null || utenteLoggato.isEmpty() || !utenteLoggato
 										.equals(risultato[i].getUsername()))) {
+									c++;
 					%>
-					<tr>
-						<td style="height: 20px; min-width: 60px"><%=risultato[i].getUsername()%></td>
-						<td style="height: 20px; min-width: 60px"><%=risultato[i].getNome()%></td>
-						<td style="height: 20px; min-width: 60px"><%=risultato[i].getCognome()%></td>
+					<tr <%if ((c % 2) == 0) {%> class="alt" <%}%>>
+						<td><%=risultato[i].getUsername()%></td>
+						<td><%=risultato[i].getNome()%></td>
+						<td><%=risultato[i].getCognome()%></td>
 						<td><form method="post" action="VaiAlProfiloDi">
 								<input type="hidden" name="username"
 									value="<%=risultato[i].getUsername()%>"> <input

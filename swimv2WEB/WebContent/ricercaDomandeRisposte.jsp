@@ -32,20 +32,21 @@
 					if (domande != null && domande.length > 0) {
 				%>
 				<h2>Domande trovate:</h2>
-				<table>
+				<table id="domrisp">
 					<tr>
-						<td style="height: 49px">Titolo</td>
-						<td style="height: 49px">Testo Domanda</td>
-						<td style="height: 49px"></td>
+						<th>Titolo</th>
+						<th>Testo Domanda</th>
+						<th></th>
 					</tr>
 					<%
-						for (IDomanda d : domande) {
+						int i = 0;
+							for (IDomanda d : domande) {
+								i++;
 					%>
-					<tr>
-						<td style="height: 49px"><%=d.getTitolo()%></td>
-						<td style="height: 49px"><%=d.getDescrizione()%></td>
-						<td style="height: 49px"><a
-							href="ApriConversazione?id=<%=d.getId()%>">Apri</a></td>
+					<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
+						<td><%=d.getTitolo()%></td>
+						<td><%=d.getDescrizione()%></td>
+						<td><a href="ApriConversazione?id=<%=d.getId()%>">Apri</a></td>
 					</tr>
 					<%
 						}
@@ -61,19 +62,21 @@
 					if (risposte != null && risposte.length > 0) {
 				%>
 				<h2>Risposte trovate:</h2>
-				<table>
+				<table id="domrisp">
 					<tr>
-						<td style="height: 49px">Titolo Domanda</td>
-						<td style="height: 49px">Descrizione Risposta</td>
-						<td style="height: 49px"></td>
+						<th>Titolo Domanda</th>
+						<th>Descrizione Risposta</th>
+						<th></th>
 					</tr>
 					<%
-						for (IRisposta r : risposte) {
+						int c = 0;
+							for (IRisposta r : risposte) {
+								c++;
 					%>
-					<tr>
-						<td style="height: 49px"><%=r.getDomanda().getTitolo()%></td>
-						<td style="height: 49px"><%=r.getDescrizione()%></td>
-						<td style="height: 49px"><a
+					<tr <%if ((c % 2) == 0) {%> class="alt" <%}%>>
+						<td><%=r.getDomanda().getTitolo()%></td>
+						<td><%=r.getDescrizione()%></td>
+						<td><a
 							href="ApriConversazione?id=<%=r.getDomanda().getId()%>">Apri</a></td>
 					</tr>
 					<%

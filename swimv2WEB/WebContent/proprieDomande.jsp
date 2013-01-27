@@ -22,20 +22,21 @@
 					if (domande != null && domande.length > 0) {
 				%>
 				<h2>Mie Domande:</h2>
-				<table>
+				<table id="domrisp">
 					<tr>
-						<td style="height: 49px">Titolo</td>
-						<td style="height: 49px">Testo Domanda</td>
-						<td style="height: 49px"></td>
+						<th>Titolo</th>
+						<th>Testo Domanda</th>
+						<th></th>
 					</tr>
 					<%
-						for (IDomanda d : domande) {
+						int i = 0;
+							for (IDomanda d : domande) {
+								i++;
 					%>
-					<tr>
-						<td style="height: 49px"><%=d.getTitolo()%></td>
-						<td style="height: 49px"><%=d.getDescrizione()%></td>
-						<td style="height: 49px"><a
-							href="ApriConversazione?id=<%=d.getId()%>">Apri</a></td>
+					<tr <%if ((i % 2) == 0) {%> class="alt" <%}%>>
+						<td><%=d.getTitolo()%></td>
+						<td><%=d.getDescrizione()%></td>
+						<td><a href="ApriConversazione?id=<%=d.getId()%>">Apri</a></td>
 					</tr>
 					<%
 						}
