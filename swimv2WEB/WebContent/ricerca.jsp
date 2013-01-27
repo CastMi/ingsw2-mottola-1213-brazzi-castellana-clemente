@@ -40,11 +40,17 @@
 						<th>Username</th>
 						<th>Nome</th>
 						<th>Cognome</th>
+						<%
+							if (utenteLoggato != null && !utenteLoggato.isEmpty()) {
+						%>
 						<th></th>
+						<%
+							}
+						%>
 					</tr>
 					<%
-					int c = 0;
-						for (int i = 0; i < risultato.length; i++) {
+						int c = 0;
+							for (int i = 0; i < risultato.length; i++) {
 								if ((utenteLoggato == null || utenteLoggato.isEmpty() || !utenteLoggato
 										.equals(risultato[i].getUsername()))) {
 									c++;
@@ -53,11 +59,17 @@
 						<td><%=risultato[i].getUsername()%></td>
 						<td><%=risultato[i].getNome()%></td>
 						<td><%=risultato[i].getCognome()%></td>
+						<%
+							if (utenteLoggato != null && !utenteLoggato.isEmpty()) {
+						%>
 						<td><form method="post" action="VaiAlProfiloDi">
 								<input type="hidden" name="username"
 									value="<%=risultato[i].getUsername()%>"> <input
 									type="submit" value="Vai al profilo" />
 							</form></td>
+						<%
+							}
+						%>
 					</tr>
 					<%
 						}
