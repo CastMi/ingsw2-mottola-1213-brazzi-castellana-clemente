@@ -227,6 +227,8 @@
   <servlet-mapping>
     <servlet-name>VisualizzaRichiesteAmiciziaServlet</servlet-name>
     <url-pattern>/VisualizzaRichiesteAmicizia</url-pattern>
+    </servlet-mapping>
+    <servlet>
     <display-name>VaiAlProfiloDiServlet</display-name>
     <servlet-name>VaiAlProfiloDiServlet</servlet-name>
     <servlet-class>it.swimv2.servlet.VaiAlProfiloDiServlet</servlet-class>
