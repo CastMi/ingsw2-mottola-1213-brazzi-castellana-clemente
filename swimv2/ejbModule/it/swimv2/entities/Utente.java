@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @NamedQueries({
 		// Query di estrazione dati
 		@NamedQuery(name = "Utente.getTuttiIUtentiDisponibili", query = "SELECT u FROM Utente u"),
+		@NamedQuery(name = "Utente.getUtentePerUnQualiasiCampo", query = "SELECT u FROM Utente u where  u.nome like :testo OR u.cognome like :testo OR u.username like :testo OR u.email like :testo"),
 		@NamedQuery(name = "Utente.getAbilitaUtente", query = "SELECT u.abilita FROM Utente u where u.username = :username"),
 		@NamedQuery(name = "Utente.getUtentiPerNome", query = "SELECT u FROM Utente u WHERE u.nome = :nome"),
 		@NamedQuery(name = "Utente.getUtentiPerCognome", query = "SELECT u FROM Utente u WHERE u.cognome = :cognome"),
@@ -45,14 +46,14 @@ public class Utente implements Serializable, IUtente {
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Associazione_Utente_Abilita", joinColumns = @JoinColumn(name = "utente_id"), inverseJoinColumns = @JoinColumn(name = "abilita_name"))
 	private Set<Abilita> abilita;
 
-	public Utente(){
+	public Utente() {
 		super();
 	}
-	
+
 	public Utente(String nome, String cognome, String username,
 			String password, String email, Set<Abilita> abilita) {
 		super();
@@ -159,7 +160,7 @@ public class Utente implements Serializable, IUtente {
 	public boolean RimuoviAbilità(Abilita abi) {
 		return this.possiedeAbilita(abi) && this.abilita.remove(abi);
 	}
-	
+
 	public Set<Abilita> getAbilita() {
 		return abilita;
 	}

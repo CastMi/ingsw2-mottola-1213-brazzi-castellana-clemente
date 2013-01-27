@@ -33,7 +33,7 @@ public class RicercaUtenteServlet extends HttpServlet {
 			return;
 		}
 		String testo = request.getParameter("testoRicerca");
-		request.setAttribute("risultatoRicerca", manager.ricercaUtentiPerUsername(testo));
+		request.setAttribute("risultatoRicerca", manager.ricercaUtentiPerUnQualsiasiCampo(testo));
 		GestioneServlet.showPage(request, response, "ricerca.jsp");
 	}
 	
@@ -51,7 +51,7 @@ public class RicercaUtenteServlet extends HttpServlet {
 			return;
 		}
 		String testo = request.getParameter("testoRicerca");
-		request.setAttribute("risultatoRicerca", manager.ricercaUtentiPerUsername(testo));
+		request.setAttribute("risultatoRicerca", manager.ricercaUtentiPerUnQualsiasiCampo(testo));
 		GestioneServlet.showPage(request, response, "ricerca.jsp");
 	}
 }
